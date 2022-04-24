@@ -1,0 +1,3253 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2022-04-24T01:22:39.913939+00:00",
+  "repo": "jedisct1/draft-aegis-aead",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOGRNxcs49qKJw",
+      "title": "Draft name mismatches IETF requirements",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/1",
+      "state": "CLOSED",
+      "author": "fscoto",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Hi, I saw your link on /r/crypto and would like to help out. Something that stood out to me was the name of the draft. I may, however, be unable to file PRs for a while until the IP situation is cleared with my employer.\r\n\r\nThe [IETF Guidelines to Authors of Internet-Drafts](https://www.ietf.org/ietf-ftp/ietf/1id-guidelines.html) state:\r\n\r\n> 1. All I-D filenames begin with \"draft\"\r\n> 2. Document source:\r\n> *  Working Group: The string \"ietf-\" followed by the working group acronym.\r\n> *  Other: A string identifying an IETF-related body. The currently allowed list is [...]\r\n> * Individual: A string related to the name of one of the authors in some way. There are no mechanical rules for this string but objectionable or misleading strings are subject to change or removal at the discretion of the Secretariat.\r\n> 3. Document name. For non-working group documents that are targeted at a working group, this string often begins with the working group abbreviation. This document name is a word or two that reflect what the draft is about.\r\n> 4. Two digit decimal version number; the initial draft uses \"00\".\r\n\r\nSince as far as I can tell, this effort is (currently) not part of a working group, so it would be by definition \u201cindividual\u201d. To follow IETF requirements, it looks like it needs to be renamed from `draft-aegis-aead-latest` to `draft-jedis-aegis-aead-00`.",
+      "createdAt": "2021-10-24T16:50:57Z",
+      "updatedAt": "2021-10-24T21:32:27Z",
+      "closedAt": "2021-10-24T21:28:30Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Thanks for your input!\r\n\r\nThe draft has been renamed.\r\n\r\nThanks again!",
+          "createdAt": "2021-10-24T21:32:27Z",
+          "updatedAt": "2021-10-24T21:32:27Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOGRNxcs496OdS",
+      "title": "RFC 5116: specifying the lengths",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/4",
+      "state": "CLOSED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In order to get an AEAD Registry entry, RFC 5116 requires that the following lengths are specified for each algorithm (\u00a7 4 thereof):\r\n\r\n- `K_LEN` (key length),\r\n- `P_MAX` (maximum size of the plaintext),\r\n- `A_MAX` (maximum size of the additional authenticated data),\r\n- `N_MIN` (minimum size of nonce),\r\n- `N_MAX` (maximum size of nonce),\r\n- `C_MAX` (maximum size of the ciphertext),\r\n- a description relating the length of the plaintext to that of the ciphertext.\r\n\r\nI haven't really been able to glean theoretical maximal values for `P_MAX`, `A_MAX` and `C_MAX` from the paper, but it's likely that my understanding is flawed. `K_LEN` is obvious for both variants specified, so are `N_MIN == N_MAX`.",
+      "createdAt": "2021-10-28T15:48:34Z",
+      "updatedAt": "2021-10-28T17:08:08Z",
+      "closedAt": "2021-10-28T17:08:08Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "We could allow `N_MIN` to be less than `N_MAX`, by padding the nonce to `N_MAX` in the initialization function.\r\n\r\nThat would made the schemes compatible with IETF protocols that typically use a 96 bit nonce.",
+          "createdAt": "2021-10-28T16:46:41Z",
+          "updatedAt": "2021-10-28T16:47:29Z"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOGRNxcs49_uR1",
+      "title": "Lengths of parameters",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/7",
+      "state": "CLOSED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The lengths of parameters are inconsistently used. For example, `tag` is noted to be \"the 128-bit authentication tag\" several times, but the lengths of `k` and `iv` aren't repeated in every function description.\r\n\r\nShould this be consistently added to all descriptions or consistently removed since the lengths are given in the beginning of the draft?",
+      "createdAt": "2021-10-30T10:54:07Z",
+      "updatedAt": "2021-10-30T19:00:19Z",
+      "closedAt": "2021-10-30T19:00:19Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Having this added to all descriptions may feel very redundant, so maybe would should just remove it everywhere",
+          "createdAt": "2021-10-30T14:50:05Z",
+          "updatedAt": "2021-10-30T14:50:05Z"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDOGRNxcs4_IiKx",
+      "title": "Introduction",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/11",
+      "state": "CLOSED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently, the introduction section is a bit barren. However, it'd be *the* section to sell AEGIS. Note how RFC 8439 goes out of its way to explain why ChaPoly is a thing that should exist and why it's a good candidate for standardization and being published in an RFC.\r\n\r\nI'm not sure how to tackle this for AEGIS (and not for the lack of trying). It uses the AES round function and is, as such, bound to hardware support for the AES round function. It's length-preserving and authenticated, so its direct parallel competitor would be AES-GCM rather than AES itself. It's not bringing anything to the table in terms of misuse resistance and is length-preserving as well; performance only would need justification as to why it's secure with perhaps some select papers attacking it (like [Analyzing the Linear Keystream Biases in AEGIS](https://eprint.iacr.org/2019/1372) and [Weak Keys in Reduced AEGIS and Tiaoxin](https://eprint.iacr.org/2021/187)). At the same time, it may have won CAESAR, and that may be worth stressing, but as the only variant we're not specifying here.\r\n\r\nUnlike a block cipher mode of operation, you can't just swap out the AES round function, either, without fundamentally affecting the entire cipher, so it's not a framework.\r\n\r\nHow should this be tackled? What does AEGIS have going for it other than performance? How could we reasonably stress performance?",
+      "createdAt": "2021-11-20T18:22:49Z",
+      "updatedAt": "2021-11-22T08:21:53Z",
+      "closedAt": "2021-11-22T08:21:53Z",
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "NONE",
+          "body": "I suggest mentioning the [key commitment issue](https://www.youtube.com/watch?v=h-T1bQTt4_Y). It could be the first standardised committing AEAD. Another advantage is the longer nonce, which means safe random nonces compared to AES-GCM and ChaCha20-Poly1305. It seems to perform [well](https://github.com/ziglang/zig/pull/6442#issuecomment-699704293) without hardware support in Zig as well. So the selling point is that it's just an improvement of AES-GCM.",
+          "createdAt": "2021-11-20T20:55:49Z",
+          "updatedAt": "2021-11-20T20:55:49Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The key commitment issue (and nonce handling) is noted in the Security Considerations section and I think it may be worth highlighting these properties in the Introduction section.\r\n\r\n[The CFRG has looked at key-committing AEAD at its last meeting.](https://datatracker.ietf.org/meeting/110/materials/minutes-110-cfrg-00) Similarly, [the mailing list's talked about it before.](https://mailarchive.ietf.org/arch/browse/cfrg/?q=key%20committing), though a summary reading of the discussions doesn't sound like there's a hard push for requiring key-committing AEADs; at the same time, it doesn't seem like people are arguing there isn't any need. You're probably on to something here.\r\n\r\nAs for the random nonces, this is an actual issue plaguing the other two big AEAD schemes; the CFRG seems keenly aware of it, considering that RFC 8452 (AES-GCM-SIV) coming into existence as a WG document and [draft-irtf-cfrg-xchacha](https://datatracker.ietf.org/doc/draft-irtf-cfrg-xchacha/) existing as a WG document albeit with no activity for some time. The safety for random nonces seems worth highlighting, in particular for the AEGIS-256 case.\r\n\r\nAs far as I can tell, the pure-software performance in Zig [appears to involve a software implementation that uses S-boxes without bitslicing](https://github.com/ziglang/zig/blob/master/lib/std/crypto/aes/soft.zig), so it's not like AEGIS suddenly makes the AES round function viable in software when taking into account the timing side channel.\r\n\r\nHow does the following new introduction sound? In particular, I'm not fully confident I captured the core idea of the partitioning oracle attack.\r\n\r\n> This document describes the AEGIS-128L and AEGIS-256 authenticated encryption with associated data (AEAD) algorithms \\[AEGIS], a variant of which has been chosen as a winner in the Competition for Authenticated Encryption: Security, Applicability, and Robustness (CAESAR). All variants of AEGIS are constructed from the AES encryption round function \\[FIPS-AES]. This document specifies:\r\n>\r\n> - AEGIS-128L has a 128-bit key, a 128-bit nonce, a 1024-bit state, a 128-bit authentication tag, and processes 256-bit input blocks.\r\n> - AEGIS-256 has a 256-bit key, a 256-bit nonce, a 768-bit state, a 128-bit authentication tag, and processes 128-bit input blocks.\r\n>\r\n> Currently standardized AEAD schemes, namely AES-GCM and ChaCha20-Poly1305, suffer from a subtle vulnerability in the form of padding oracle attacks as described in \\[LenGruRis] that makes them unsafe to use in settings where it is undesirable for an attacker to learn which particular key from a set of known key candidates was used to encrypt a message. As a key-committing AEAD scheme, the AEGIS cipher family provides resistance against padding oracle attacks.\r\n>\r\n> Oftentimes, nonce space is another issue; randomly chosen nonces may be safe for only a very limited number of messages. Nonces may be safely chosen at random with no practical limit when using AEGIS-256; this applies irrespective of the length of individual or total messages.\r\n>\r\n> At the same time, the AEGIS cipher family offers optimal performance on CPUs with hardware support for parallelizable AES block encryption. Its performance exceeds that of AES-GCM\\[AEGIS] by a factor of two while offering key-commitment and increased safety when using random nonces.",
+          "createdAt": "2021-11-21T09:42:25Z",
+          "updatedAt": "2021-11-21T09:42:25Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "NONE",
+          "body": "> The key commitment issue (and nonce handling) is noted in the Security Considerations section and I think it may be worth highlighting these properties in the Introduction section.\r\n\r\nDefinitely.\r\n\r\n> The CFRG has looked at key-committing AEAD at its last meeting. Similarly, the mailing list's talked about it before., though a summary reading of the discussions doesn't sound like there's a hard push for requiring key-committing AEADs; at the same time, it doesn't seem like people are arguing there isn't any need. You're probably on to something here.\r\n\r\nAs far as I'm aware, there's no reason not to want a committing AEAD assuming performance isn't problematic, and in this case, performance is not an issue. The existing AEADs should have been committing.\r\n\r\n> As far as I can tell, the pure-software performance in Zig appears to involve a software implementation that uses S-boxes without bitslicing, so it's not like AEGIS suddenly makes the AES round function viable in software when taking into account the timing side channel.\r\n\r\nAh I didn't look at that. That's the downside with AES.\r\n\r\n> How does the following new introduction sound? In particular, I'm not fully confident I captured the core idea of the partitioning oracle attack.\r\n\r\nI believe you've written padding oracle attacks by mistake. The fact that partitioning oracle attacks can [speed up password recovery](https://emilymstark.com/2021/02/01/padding-partitioning-oracles-and-another-hot-take-on-pakes.html) should be mentioned. You could perhaps discuss the limitations of adding key commitment to existing AEADs (e.g. the use of a MAC requiring more effort on the part of the developer, it being less efficient, potential timing attacks on the zero bytes fix). Loup Valliant mentioned [deanonymisation](https://github.com/LoupVaillant/Monocypher/issues/218#issuecomment-886997371) as another possible problem. Then there's [message commitment](https://neilmadden.blog/2021/02/16/when-a-kem-is-not-enough/) as well. Otherwise, sounds good.\r\n",
+          "createdAt": "2021-11-21T11:16:12Z",
+          "updatedAt": "2021-11-21T11:16:12Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Performance is the main selling point. There's need for faster constructions than AES-GCM, even on high-end CPUs. See the [Rocca](https://tosc.iacr.org/index.php/ToSC/article/view/8904/8480) paper for an illustration of this for 6G. \r\n\r\nKey commitment and large nonces are, as you mentioned, also worth highlighting. 96-bit nonces are fine for TLS, but inconvenient for anything stateless.\r\n\r\nOn side channels in software implementations. AEGIS looks like a perfect fit for bitslicing, as the number of blocks to be processed simultaneously is constant, independently from the input size. This requires proper analysis, but my intuition is that, after the initialization step, exploiting side channels is not practical due to the state never being reused, along with absence of padding -- attacks against CBC don't translate to AEGIS.\r\n\r\nSoftware implementations of AEGIS are bound to be faster than AES-GCM, even with bitslicing. Without a carryless multiplication instruction (which always comes in tandem with the AES round function), GHASH is slow.\r\n",
+          "createdAt": "2021-11-21T12:58:09Z",
+          "updatedAt": "2021-11-21T12:58:09Z"
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "I_kwDOGRNxcs4_Rqc6",
+      "title": "Redundant definitions of common variables",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/16",
+      "state": "CLOSED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The draft defined the input and output values `key`, `nonce`, `ad`, `msg`, `ct` and `tag` both at the top under \"Conventions and Definitions\" as well as for every function individually. This seems redundant and may invite misunderstandings: I'm looking at `Decrypt`, where `tag` has a different quality than it does as an output value; the output of `Encrypt` is a known-good tag, but `tag` as an input to `Decrypt` is a possibly-malicious input that affects the trustworthiness of the `ct` input. Perhaps I'm just overthinking it, too.\r\n\r\nIs there any reason to keep both? I'm worried about the \"Security Considerations\" losing its primary reference point for the variables `key` and `nonce`, but I would imagine that sufficient context was given by the specification of the functions preceding this section.\r\n\r\nThe list at the top does specify the lengths, but the lengths are also part of the first paragraphs of each algorithm with the AEAD registry parameters.\r\n\r\nIf we do choose to have only one of these, I'd like to advocate for keeping only the definition at the top. People already familiar with implementing AEADs will only need to jump back for the lengths; people less familiar with common parlance in this space can reference functions they've written before.",
+      "createdAt": "2021-11-23T18:32:47Z",
+      "updatedAt": "2021-11-25T15:42:50Z",
+      "closedAt": "2021-11-25T15:42:50Z",
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I see what you mean, but I didn't find it bothered me when I just proofread the document. You can make a case either way (convenient not having to scroll far if you forget vs repetition and implementors already being familiar with these types of parameters). \r\n\r\nI don't think it would be a problem for the 'Security Considerations' section, and I agree that it would probably be best leaving the top one.",
+          "createdAt": "2021-11-24T21:36:19Z",
+          "updatedAt": "2021-11-24T21:36:19Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "My feeling is that having both actually increases clarity, and that making the document more concise wouldn't be a practical improvement.\r\n\r\nThe top definitions provides some context for the rest of the document.\r\n\r\nBut implementors are going to ignore this and jump straight to the function definitions.\r\n\r\nIt's convenient to have self-contained documentation for any function. Having to jump back is annoying and bug prone. It also doesn't match how the actual API will be documented.\r\n",
+          "createdAt": "2021-11-24T22:54:11Z",
+          "updatedAt": "2021-11-24T22:54:11Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I guess we're keeping both then.",
+          "createdAt": "2021-11-25T15:42:50Z",
+          "updatedAt": "2021-11-25T15:42:50Z"
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "id": "I_kwDOGRNxcs5AXOxs",
+      "title": "Context commitment",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/19",
+      "state": "CLOSED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "A nice property of AEGIS is the fact that it is context committing.\r\n\r\nUnlike AES-GCM and ChaChaPoly, for a given (key, nonce), distinct ADs will output different encryption keystreams, not just different MACs.\r\n\r\nThis offers some resistance against keys being reused in different contexts.\r\n\r\nIs it something worth mentioning in the draft?",
+      "createdAt": "2021-12-14T14:32:31Z",
+      "updatedAt": "2021-12-15T03:40:26Z",
+      "closedAt": "2021-12-15T03:40:26Z",
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I wasn't aware of that. I do think that's worth mentioning.",
+          "createdAt": "2021-12-14T16:14:09Z",
+          "updatedAt": "2021-12-14T16:14:09Z"
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "I_kwDOGRNxcs5AXQm5",
+      "title": "CFRG submission",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/20",
+      "state": "CLOSED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Thanks to your invaluable help, @fscoto and @samuel-lucas6, the draft looks really good for an initial version!\r\n\r\nThe structure and content seem to be quite usable to write independent implementations, and recent changes were mainly nitpicks.\r\n\r\nNow is probably a good time to get external feedback. Do you think we should go ahead and submit it to the CFRG for review? Or is there anything you think we should address before doing so?",
+      "createdAt": "2021-12-14T14:39:09Z",
+      "updatedAt": "2021-12-31T09:52:00Z",
+      "closedAt": "2021-12-31T09:52:00Z",
+      "comments": [
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I think it'd be advisable to do something about the \u201cTODO acknowledge\u201d part in the draft first. That just seems like we forgot something.",
+          "createdAt": "2021-12-14T17:41:39Z",
+          "updatedAt": "2021-12-14T17:41:39Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Should I add myself as an editor or author now that I've contributed as well? Aside from that and #21, it looks good to go.",
+          "createdAt": "2021-12-14T18:38:21Z",
+          "updatedAt": "2021-12-14T18:38:21Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Should I add myself as an editor or author now that I've contributed as well?\r\n\r\nSeems reasonable to me. If @jedisct1 gives you the ok, go ahead.",
+          "createdAt": "2021-12-14T19:34:14Z",
+          "updatedAt": "2021-12-14T19:34:14Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Go ahead! :)",
+          "createdAt": "2021-12-14T19:35:23Z",
+          "updatedAt": "2021-12-14T19:35:23Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Just to make sure, you probably want to upload the as a standalone Internet-Draft first so that there's an actual authoritative draft in the sense the IETF uses the word before asking CFRG for feedback.\r\n\r\nSee also: https://github.com/martinthomson/i-d-template/blob/main/doc/FEATURES.md#what-this-project-can-do",
+          "createdAt": "2021-12-27T16:14:24Z",
+          "updatedAt": "2021-12-27T16:14:24Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "@fscoto Done!\r\n\r\nAny idea why the Intended RFC status is undefined, though?\r\n\r\nWasn't `category: info` supposed to set it to `informational`?",
+          "createdAt": "2021-12-27T21:26:14Z",
+          "updatedAt": "2021-12-27T21:26:14Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It does show correctly in the XML. I wonder if this is an issue with . Maybe you have to submit the XML via the [IDST](https://datatracker.ietf.org/submit/) manualy at least once? Lots of other drafts seem to be suffering from the same issue.",
+          "createdAt": "2021-12-28T03:44:00Z",
+          "updatedAt": "2021-12-28T03:44:00Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Done!\r\n\r\nAnd for some reason, the category is now showing up correctly.",
+          "createdAt": "2021-12-31T09:52:00Z",
+          "updatedAt": "2021-12-31T09:52:00Z"
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOGRNxcs5BDwaV",
+      "title": "Address Daniel's comments",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/25",
+      "state": "CLOSED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Daniel Bleichenbacher wrote:\r\n\r\n\r\n> Possibly one source of confusion are subtle changes made to AEGIS by the authors.\r\n> The description of the CAESAR submission as well as your IETF draft use 7 rounds in finalize of AEGIS256.\r\n> The test vectors in the CAESAR submission and possibly a previous draft of AEGIS256 use 6 rounds.\r\n>\r\n> Another small difference I've noticed, which could lead to some confusion:\r\n> The IACR version of AEGIS128L   (https://eprint.iacr.org/2013/695.pdf) computes the tag over S[0] .. S[7],\r\n> while the CAESAR submission of AEGIS128L computes the tag over S[0] .. S[6].\r\n> Your draft uses the CAESAR submission as expected.\r\n>\r\n> These differences when not being notices can lead to considerable confusion. Maybe it would be helpful\r\n> if they were pointed out in your draft.\r\n\r\nThese differences may indeed be worth pointing out.",
+      "createdAt": "2021-12-31T09:57:27Z",
+      "updatedAt": "2021-12-31T14:43:06Z",
+      "closedAt": "2021-12-31T14:43:06Z",
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I agree; that's a good point. Perhaps a sentence at the beginning of the relevant algorithm section or at the end of a subsection?",
+          "createdAt": "2021-12-31T14:18:06Z",
+          "updatedAt": "2021-12-31T14:18:06Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "I'm not sure what the best place to mention this would be.\r\n\r\nInstead of focusing on specific details, maybe we can warn in the intro about the existence of older, incompatible versions of the specification?",
+          "createdAt": "2021-12-31T14:31:27Z",
+          "updatedAt": "2021-12-31T14:31:27Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Instead of focusing on specific details, maybe we can warn in the intro about the existence of older, incompatible versions of the specification?\r\n\r\nThat makes more sense actually. Still not sure where unless maybe the first paragraph.",
+          "createdAt": "2021-12-31T14:37:26Z",
+          "updatedAt": "2021-12-31T14:37:26Z"
+        }
+      ]
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOGRNxcs5BDxzQ",
+      "title": "Key commitment ",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/26",
+      "state": "CLOSED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "In spite of not using a linear function to compute the authentication tag, the tag is only 128-bit long.\r\n\r\nThis is too short to be collision resistant. Even though it requires significantly more effort than with GCM and Poly1305, it is practical to find multiple keys for which the tag is valid.\r\n\r\nWe may want to clarify that AEGIS is not compactly committing.\r\n\r\nA variant with a longer tag would be really great in that context.",
+      "createdAt": "2021-12-31T10:11:28Z",
+      "updatedAt": "2021-12-31T14:28:59Z",
+      "closedAt": "2021-12-31T14:28:59Z",
+      "comments": []
+    },
+    {
+      "number": 36,
+      "id": "I_kwDOGRNxcs5FDu3w",
+      "title": "Adding invalid test vectors",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/36",
+      "state": "CLOSED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "@soatok suggested we add test vectors that are invalid, as it can help implementers make sure that they properly check everything that has to be checked.\r\n\r\nWhile adding such vectors wouldn't hurt, I'm still not convinced that they are necessary. That would be very useful for e.g. group elements accepting multiple representations, to make sure that implementations only accept canonical representations.\r\n\r\nIn the case of AEADs, these vectors might be useful for testing edge cases or common implementation mistakes. A suggested example is swapping the key and the nonce, which AEGIS facilitates since they share the same size.\r\n\r\nHowever, as long as we have test vectors using different values for the nonce and the key, this case is already captured.\r\n\r\nDid I miss something?\r\n\r\nImplementations can forget to check the tag, so we can add a vector with an invalid tag, though.",
+      "createdAt": "2022-03-03T16:13:12Z",
+      "updatedAt": "2022-03-06T12:39:54Z",
+      "closedAt": "2022-03-06T12:39:54Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "@fscoto @samuel-lucas6 What are your thoughts on this?",
+          "createdAt": "2022-03-03T18:42:24Z",
+          "updatedAt": "2022-03-03T18:42:24Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> However, as long as we have test vectors using different values for the nonce and the key, this case is already captured.\r\n> \r\n> Did I miss something?\r\n\r\nI don't think that covers this case. An example of what Soatok is suggesting would be Test Vector 4 but with the key as the nonce, the nonce as the key, and the message removed so it's just a test of decryption.\r\n\r\n> Implementations can forget to check the tag, so we can add a vector with an invalid tag, though.\r\n\r\nIs this referring to the same thing?\r\n\r\n> A trivial \"bit flipped in ciphertext and/or authentication tag\" vector is also useful.\r\n\r\nThis suggestion also makes sense, but I don't know how many test vectors is too many. I think there should be at least one invalid tag check.",
+          "createdAt": "2022-03-03T18:44:02Z",
+          "updatedAt": "2022-03-03T18:44:02Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Personally, I'm entirely on board for that since the unhappy path is, in fact, *a very important* path. The additional test vectors cause no harm, either; what would suffer from it, really?\r\n\r\nI can see the following failure modes:\r\n\r\n1. Tag is not checked.\r\n2. Tag is only partially checked (e.g. typo `memcmp(mine, theirs, 15)`, which even visually looks similar).\r\n3. Tag is checked against itself (e.g. copy-paste mistake `memcmp(tag, tag, 16)`). Compiler warnings should catch this, but not everyone reads warnings properly.\r\n4. Ciphertext is released before the tag is checked. Though that can't be made into a test vector.\r\n\r\nUnless I, too, missed something, that can be covered with two bit flips at the start and the end in one extra test vector.",
+          "createdAt": "2022-03-03T19:21:26Z",
+          "updatedAt": "2022-03-03T19:21:26Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I'm confused as to whether we're all talking about the same thing. From what I understand, the Soatok test vectors could be:\r\n\r\n1. Test Vector 3 or 4 but key = nonce, nonce = key, ad = same, msg = empty, ct = same, tag = same.\r\n\r\n~~~\r\nkey  : 10000200000000000000000000000000\r\n       00000000000000000000000000000000\r\n\r\nnonce: 10010000000000000000000000000000\r\n       00000000000000000000000000000000\r\n\r\nad   : 0001020304050607\r\n\r\nmsg  : \r\n\r\nct   : f373079ed84b2709faee37358458\r\n\r\ntag  : c60b9c2d33ceb058f96e6dd03c215652\r\n~~~\r\n\r\n2. Test Vector 3 or 4 but ct = bit flipped or ad = bit flipped and msg = empty. This could be split into two test vectors.\r\n\r\n~~~\r\nkey  : 10010000000000000000000000000000\r\n       00000000000000000000000000000000\r\n\r\nnonce: 10000200000000000000000000000000\r\n       00000000000000000000000000000000\r\n\r\nad   : 0001020304050607\r\n\r\nmsg  : \r\n\r\nct   : f373079ed84b2709faee37358459\r\n\r\ntag  : c60b9c2d33ceb058f96e6dd03c215652\r\n~~~\r\n\r\nThen are you suggesting one more with a bit flip at the beginning and end of the tag (e.g. as done below) @fscoto? What are the two bit flips at the start? Shouldn't those be separate test vectors like above/what Soatok suggested?\r\n\r\n~~~\r\nkey  : 10010000000000000000000000000000\r\n       00000000000000000000000000000000\r\n\r\nnonce: 10000200000000000000000000000000\r\n       00000000000000000000000000000000\r\n\r\nad   : 0001020304050607\r\n\r\nmsg  : \r\n\r\nct   : f373079ed84b2709faee37358458\r\n\r\ntag  : d60b9c2d33ceb058f96e6dd03c215653\r\n~~~\r\n\r\nI'm happy to do the PR if it's just tweaking existing test vectors. The ChaCha20-Poly1305 RFC has quite a few test vectors, but I do think there should be a limit in place to not overwhelm people. However, these three seem reasonable.",
+          "createdAt": "2022-03-04T11:52:14Z",
+          "updatedAt": "2022-03-04T11:58:04Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@samuel-lucas6, I meant one bit flip in the first octet of start and one at the last octet of the tag.",
+          "createdAt": "2022-03-04T16:12:26Z",
+          "updatedAt": "2022-03-04T16:12:26Z"
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "id": "I_kwDOGRNxcs5FZi8L",
+      "title": "Emphasising that AEGIS is not nonce-misuse resistant",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/38",
+      "state": "CLOSED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> If verification fails, the decrypted message and wrong message authentication tag MUST NOT be given as output\r\n\r\n1. Like this sentence, should we write something akin to 'the nonce MUST NOT be reused' in multiple sections rather than just the 'Security Considerations' to really hammer the point home?\r\n\r\n> Moreover, AEGIS is context committing, meaning different associated data for a (key, nonce) pair results in a different keystream for encryption, not just a different authentication tag. This provides some resistance against key reuse when encrypting data in different contexts.\r\n\r\n2. For this paragraph in the 'Introduction', should we also explicitly state that the nonce cannot be reused?\r\n\r\n> Oftentimes, nonce space is another issue; randomly chosen nonces may be safe for only a very limited number of messages. Nonces may be safely chosen at random with no practical limit when using AEGIS-256; this applies irrespective of the length of individual or total messages.\r\n\r\n3. We could state as a final sentence how this helps avoid nonce reuse, which is catastrophic for security.\r\n\r\nAre there any other places where we could highlight how nonces must not be reused?",
+      "createdAt": "2022-03-09T19:01:34Z",
+      "updatedAt": "2022-03-11T19:52:49Z",
+      "closedAt": "2022-03-11T19:52:49Z",
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also, not to get too off topic, but regarding releasing the plaintext, I don't think there's much more we can do. It's stated three times, and I don't know where else we would mention it. The only thing I can think of would be moving the note to the 'Outputs' bullet points:\r\n\r\n> Outputs:\r\n> - either the decrypted message msg, or an error indicating that the authentication tag is invalid for the given inputs. If verification fails, the decrypted message and wrong message authentication tag MUST NOT be given as output.\r\n\r\nIs it more likely to be read there or at the bottom of the section?",
+          "createdAt": "2022-03-09T19:17:04Z",
+          "updatedAt": "2022-03-09T19:17:04Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> Like this sentence, should we write something akin to 'the nonce MUST NOT be reused' in multiple sections rather than just the 'Security Considerations' to really hammer the point home?\r\n\r\nYes, that wouldn't hurt.\r\n\r\n> For this paragraph in the 'Introduction', should we also explicitly state that the nonce cannot be reused?\r\n\r\nI'd suggest we remove the entire paragraph instead.\r\n\r\n> We could state as a final sentence how this helps avoid nonce reuse, which is catastrophic for security.\r\n\r\nThat would be a little bit redundant.",
+          "createdAt": "2022-03-09T22:10:22Z",
+          "updatedAt": "2022-03-09T22:10:22Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> Also, not to get too off topic, but regarding releasing the plaintext, I don't think there's much more we can do. \r\n\r\nI agree. We are stating it multiple times, and the function definitions makes it clear as well.\r\n\r\n> Is it more likely to be read there or at the bottom of the section?\r\n\r\nHaving it here feels more contextual. People don't read fine prints at the end of sections :)",
+          "createdAt": "2022-03-09T22:13:14Z",
+          "updatedAt": "2022-03-09T22:13:14Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Having it here feels more contextual. People don't read fine prints at the end of sections :)\r\n\r\n@jedisct1 To clarify, do you still think that sentence should be moved to the 'Outputs' section? I have a PR ready if so.\r\n\r\nMy alternative suggestion would be to have a bullet-pointed 'Security' section, perhaps at the beginning before 'Inputs' so it will get read. Even at the end of the section, I think making it a named section and having bullet points would help with readability and highlighting the importance.\r\n\r\n> ## Authenticated Decryption\r\n> \r\n> Decrypt(ct, tag, ad, key, nonce)\r\n> \r\n> The `Decrypt` function decrypts a ciphertext, verifies that the authentication tag is correct, and returns the message on success or an error if tag verification failed.\r\n> \r\n> > Security:\r\n> - If verification fails, the decrypted message and wrong message authentication tag MUST NOT be given as output.\r\n> - If the decryption process is implemented such that a buffer is supplied by the caller and said buffer is modified to contain partial decrypted data, the buffer MUST fully overwrite the supplied buffer with non-secret data, such as setting it to an all-zero value.\r\n> - The comparison of the input `tag` with the `expected_tag` SHOULD be done in constant time.\r\n> \r\n> Inputs:\r\n> \r\n> - `ct`: the ciphertext to be decrypted.\r\n> - `tag`: the authentication tag.\r\n> - `ad`: the associated data to authenticate.\r\n> - `key`: the encryption key.\r\n> - `nonce`: the public nonce.\r\n\r\nI could do a PR for that instead. Thoughts as well @fscoto?",
+          "createdAt": "2022-03-10T19:12:09Z",
+          "updatedAt": "2022-03-10T19:24:44Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Personally? I like this bullet-pointed security sub-section idea. It's actually more readable and harder to miss. Unless @jedisct1 objects, that seems fine to me in principle.\r\n\r\nNote that the sections about `Encrypt()` cannot possible talk about an input `tag`.",
+          "createdAt": "2022-03-10T19:20:44Z",
+          "updatedAt": "2022-03-10T19:20:44Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Note that the sections about Encrypt() cannot possible talk about an input tag.\r\n\r\nCorrected that, thanks. Did a weird hybrid of both encryption and decryption sections there.",
+          "createdAt": "2022-03-10T19:26:15Z",
+          "updatedAt": "2022-03-10T19:26:56Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Let's opt for the bullet-pointed sub-section, then! :) ",
+          "createdAt": "2022-03-10T19:28:01Z",
+          "updatedAt": "2022-03-10T19:28:01Z"
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "id": "I_kwDOGRNxcs5FbeUE",
+      "title": "Added value: secure implementation: Forbid sw AES or give pseudocode for the round function?",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/40",
+      "state": "OPEN",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As per meeting 2022-03-09, the RFC draft should have as much added value as we can possibly cram into it, in particular regarding secure implementation. The AES round function is, other than nonce handling and poor key derivation, the most obvious way to get implementation wrong. However, the AES round function involves an S-box, leading to straightforward and well-studied timing attacks. I see two options to deal with this:\r\n\r\n1. Provide full pseudocode (including about 2000 lines of bitsliced S-box code) for processing a block with the round function.\r\n2. Make hardware support for AES a hard requirement by specification.\r\n\r\n(I will take this opportunity to humorously point out I'd participated in the meeting yesterday from a laptop without hardware AES support. Fortunately, none of the parties interested in AES have such problems.)",
+      "createdAt": "2022-03-10T06:59:46Z",
+      "updatedAt": "2022-03-10T19:26:35Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "I think this is out of scope, and should be addressed in a different document specifically about software AES implementations.\r\n\r\nBitslicing/fixslicing/masking is not necessarily required. For example, some implementations in the Linux kernel are just pre-loading every cache line instead. Which is perfectly fine and way faster.\r\n\r\nThis needs proper analysis, and maybe this is something we can discuss with Bart and Daniel. But, I'm not convinced that side channels are much of an issue after the state has been initialized, since what we get then is akin to a random permutation. This is very different from regular AES encryption involving a key schedule that gets reused every time.\r\n\r\nWe shouldn't forbid software implementations, nor assume that hardware implementations are safe against DPA.\r\n",
+          "createdAt": "2022-03-10T12:40:37Z",
+          "updatedAt": "2022-03-10T12:40:37Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Could we reference a paper or something discussing how to do a secure software implementation? I don't remember the RFCs I've read mentioning bitslicing doing that. It would be more helpful than nothing, assuming such a paper exists.",
+          "createdAt": "2022-03-10T18:45:07Z",
+          "updatedAt": "2022-03-10T18:45:07Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "The paper on [fixslicing](https://eprint.iacr.org/2020/1123.pdf) provides a good overview of other mitigation techniques, but the fixslicing technique itself is not applicable to AEGIS.\r\n\r\nThere's no single paper summarizing all the different techniques applicable to each platform AFAIK. Information is scattered everywhere.",
+          "createdAt": "2022-03-10T19:26:35Z",
+          "updatedAt": "2022-03-10T19:26:35Z"
+        }
+      ]
+    },
+    {
+      "number": 41,
+      "id": "I_kwDOGRNxcs5Fbfdq",
+      "title": "API suggestion for failed decryption",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/41",
+      "state": "OPEN",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As per meeting 2022-03-09, we've agreed on giving an API suggestion on how to handle authentication tag mismatch.\r\n\r\nForgetting to handle it should lead to a *syntax error*, so merely suggesting exceptions where possible (also irrelevant in C) would fail. We could copy Google's approach and have a callback function that is a mandatory parameter (which I vaguely recall seeing in C#/.NET in some APIs, but I cannot seem to find it now, perhaps it was't actually a mandatory call back and would just default to false at runtime). In that sense, I do not even see an alternative to a callback function to cover most languages, but perhaps someone else's seen other options?",
+      "createdAt": "2022-03-10T07:05:48Z",
+      "updatedAt": "2022-03-10T13:51:36Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Using callbacks is a smart way to force the check to be made in C/C++.\r\n\r\nBut callbacks don't translate well to pseudo-code and don't match existing for other AEADs. They can also introduce memory leaks, race conditions, or force users to fight the borrow checker in Rust. They also add a lot of complexity when the caller and the callee are in different contexts (secure enclaves, WebAssembly, etc.)\r\n\r\nModern languages also make error handling mandatory. Examples include the Rust `Result<>` return type, or Zig errors that cannot be ignored without causing a compile error. Using callbacks here would not make sense and would add more issues that they would fix.\r\n\r\nMaking recommendations for APIs is absolutely a great thing,. But we should remain focused on the AEGIS algorithm itself, and maybe not use this document as an opportunity to standardize the public interface of AEADs. If only because it is very unlikely that this will be implemented that way in practice; people will rather use whatever's idiomatic for a given language. I also don't see AEGIS being used in a standalone way, but rather be added to existing libraries. So it will have to match the APIs of existing AEADs.",
+          "createdAt": "2022-03-10T13:02:41Z",
+          "updatedAt": "2022-03-10T13:02:41Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Making recommendations for APIs is absolutely a great thing,. But we should remain focused on the AEGIS algorithm itself, and maybe not use this document as an opportunity to standardize the public interface of AEADs.\r\n\r\nIgnoring that RFC 5116 \u00a7 2.2 already largely dictates the interface, this is not up for debate anymore. It was decided yesterday that we *must* provide this, see p. 4 of the meeting notes near the end.",
+          "createdAt": "2022-03-10T13:13:58Z",
+          "updatedAt": "2022-03-10T13:13:58Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Sure, I'm just against introducing the notion of callbacks, or anything too language-specific.",
+          "createdAt": "2022-03-10T13:51:36Z",
+          "updatedAt": "2022-03-10T13:51:36Z"
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "id": "I_kwDOGRNxcs5Fi4_Z",
+      "title": "Reorganising the Introduction",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/43",
+      "state": "CLOSED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on the meeting, I think we should restructure the intro to a) put information people care most about higher up and b) perhaps do some sort of direct comparison with AES-GCM. For example:\r\n\r\n1. Have a paragraph on the limitations of AES-GCM.\r\n2. Discuss the speed of AEGIS because that's probably what will lead to the most adoption (e.g. what was said in the meeting). It's buried at the bottom currently. I think we should also mention that AEGIS software implementations will be faster than software implementations for AES-GCM.\r\n3. Random nonces being important for long-term keys.\r\n4. Key commitment. Better forgery bounds?\r\n6. Mention that leaking the state doesn't leak the key? (Daniel's suggestion)",
+      "createdAt": "2022-03-11T19:23:50Z",
+      "updatedAt": "2022-03-14T19:58:25Z",
+      "closedAt": "2022-03-14T19:58:25Z",
+      "comments": []
+    },
+    {
+      "number": 44,
+      "id": "I_kwDOGRNxcs5Fi_Gy",
+      "title": "Mention that leaking the state doesn't leak the key",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/44",
+      "state": "CLOSED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Unlike most other AES-based constructions.",
+      "createdAt": "2022-03-11T19:53:43Z",
+      "updatedAt": "2022-03-11T22:16:45Z",
+      "closedAt": "2022-03-11T22:16:44Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Already included in #43 , closing :) ",
+          "createdAt": "2022-03-11T22:16:44Z",
+          "updatedAt": "2022-03-11T22:16:44Z"
+        }
+      ]
+    },
+    {
+      "number": 46,
+      "id": "I_kwDOGRNxcs5GKU8Q",
+      "title": "More AEGIS analysis",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/46",
+      "state": "OPEN",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Including more papers on AEGIS may be useful to show that it's got some scrutiny.\r\n\r\n- https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/cje.2020.00.231\r\n- https://eprint.iacr.org/2018/292.pdf\r\n- https://academic.oup.com/comjnl/advance-article-abstract/doi/10.1093/comjnl/bxab059/6280579\r\n- https://eprint.iacr.org/2021/187\r\n- https://tosc.iacr.org/index.php/ToSC/article/view/8468\r\n\r\nSome only cover the AEGIS128 variant. Do you think they are still worth including?",
+      "createdAt": "2022-03-22T17:54:08Z",
+      "updatedAt": "2022-03-24T18:21:12Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Good idea.\r\n\r\n> Some only cover the AEGIS128 variant. Do you think they are still worth including?\r\n\r\nIt's useful for showing AEGIS as a family has been analysed, but it might cause some confusion. Liu et al. (2021) does mention an attack not applying to AEGIS-128L from a quick glance, so maybe that's relevant.",
+          "createdAt": "2022-03-22T18:37:17Z",
+          "updatedAt": "2022-03-22T18:39:21Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> Liu et al. (2021) does mention an attack not applying to AEGIS-128L\r\n\r\nIt applies to AEGIS256, though.\r\n\r\nHow about removing only the first one from SHI et al. ? ",
+          "createdAt": "2022-03-23T17:53:54Z",
+          "updatedAt": "2022-03-23T17:57:00Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Bart suggests:\r\n\r\nAndreeva, E., Bogdanov, A., Luykx, A., Mennink, B., Mouha, N., and Yasuda, K.,\r\n\"How to Securely Release Unverified Plaintext in Authenticated Encryption,\"\r\nAdvances in Cryptology. ASIACRYPT 2014. Lecture Notes in Computer Science, vol 8873.\r\nSpringer, <https://doi.org/10.1007/978-3-662-45611-8_6>\r\n\r\nEichlseder, M., Nageler, M., and Primas, R. (2020), \"Analyzing the\r\nLinear Keystream Biases in AEGIS\", IACR Transactions on Symmetric Cryptology,\r\n2019(4), pp 348\u2013368, <https://doi.org/10.13154/tosc.v2019.i4.348-368>\r\n\r\nLiu, F., Isobe, T., Meier, W., and Sakamoto, K. (2021), \"Weak Keys in Reduced\r\nAEGIS and Tiaoxin\", IACR Transactions on Symmetric Cryptology, 2021(2), pp 104\u2013139, <https://doi.org/10.46586/tosc.v2021.i2.104-139>\r\n\r\nMinaud, B., \"Linear biases in AEGIS keystream\", Selected Areas in\r\nCryptography. SAC 2014. Lecture Notes in Computer Science, vol 8781,\r\nSpringer, pp 290\u2013305, <https://doi.org/10.1007/978-3-319-13051-4_18>",
+          "createdAt": "2022-03-23T21:15:07Z",
+          "updatedAt": "2022-03-23T21:15:07Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> How about removing only the first one from SHI et al. ?\r\n\r\nThat/Bart's suggestions sound good.",
+          "createdAt": "2022-03-24T18:21:12Z",
+          "updatedAt": "2022-03-24T18:21:12Z"
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "id": "I_kwDOGRNxcs5GYgCC",
+      "title": "Neil Madden's Feedback",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/49",
+      "state": "OPEN",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "As said in #48, here's a summary:\r\n\r\n1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n2. ~Mention that AEGIS was selected for the high-performance scenario. AEGIS-128L is somewhat at odds with the competition outcome.~ (DONE)\r\n3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n4. ~I would perhaps be inclined to simplify things even further and only document the AEGIS-128L variant, which seems like the best pick of the three for the intended use cases.~ (256-bit variant as an alternative to AES-GCM)\r\n5. ~The discussion of partitioning oracle (PO) attacks could be moved from the introduction to a later section (perhaps section 6), with perhaps just a short note in the intro that AEGIS is key-committing and therefore resists partitioning oracle attacks.~ (Simplified slightly but summary useful)\r\n6. ~Add 'using a suitable password-based key derivation function' to the partitioning oracle attacks paragraph to avoid implying that a password can be used directly.~ (This was removed)\r\n7. ~Add a reference for the partitioning oracle attacks 'padding block'/zero check.~ (Removed)\r\n8. What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries.\r\n9. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n10. ~The \u201cfor a given key\u201d caveat is missing from the note in section 3.1 and should probably be added.~ (DONE)\r\n11. ~The requirement to compare the MAC tag in constant time is only a SHOULD. I can\u2019t see any good reason not to make this a MUST given how simple it is to implement?~ (DONE)\r\n12. ~What's the purpose of section 5? Would the JOSE implementation be non-compliant?~ (Guarantees interoperability)\r\n13. ~Define 'context-committing'.~ (This was removed)",
+      "createdAt": "2022-03-25T13:57:53Z",
+      "updatedAt": "2022-03-30T09:06:47Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I would also add that a reference and definition for compactly-committing would be wise. There seem to be overlapping definitions for key-committing, message-committing, compactly-committing, committing AEAD, and random key robustness (RKR). It's all unnecessarily confusing.",
+          "createdAt": "2022-03-29T13:41:16Z",
+          "updatedAt": "2022-03-29T13:41:16Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Describing the properties rather than using jargon would probably reduce confusion.\r\n- Multiple ciphertexts can produce the same tag (inevitable with a 128-bit tag)  \r\n- Finding multiple keys for which a (ciphertext, tag) pair is valid is impractical.\r\n ",
+          "createdAt": "2022-03-29T14:03:35Z",
+          "updatedAt": "2022-03-29T14:03:35Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Got one note:\r\n\r\n> What's the purpose of section 5? Would the JOSE implementation be non-compliant?\r\n\r\nFrom where I stand, the purpose of section 5 is to make sure that there's *a* canonical ordering if any spec (even outside the IETF) just says to encrypt with AEGIS. For JOSE, the tags are distinct (cf. RFC 7516 \u00a7 5.1: `BASE64URL(JWE Ciphertext) || '.' || BASE64URL(JWE Authentication Tag)`).\r\n\r\nIncidentally, RFC 8439 \u00a7 2.8 (ChaPoly) states that \u201c[t]he output from the AEAD is the concatenation of: o  A ciphertext of the same length as the plaintext. o  A 128-bit tag, which is the output of the Poly1305 function.\u201d), with the difference being there's no MUST there and it just being required by spec ambiguously.",
+          "createdAt": "2022-03-29T15:44:18Z",
+          "updatedAt": "2022-03-29T15:44:18Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "This is indeed the intent of section 5, and it is a really good thing to have to guarantee interoperability. \r\n",
+          "createdAt": "2022-03-29T16:08:19Z",
+          "updatedAt": "2022-03-29T16:08:19Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Regarding the last few then:\r\n\r\n> 1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n\r\nCan/should we reference the CAESAR webpage?\r\n\r\n> 3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n\r\nThoughts on this?\r\n\r\n> 8. What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n\r\nThe paper says:\r\n> As long as the nonce is not reused, it is impossible to recover the AEGIS state and key faster than exhaustive key search (under the assumption that a 128-bit authentication tag is used, and the forgery attack is not successful by repeating the attack).\r\n\r\n> We should ensure that IV is not reused for the same key; otherwise, the states of AEGIS can be recovered easily with either known-plaintext attacks or chosen plaintext attacks.\r\n\r\nBut leaking the state doesn't leak the key.",
+          "createdAt": "2022-03-30T08:30:02Z",
+          "updatedAt": "2022-03-30T08:30:02Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Leaking the state doesn't leak the key, doesn't leak previous states either.",
+          "createdAt": "2022-03-30T09:06:47Z",
+          "updatedAt": "2022-03-30T09:06:47Z"
+        }
+      ]
+    },
+    {
+      "number": 52,
+      "id": "I_kwDOGRNxcs5IDKKH",
+      "title": "Adam Langley's Feedback",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/52",
+      "state": "OPEN",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I've got some feedback from Adam Langley to share:\r\n\r\n> I've not tried to implement it from the specification, which is really the definitive test, but it certainly appears that one could. So, overall, looks good!\r\n> \r\n> A couple of things came to mind:\r\n> \r\n> I'm not sure that the test vectors are sufficient to exercise a real implementation. For 128L, I think there are none that contain more than one block of message input? And none that contain more than one block of AD input?\r\n> \r\n> Second, there are surely more bounds than expressed in the draft. (I didn't look into the cited papers so quite possibly they are included there!) E.g. given a maximum plaintext of 2^61 bytes, it doesn't take that many messages before the birthday bound of AES starts to bite, no? If available, something like https://www.ietf.org/id/draft-irtf-cfrg-aead-limits-04.html#name-aead_aes_128_gcm-and-aead_a for AGEIS might be interesting.\r\n> \r\n> I don't think either issue is blocking: the draft as-is feels like it could be an RFC.\r\n\r\nThank you again @agl!\r\n\r\nI also reached out to the partitioning oracle attack authors, and Julia kindly said they'd have a look.",
+      "createdAt": "2022-04-19T19:41:37Z",
+      "updatedAt": "2022-04-19T19:41:37Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOGRNxcs4twOwB",
+      "title": "IANA considerations: complete registration info",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/2",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is modeled after draft-irtf-cfrg-chacha20-poly1305-10 \u00a7 5 (the RFC Editor changes the IANA Consideration sections after publication). The registry is defined in RFC 5116 \u00a7 6 and defined an entry to consist of a short name, a positive number and a reference to a specification. The request now also contains the reference.\r\n\r\nThis commit deviates from the naming used in the aforementioned draft because the formal name in RFC 5116 \u00a7 6 is \"AEAD Registry\".",
+      "createdAt": "2021-10-27T17:07:49Z",
+      "updatedAt": "2021-10-27T17:32:13Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "a0748ff2518a2862b489e81f657da07af95c3da6",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "472fca679539422d7fbe4ecb08dbf0c0951f1913",
+      "closedAt": "2021-10-27T17:32:05Z",
+      "mergedAt": "2021-10-27T17:32:05Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "965129a79341e8cc46eee45101fa8c8f1a843311"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Thank you! \ud83d\ude4f ",
+          "createdAt": "2021-10-27T17:32:13Z",
+          "updatedAt": "2021-10-27T17:32:13Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDOGRNxcs4twP8h",
+      "title": "README: fix link to CONTRIBUTING.md",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/3",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "GitHub requires the branch to be part of the link as well.",
+      "createdAt": "2021-10-27T17:12:56Z",
+      "updatedAt": "2021-10-27T17:31:51Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "a0748ff2518a2862b489e81f657da07af95c3da6",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+readme-link-fix",
+      "headRefOid": "d6b1be5b10b2470fac1cd7164700b361286699bd",
+      "closedAt": "2021-10-27T17:31:51Z",
+      "mergedAt": "2021-10-27T17:31:51Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "e2d8e6f294ab14e4efa4025e288a091f79fab966"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOGRNxcs4tzoGw",
+      "title": "Add RFC5116 parameters",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/5",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #4 ",
+      "createdAt": "2021-10-28T16:20:43Z",
+      "updatedAt": "2021-10-28T17:14:23Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "c7aaac1d71d2ae22575384b4c1c19c6b57b32bfe",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "rfc5116-parameters",
+      "headRefOid": "f03bd8c1470fa3845b9e23d251d855465d89ecd6",
+      "closedAt": "2021-10-28T17:08:08Z",
+      "mergedAt": "2021-10-28T17:08:08Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "0e78ca0998dcbdf5b7323ca6058ba33e6c34fec8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4vNrLZ",
+          "commit": {
+            "abbreviatedOid": "d4075e6"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-28T16:34:21Z",
+          "updatedAt": "2021-10-28T16:41:19Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Consider using `<sup>` and `</sup>` instead of just `^`, see a550ea7507591d13016e5f1b6d4faa681dd95cc0 for the according rationale.",
+              "createdAt": "2021-10-28T16:34:21Z",
+              "updatedAt": "2021-10-28T16:41:19Z"
+            },
+            {
+              "originalPosition": 28,
+              "body": "Same note about `<sup>`/`</sup>` here.",
+              "createdAt": "2021-10-28T16:34:38Z",
+              "updatedAt": "2021-10-28T16:41:19Z"
+            },
+            {
+              "originalPosition": 7,
+              "body": "How did you get 2^61?\r\n\r\nI also notice the same value is used for `A_MAX` despite the `Encrypt()` function processing AD and the plaintext immediately after each other and using the same internal state in `Enc()`. Does using a certain number of additional data octets not take away from `P_MAX` or vice-versa?\r\n\r\nI'm not sure where this number comes from and if there's a succinct way to derive it, that might add to overall clarity. Your mileage may, of course, vary.",
+              "createdAt": "2021-10-28T16:37:37Z",
+              "updatedAt": "2021-10-28T16:41:19Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4vNv6E",
+          "commit": {
+            "abbreviatedOid": "f03bd8c"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-28T16:53:03Z",
+          "updatedAt": "2021-10-28T16:53:04Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "Done, thanks!",
+              "createdAt": "2021-10-28T16:53:03Z",
+              "updatedAt": "2021-10-28T16:53:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4vNwp6",
+          "commit": {
+            "abbreviatedOid": "f03bd8c"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-28T16:56:03Z",
+          "updatedAt": "2021-10-28T16:56:04Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "The finalization step mixes the AD length and the message length into the state. These lengths are expressed in bits, and independently encoded as 64 bit values. So, we get 64-3=61 bits for both maximum sizes.",
+              "createdAt": "2021-10-28T16:56:04Z",
+              "updatedAt": "2021-10-28T16:56:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4vNxtP",
+          "commit": {
+            "abbreviatedOid": "f03bd8c"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-28T17:00:11Z",
+          "updatedAt": "2021-10-28T17:00:11Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "AEGIS uses a rolling state instead of an internal counter. So, similar to permutation-based construction, input limits only depend on internal collisions, and length encodings.\r\n\r\nInternal collisions are obliviously not a concern due to the state size. Authentication security is fine as well. This leaves us with how lengths are encoded.",
+              "createdAt": "2021-10-28T17:00:11Z",
+              "updatedAt": "2021-10-28T17:00:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4vNyqH",
+          "commit": {
+            "abbreviatedOid": "f03bd8c"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-10-28T17:04:02Z",
+          "updatedAt": "2021-10-28T17:04:02Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "Thanks!\r\n\r\nThis makes sense reasonable and is also completely non-actionable for a reader of the draft, so just dropping 2^61 in there as an opaque number is the best option.",
+              "createdAt": "2021-10-28T17:04:02Z",
+              "updatedAt": "2021-10-28T17:04:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4vNzeM",
+          "commit": {
+            "abbreviatedOid": "f03bd8c"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Everything adds up and makes sense.",
+          "createdAt": "2021-10-28T17:07:23Z",
+          "updatedAt": "2021-10-28T17:07:23Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOGRNxcs4t3Z6W",
+      "title": "RFC 5116 compliance: Link security analysis (AEGIS paper)",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/6",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "RFC 5116 \u00a7 4: \"Each AEAD algorithm specification SHOULD provide a reference to a detailed security analysis.\"\r\n\r\nThe AEGIS paper contains an analysis in chapter 4.\r\n\r\n`{{AEGIS, Chapter 4}}` doesn't work since section-wise reference only seems to work for RFCs and even then it'd have to be \"Section\", but it's called \"Chapter\" in the paper.\r\n\r\n---\r\n\r\nI'm not entirely convinced that it's prim and proper to link an analysis performed by the designers of the algorithm. On the other hand, there's no other comprehensive paper I could find. The ones on IACR are only individual attacks on AEGIS.",
+      "createdAt": "2021-10-29T19:30:34Z",
+      "updatedAt": "2021-10-29T19:37:03Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "35545f3a9d0c5cb18cc57471211f65eb7bbf7c30",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "a63b24c871040bffae230cddbdaea7a2a5abb4f2",
+      "closedAt": "2021-10-29T19:37:03Z",
+      "mergedAt": "2021-10-29T19:37:03Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "36ab1fa9d2ea415337c5b706537423f174ec87cc"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Should be fine in the context of a draft.\n\nThank you!",
+          "createdAt": "2021-10-29T19:36:59Z",
+          "updatedAt": "2021-10-29T19:36:59Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOGRNxcs4t4bbw",
+      "title": "Pull lengths to the front",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/8",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This saves inconsistently repeating some redundant information in the text itself.\r\n\r\nFixes #7.",
+      "createdAt": "2021-10-30T17:54:12Z",
+      "updatedAt": "2021-10-30T19:00:19Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "4d85603a191f90e81d2507e34c4cf6dd73038843",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "d406e610b71c1db6f8be1b7cc7b1dd03b0385cbc",
+      "closedAt": "2021-10-30T19:00:19Z",
+      "mergedAt": "2021-10-30T19:00:19Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "2eec1e780b3cb9d06c2934d834e43899cdb85a93"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOGRNxcs4uLeis",
+      "title": "Miscellaneous clean-ups",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/9",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "These are all personal taste to some extent, so feel free to only cherry-pick some commits. The big section reordering is intentionally at the end as to avoid merge conflicts when cherry-picking any of the others.",
+      "createdAt": "2021-11-06T08:27:29Z",
+      "updatedAt": "2021-11-06T12:37:34Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "72e40b3686c27a2ee5f6c5bec38b28b6a721b588",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "69cc660bc233cb94099aa4cea7de18d7d4421437",
+      "closedAt": "2021-11-06T12:22:12Z",
+      "mergedAt": "2021-11-06T12:22:12Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "e55e1ff36718106555105afade8e0458ef68c327"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Thank you!\r\n\r\nI have mixed feelings about the reordering.\r\n\r\nThe `Update` function is what everything depends on.\r\n\r\nNo matter what language is being used, this is where one would have to start in order to be able to incrementally test their implementation.\r\n\r\nBut I trust your judgment :)\r\n\r\nRegarding \"nonce\" vs \"iv\", maybe we should use \"nonce\" everywhere. The original paper uses \"iv\", but \"iv\" tends to suggest that values have to be unpredictable as in the CBC mode, which is not a requirement here. But that can be done separately.\r\n\r\nBy the way, add your name as a coauthor :)",
+          "createdAt": "2021-11-06T12:22:09Z",
+          "updatedAt": "2021-11-06T12:22:09Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The `Update` function is what everything depends on.\r\n> \r\n> No matter what language is being used, this is where one would have to start in order to be able to incrementally test their implementation.\r\n\r\nTechnically, you could test the first part of `Init()` without `Update()`, which can still be a tricky thing with intrinsics and treating things as 128-bit integers rather than unordered sequences of bytes.\r\n\r\n> But I trust your judgment :)\r\n\r\nThank you for the vote of confidence!\r\n\r\n> Regarding \"nonce\" vs \"iv\", maybe we should use \"nonce\" everywhere. The original paper uses \"iv\", but \"iv\" tends to suggest that values have to be unpredictable as in the CBC mode, which is not a requirement here. But that can be done separately.\r\n\r\nI'll have to think about that for a bit since there might be no winning here.\r\n\r\n> By the way, add your name as a coauthor :)\r\n\r\nFunny you mention that since that's normally the first thing I tell people to do for licensing reasons. It slipped my mind for myself though.",
+          "createdAt": "2021-11-06T12:37:34Z",
+          "updatedAt": "2021-11-06T12:37:34Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOGRNxcs4uMH3v",
+      "title": "Rename iv to nonce and a couple other variables",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/10",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-11-07T09:36:52Z",
+      "updatedAt": "2021-11-07T09:49:54Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "35f28d256c082b4b22fd2ddf8d988f888b87cf9d",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "rename_vars",
+      "headRefOid": "602b13abbe6904c921118f4ac38b466e58f0cdfb",
+      "closedAt": "2021-11-07T09:49:54Z",
+      "mergedAt": "2021-11-07T09:49:54Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "63c12172a726f2f348697c1853330f84eabfc655"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4vp6lk",
+          "commit": {
+            "abbreviatedOid": "602b13a"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-07T09:47:56Z",
+          "updatedAt": "2021-11-07T09:47:56Z",
+          "comments": [
+            {
+              "originalPosition": 398,
+              "body": "Good catch!",
+              "createdAt": "2021-11-07T09:47:56Z",
+              "updatedAt": "2021-11-07T09:47:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4vp5DW",
+          "commit": {
+            "abbreviatedOid": "602b13a"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "The one nit can be done in a separate commit.",
+          "createdAt": "2021-11-07T09:40:38Z",
+          "updatedAt": "2021-11-07T09:49:17Z",
+          "comments": [
+            {
+              "originalPosition": 398,
+              "body": "Missed a `ct` -> `c` in the heading above this.",
+              "createdAt": "2021-11-07T09:40:38Z",
+              "updatedAt": "2021-11-07T09:49:17Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "PR_kwDOGRNxcs4u0J9k",
+      "title": "Overhaul introduction",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/12",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #11.\r\n\r\n---\r\n\r\n(Continuation of #11 here, CC @samuel-lucas6.)\r\n\r\nI only mentioned PAKE here since the goal of the introduction isn't to explain partitioning oracle attacks (mitigation strategies for that would arguably deserve an I-D of its own), but rather show the impact; as far as I can tell, the impact with a PAKE appears to be the most devastating, leading directly to password recovery. It therefore sells AEGIS nicely.\r\n\r\nIt should also be noted and appreciated that a na\u00efve implementation of AEGIS is, generally, a correct one. The elphant in the room is the timing side channel problem that unfortunately unavoidably stems from the AES round function as a building block, where a na\u00efve implementation is, generally, a bad one. Because of this issue, I didn't add that statement.\r\n\r\n> (@jedisct1:) On side channels in software implementations. AEGIS looks like a perfect fit for bitslicing, as the number of blocks to be processed simultaneously is constant, independently from the input size\r\n\r\nSection 6.1 of the AEGIS paper mentions that the speed-up for bit-sliced implementations is still significant, but I'm not comfortable highlighting bit-slicing if we're not giving really straightforward implementation guidance in the draft.\r\n\r\nThe last paragraph may need re-ordering if we want to imply that it's okay to make (bit-sliced) software implementations (ignoring the power analysis side channel).",
+      "createdAt": "2021-11-21T16:21:01Z",
+      "updatedAt": "2021-11-22T08:23:36Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "268ecde6d4c72ad602569e93b420168fc237227d",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+intro",
+      "headRefOid": "f7bda95929a490c53e6c0f4f8c12f80f463535f3",
+      "closedAt": "2021-11-22T08:21:53Z",
+      "mergedAt": "2021-11-22T08:21:53Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "2b6bf545f4b172d29a324946d8ea2e03492ee37a"
+      },
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "NONE",
+          "body": "Shouldn't it be partitioning oracle attacks rather than padding oracle attacks? Padding oracle attacks affect algorithms like CBC and RSA-OAEP, whereas partitioning oracle attacks affect the popular AEADs.",
+          "createdAt": "2021-11-21T17:45:44Z",
+          "updatedAt": "2021-11-21T17:45:44Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> Shouldn't it be partitioning oracle attacks rather than padding oracle attacks? Padding oracle attacks affect algorithms like CBC and RSA-OAEP, whereas partitioning oracle attacks affect the popular AEADs.\r\n\r\nCorrect.\r\n\r\nAs far as I know, \"partitioning oracle attacks\" is a term invented for the needs of a particular paper, not something defined elsewhere. In your opinion, is there a need for describing what they are or is the reference to the paper enough?",
+          "createdAt": "2021-11-21T17:51:14Z",
+          "updatedAt": "2021-11-21T17:51:14Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "NONE",
+          "body": "> Correct.\r\n> \r\n> As far as I know, \"partitioning oracle attacks\" is a term invented for the needs of a particular paper, not something defined elsewhere. In your opinion, is there a need for describing what they are or is the reference to the paper enough?\r\n\r\nI do think a description would be helpful because a) not many people know about the attack from what I've seen and b) certain parts of the paper were confusing for me but also for people in r/crypto. I think the [video](https://www.youtube.com/watch?v=h-T1bQTt4_Y) presentation and this blog [post](https://emilymstark.com/2021/02/01/padding-partitioning-oracles-and-another-hot-take-on-pakes.html) are a lot more understandable than the paper.",
+          "createdAt": "2021-11-21T18:00:58Z",
+          "updatedAt": "2021-11-21T18:00:58Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Shouldn't it be partitioning oracle attacks rather than padding oracle attacks? \r\n\r\nClearly, I've spent too much time in my life thinking about padding oracle attacks that I just auto-type padding oracle every time I mean to type partitioning oracle. This has been rectified.\r\n\r\n> I do think a description would be helpful\r\n\r\nI agree that partitioning oracles are non-trivial to understand. I have only a minimal conceptional grasp on it myself (to which the paper did, indeed, not contribute much).\r\n\r\nI'm not entirely sure what that would look like, especially considering we're on page one. Is it really appropriate to spend a paragraph on how an attack works? How exactly would you squeeze a description in there? It's not like we have more understandable references that lend themselves to citation, either, considering how novel the attack is.\r\n\r\nPart of the issue is that we need future-proofing. Nowadays, you don't need to explain padding oracles to the kind of person who would read this draft; knowledge thereof is abundant and resources are easy to come by. In two or three years, will knowledge have spread so far as to obviate the need for an explanation in the first place?\r\n\r\nThere's also the radical option of just cutting the partitioning oracles out entirely again, but that seems sub-optimal from the point of view that implementers may specifically look for algorithms that address the partitioning oracle problem. Or maybe some third option none of us are seeing right now.",
+          "createdAt": "2021-11-21T18:22:20Z",
+          "updatedAt": "2021-11-21T18:29:08Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "NONE",
+          "body": "> I agree that partitioning oracles are non-trivial to understand. I have only a minimal conceptional grasp on it myself (to which the paper did, indeed, not contribute much).\r\n\r\nI'm glad I'm not the only one who feels that way.\r\n\r\n> I'm not entirely sure what that would look like, especially considering we're on page one. Is it really appropriate to spend a paragraph on how an attack works? How exactly would you squeeze a description in there? It's not like we have more understandable references that lend themselves to citation, either, considering how novel the attack is.\r\n\r\nI do agree that that could be a problem. None of the papers I've seen on the topic of key commitment are very readable. Maybe something like:\r\n\r\n_With popular AEADs, an attacker can generate a ciphertext that successfully decrypts under multiple different keys. In the context of password-based encryption, by recursively submitting such a ciphertext to an oracle, an attacker can guess a large number of passwords at once, speeding up a password search._\r\n\r\n> Part of the issue is that we need future-proofing. Nowadays, you don't need to explain padding oracles to the kind of person who would read this draft; knowledge thereof is abundant and resources are easy to come by. In two or three years, will knowledge have spread so far as to obviate the need for an explanation in the first place?\r\n\r\nI think some people have been aware of the key commitment issue for a number of years, but it hasn't been publicised much and may not become common knowledge for some time since there isn't even a Wikipedia page on the attack. Regardless, I would argue a short explanation is still beneficial, much like how you often define terminology at the start of an essay.\r\n\r\n> There's also the radical option of just cutting the partitioning oracles out entirely again, but that seems sub-optimal from the point of view that implementers may specifically look for algorithms that address the partitioning oracle problem. Or maybe some third option none of us are seeing right now.\r\n\r\nThe key commitment aspect is one of the main advantages. More attacks related to a lack of key commitment may be found. AES-OCB, which was another CAESAR finalist and has a good reputation, is not key committing. The combo of AEGIS being faster, key committing, and supporting random nonces makes a very strong argument in favour of using it.",
+          "createdAt": "2021-11-21T19:02:14Z",
+          "updatedAt": "2021-11-21T19:02:14Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": ">  In the context of password-based encryption, by recursively submitting such a ciphertext to an oracle, an attacker can guess a large number of passwords at once, speeding up a password search.\r\n\r\nHow about something like\r\n\r\n\"The ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small\"\r\n\r\n?\r\n\r\nThe issue is not limited to passwords.",
+          "createdAt": "2021-11-21T21:15:07Z",
+          "updatedAt": "2021-11-21T21:15:07Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "NONE",
+          "body": "> The issue is not limited to passwords.\r\n\r\nGood point.\r\n\r\n> \"The ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small\"\r\n\r\nThat's good. Perhaps add an example of a key space that's small.",
+          "createdAt": "2021-11-21T23:06:39Z",
+          "updatedAt": "2021-11-21T23:06:39Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> With some existing AEAD schemes, an attacker can generate a ciphertext that successfully decrypts under multiple different keys (partitioning oracle attack). This ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small. One example for a small key space is password-based encryption: an attacker can guess a large number of passwords at a time by recursively submitting such a ciphertext to an oracle; this speeds up a password search by reducing it to a binary search.\r\n\r\nI've tried to merge the two suggestions. I do agree that an example makes it more palatable and I've tried to find a wording that makes it clear it's just one example.\r\n\r\nNote we've just said to avoid referencing things that are true at the time of writing, even with the qualifier \"currently\", so I've taken out the reference to \"With popular AEADs\" Perhaps AES-GCM and ChaPoly stop being popular if/when another use case for partitioning oracles is found.\r\n\r\nHow does this sound?",
+          "createdAt": "2021-11-22T03:35:47Z",
+          "updatedAt": "2021-11-22T03:35:47Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Sounds good!",
+          "createdAt": "2021-11-22T08:21:49Z",
+          "updatedAt": "2021-11-22T08:21:49Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Whoops, merged too fast :) I thought you already added this to the PR.",
+          "createdAt": "2021-11-22T08:23:35Z",
+          "updatedAt": "2021-11-22T08:23:35Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4wZUaR",
+          "commit": {
+            "abbreviatedOid": "db83e94"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-21T16:59:13Z",
+          "updatedAt": "2021-11-21T16:59:14Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "This may not age well.\r\n\r\nThis is something we can write when proposing the document to the CFRG, but the content of the document itself should not be tied to the fact that something was true at given date. More key committing schemes may be standardized.",
+              "createdAt": "2021-11-21T16:59:13Z",
+              "updatedAt": "2021-11-21T16:59:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wZUmB",
+          "commit": {
+            "abbreviatedOid": "db83e94"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-21T17:07:02Z",
+          "updatedAt": "2021-11-21T17:07:03Z",
+          "comments": [
+            {
+              "originalPosition": 44,
+              "body": "\"by a factor of two\" is also something we can write to the CFRG, but not an absolute and timeless truth to be part of the document.\r\n\r\nIt is really platform and implementation-dependent. On Rocket Lake, it's 2.5 faster than OpenSSL's AES128-GCM implementation. On a microcontroller without parallelism, figures will be different.\r\n\r\nSo, we should be a bit more generic here.",
+              "createdAt": "2021-11-21T17:07:03Z",
+              "updatedAt": "2021-11-21T17:07:03Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOGRNxcs4u1gdg",
+      "title": "Revert \"Overhaul introduction\"",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/13",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Reverts jedisct1/draft-aegis-aead#12",
+      "createdAt": "2021-11-22T08:22:48Z",
+      "updatedAt": "2021-12-30T11:37:54Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "2b6bf545f4b172d29a324946d8ea2e03492ee37a",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "revert-12-main+intro",
+      "headRefOid": "3bb6511822fd9b3fa4ce0e856507951c876b0a06",
+      "closedAt": "2021-11-22T08:23:04Z",
+      "mergedAt": "2021-11-22T08:23:03Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "465f0019d406987b2d4421b5c99654b2cf9810ef"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOGRNxcs4u3HUo",
+      "title": "intro: Insert summary of partitioning oracle attacks",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/14",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Continuation of #12.\r\n\r\n---\r\n\r\nCC @samuel-lucas6. This paragraph's been merged into the intro; I hope I understood the positioning correctly.\r\n\r\nAdditionally, we need to clear up the copyright situation. @samuel-lucas6 contributed the sequence \"ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small.\" which was taken wholesale into the merged suggestion. This is a sequence of words that may well meet the threshold of originality required for copyright coverage. This comes with rights, including the right to being recognized for your contribution by name. Therefore, I'd like to ask:\r\n\r\n1. @samuel-lucas6, would you like to be listed as an author?\r\n2. If no, would you like to be listed as an editor instead?\r\n3. If either of the above were anwered with yes: Can we assume that you will make a pull request to make this addition after this PR is merged?\r\n4. In any case to be on the safe side since it's non-obvious: Are you aware of and okay with your issue comments being contributions in the sense of IETF BCP 78, BCP 79 and the IETF Trust Legal Provisions (TLP) Relating to IETF Documents as noted CONTRIBUTING.md?\r\n\r\nI completely understand that this is legalese nobody *really* wants to deal with, but I'd rather do it properly now than have to chase people months or years later.",
+      "createdAt": "2021-11-22T16:05:46Z",
+      "updatedAt": "2021-11-29T18:21:04Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "2b6bf545f4b172d29a324946d8ea2e03492ee37a",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+intro",
+      "headRefOid": "e5cf4750f9a3ec222cc8f359f0df5be82f7edc0b",
+      "closedAt": "2021-11-23T18:56:59Z",
+      "mergedAt": "2021-11-23T18:56:59Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "d78cf0aa65774676be18cf610001e773999ad245"
+      },
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I hope I understood the positioning correctly.\r\n\r\nLooks good.\r\n\r\n> Additionally, we need to clear up the copyright situation. @samuel-lucas6 contributed the sequence \"ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small.\" which was taken wholesale into the merged suggestion. This is a sequence of words that may well meet the threshold of originality required for copyright coverage. This comes with rights, including the right to being recognized for your contribution by name. Therefore, I'd like to ask:\r\n\r\nThat sentence was actually [Frank's](https://github.com/jedisct1/draft-aegis-aead/pull/12#issuecomment-974897147), but I wrote the 'an attacker can generate a ciphertext that successfully decrypts under multiple different keys' bit and suggested an example regarding the key space part.\r\n\r\nI'm not sure that meets the threshold of originality, but if you think so, then I would happily be listed as an author or editor (whatever's more appropriate). I can do a PR and am fine with those contribution requirements.\r\n\r\nI'm willing to help out more, but I doubt I'm needed and don't want to get in the way. You're both far more qualified than me.",
+          "createdAt": "2021-11-22T18:58:30Z",
+          "updatedAt": "2021-11-22T18:58:30Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It is indeed not your sentence... and the part that's left may really be an issue with the threshold of originality. Here's my plan: I'm going to assume the authorship issue to be resolved with \"no change to the list of authors\". On the next discussion and/or PR you're involved in, we can revisit this. Is that okay with you?\r\n\r\n> I'm willing to help out more, but I doubt I'm needed and don't want to get in the way. You're both far more qualified than me.\r\n\r\nQualification is, quite honestly, irrelevant to me personally. Good ideas come from anyone. If anything, having someone (who at least feels) less qualified means we can get input from someone who sees the draft from the position of what I'd informally call \"a more typical implementer\". I'd be happy to welcome you aboard.",
+          "createdAt": "2021-11-23T17:36:42Z",
+          "updatedAt": "2021-11-23T17:36:42Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Is that okay with you?\r\n\r\nYes, that's fine. I don't think it's enough for originality either.\r\n\r\n> Qualification is, quite honestly, irrelevant to me personally. Good ideas come from anyone. If anything, having someone (who at least feels) less qualified means we can get input from someone who sees the draft from the position of what I'd informally call \"a more typical implementer\". I'd be happy to welcome you aboard.\r\n\r\nThank you. True, although I wouldn't try to implement AEGIS myself just yet. Also, the RFC looks pretty sorted now.",
+          "createdAt": "2021-11-23T18:50:38Z",
+          "updatedAt": "2021-11-23T18:51:02Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4wcbpL",
+          "commit": {
+            "abbreviatedOid": "ce8181b"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-22T16:27:20Z",
+          "updatedAt": "2021-11-22T16:27:20Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "> against padding oracle attacks\r\n\r\nagainst partitioning attacks :)",
+              "createdAt": "2021-11-22T16:27:20Z",
+              "updatedAt": "2021-11-22T16:27:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wceek",
+          "commit": {
+            "abbreviatedOid": "ce8181b"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-22T16:36:53Z",
+          "updatedAt": "2021-11-22T16:36:53Z",
+          "comments": [
+            {
+              "originalPosition": 7,
+              "body": "*How* do I keep doing this?!",
+              "createdAt": "2021-11-22T16:36:53Z",
+              "updatedAt": "2021-11-22T16:36:53Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "PR_kwDOGRNxcs4u7DyF",
+      "title": "Avoid redundant repeated formatted words",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/15",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This removes instances of \"tag `tag`\", \"key `key`\" and \"nonce `nonce`\". In the plaintext rendering format, these statements read like a stutter because the backtick formatting has no visible result.\r\n\r\nI don't expect this to be greatly controversial *per se*; I'm mainly filing a pull request because I'm unsure about the re-wording with regards to the authentication tag verification in particular.",
+      "createdAt": "2021-11-23T18:24:47Z",
+      "updatedAt": "2021-11-24T16:33:54Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "2b6bf545f4b172d29a324946d8ea2e03492ee37a",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+redundant-vars",
+      "headRefOid": "3fe327837589ade5e195b108798ecab48dee8b60",
+      "closedAt": "2021-11-23T21:03:39Z",
+      "mergedAt": "2021-11-23T21:03:39Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "d79c1ae76fd9d7308e97b539e5e0fcf50059fd99"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Sounds good!\r\n\r\nThese repeated words indeed looked weird in HTML form, and looked like a mistake in plaintext.\r\n\r\nThanks!",
+          "createdAt": "2021-11-23T21:03:37Z",
+          "updatedAt": "2021-11-23T21:03:37Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOGRNxcs4u_KC3",
+      "title": "Spelling/grammar fixes and rewording",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/17",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A few of these are definite corrections, whereas others are more open to debate.\r\n\r\n1. I would say any time a bullet point can be read as a sentence, it should end in a full stop. Full stops were already being used some of the time anyway from what I recall.\r\n2. I've only ever seen 'bitwise'.\r\n3. I've always written 'key committing' rather than 'key-committing', but I suppose either is fine. [This](https://eprint.iacr.org/2020/1153.pdf) paper uses no hyphen, but the [Partitioning Oracle Attacks](https://eprint.iacr.org/2020/1491.pdf) paper uses a hyphen.\r\n4. I've rarely seen 'cleartext' used, so I changed it to 'plaintext'.\r\n5. I've rearranged some semicolon and comma parts based on clarity and what I've been taught. I think semicolons generally make things harder to read.\r\n5. ~~I reworded the nonce reuse part because I think saying XOR is clearer.~~\r\n6. ~~I mentioned using a key derivation function to derive the key because someone could misinterpret the instructions as if the key must be randomly generated using a CSRNG.~~\r\n7. ~~I clarified that 'a generator with a long period' refers to a random number generator. I probably should have put cryptographically secure in front of that.~~\r\n8. ~~Should the timing attack paragraph say 'may lead to' or 'will lead to'?~~\r\n9. 'The exact mitigations required for side-channel attacks also depend on the threat model in question' is rather vague, presumably because there's too much to discuss. Perhaps an example would be helpful though. It seems important to mention considering it's relevant to security, and some people may not know where to start.\r\n\r\nI hope this is helpful :)",
+      "createdAt": "2021-11-24T21:20:37Z",
+      "updatedAt": "2021-12-14T16:36:34Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "d79c1ae76fd9d7308e97b539e5e0fcf50059fd99",
+      "headRepository": null,
+      "headRefName": "main",
+      "headRefOid": "653e9a405190cc275d9edf6a2cd93dc431b29360",
+      "closedAt": "2021-11-25T11:15:39Z",
+      "mergedAt": "2021-11-25T11:15:39Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "228276424b55c5fe890fa3fcdb733aef2d7b0cab"
+      },
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Something else I just remembered was wouldn't it be better being 'additional data' instead of 'associated data'? The ChaCha20-Poly1305 [RFC](https://datatracker.ietf.org/doc/html/rfc8439) seems to use both.",
+          "createdAt": "2021-11-24T21:39:55Z",
+          "updatedAt": "2021-11-25T17:32:21Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Looking good!\r\n\r\nThank you Samuel!",
+          "createdAt": "2021-11-25T11:15:33Z",
+          "updatedAt": "2021-11-25T11:15:33Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm late due to sleep + work, but ok fscoto as merged.",
+          "createdAt": "2021-11-25T15:45:58Z",
+          "updatedAt": "2021-11-25T15:45:58Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4wmky9",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-24T22:26:06Z",
+          "updatedAt": "2021-11-24T22:26:06Z",
+          "comments": [
+            {
+              "originalPosition": 430,
+              "body": "\"The XOR of two messages\" sounds really weird. I would suggest keeping the bitwise difference here.",
+              "createdAt": "2021-11-24T22:26:06Z",
+              "updatedAt": "2021-11-24T22:26:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wmlOI",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-24T22:29:47Z",
+          "updatedAt": "2021-11-24T22:29:47Z",
+          "comments": [
+            {
+              "originalPosition": 438,
+              "body": "It should be a generator. All we need for the nonce is an element that generates a large group. Not a random number generator.",
+              "createdAt": "2021-11-24T22:29:47Z",
+              "updatedAt": "2021-11-24T22:29:47Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wmlnl",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-24T22:33:31Z",
+          "updatedAt": "2021-11-24T22:33:31Z",
+          "comments": [
+            {
+              "originalPosition": 435,
+              "body": "There's no formal definition of a \"secure key derivation function\". The requirement mentioned here is due to the fact that AEGIS doesn't make any provision against related key attacks. So maybe we should replace that sentence with \"keys must be uniformly chosen\" instead.",
+              "createdAt": "2021-11-24T22:33:31Z",
+              "updatedAt": "2021-11-24T22:33:31Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wnkz4",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-25T08:26:28Z",
+          "updatedAt": "2021-11-25T08:26:29Z",
+          "comments": [
+            {
+              "originalPosition": 430,
+              "body": "I'll change it back.",
+              "createdAt": "2021-11-25T08:26:28Z",
+              "updatedAt": "2021-11-25T08:26:29Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wnlGM",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-25T08:27:37Z",
+          "updatedAt": "2021-11-25T08:27:37Z",
+          "comments": [
+            {
+              "originalPosition": 438,
+              "body": "My bad. I also meant to write the output of a random number generator \ud83e\udd26",
+              "createdAt": "2021-11-25T08:27:37Z",
+              "updatedAt": "2021-11-25T08:27:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wnlqj",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-25T08:30:01Z",
+          "updatedAt": "2021-11-25T08:30:01Z",
+          "comments": [
+            {
+              "originalPosition": 435,
+              "body": "'Keys must be uniformly chosen' vs 'keys must be chosen uniformly' vs 'keys must be uniformly random'? I like the third one most personally.",
+              "createdAt": "2021-11-25T08:30:01Z",
+              "updatedAt": "2021-11-25T08:30:01Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4wnthR",
+          "commit": {
+            "abbreviatedOid": "c21f8d2"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-11-25T09:01:26Z",
+          "updatedAt": "2021-11-25T09:01:26Z",
+          "comments": [
+            {
+              "originalPosition": 435,
+              "body": "randomly chosen from uniform distribution?",
+              "createdAt": "2021-11-25T09:01:26Z",
+              "updatedAt": "2021-11-25T09:01:26Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOGRNxcs4vj3jw",
+      "title": "add python impl to README",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/18",
+      "state": "MERGED",
+      "author": "x13a",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-12-08T15:21:04Z",
+      "updatedAt": "2021-12-08T19:19:58Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "9f2fe5926784b11f2504d222c59536eb299557e9",
+      "headRepository": null,
+      "headRefName": "patch-1",
+      "headRefOid": "c4995fa152ebaaaca2998e6bfa67849c485cbcdb",
+      "closedAt": "2021-12-08T19:19:57Z",
+      "mergedAt": "2021-12-08T19:19:57Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "30f3ee24faa2e8e5bd11e751cd13f2bf0074cb52"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Thank you!",
+          "createdAt": "2021-12-08T19:19:54Z",
+          "updatedAt": "2021-12-08T19:19:54Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOGRNxcs4v1aGa",
+      "title": "Mention context commitment",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/21",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Addresses #19. May need some rewording. Should I add a hyphen for 'context-commitment' to be consistent with 'key-commitment'?",
+      "createdAt": "2021-12-14T16:33:51Z",
+      "updatedAt": "2021-12-15T12:23:09Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "30f3ee24faa2e8e5bd11e751cd13f2bf0074cb52",
+      "headRepository": "samuel-lucas6/draft-aegis-aead",
+      "headRefName": "patch-1",
+      "headRefOid": "4d18e93b5d30985b0d37f9b12e3266b26ee7a78d",
+      "closedAt": "2021-12-15T03:40:25Z",
+      "mergedAt": "2021-12-15T03:40:25Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "84d2c6bf7c2dadd5285e094cbc45cdf1658ffd6f"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "The way I understand it, Security Considerations describe how to use the functions safely rather than the functions properties.\n\nWe can discuss the limitations of context commitment - what is being absorbed is `pad(ad)||msg` and context separation only happens at finalization - in that section, though.\n",
+          "createdAt": "2021-12-14T19:49:37Z",
+          "updatedAt": "2021-12-14T19:49:37Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The way I understand it, Security Considerations describe how to use the functions safely rather than the functions properties.\r\n\r\nHelpfully, [BCP 72](https://www.rfc-editor.org/info/bcp72) defines what the Security Considerations must and should describe. In particular, the section must describe which attacks are in scope and out of scope, where the in-scope section needs to detail both which attacks the protocol is susceptible to and which ones the protocol does protect against. This doesn't cleanly apply to an informational description of a pure algorithm as opposed to a protocol, but considering we mention key commitment and context commitment in the introduction, they do need to be fleshed out or at least brought up again in the security considerations section.\r\n\r\nI could make a draft tomorrow to address this in particular.",
+          "createdAt": "2021-12-14T19:57:56Z",
+          "updatedAt": "2021-12-14T19:57:56Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4xlKVw",
+          "commit": {
+            "abbreviatedOid": "6ed8ac8"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "Side note: Shouldn't much of this be mirrored in the Security Considerations section?",
+          "createdAt": "2021-12-14T17:31:37Z",
+          "updatedAt": "2021-12-14T17:39:07Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "Could I ask you to choose either \"context-commitment\" or \"key commitment\"? I have no strong feelings in either direction, but inconsistency makes for a frustrating reading.",
+              "createdAt": "2021-12-14T17:31:37Z",
+              "updatedAt": "2021-12-14T17:39:07Z"
+            },
+            {
+              "originalPosition": 4,
+              "body": "Is this clear to a reader coming in without the context in #19? \u201cThis provides some resistance against key reuse in different contexts.\u201d This seems to go approximately nowhere; what is a \u201ccontext\u201d in this context? The issue with \u201ccontext\u201d is that it's an overloaded word in that it refers to:\r\n\r\n1. an opaque context object in every cryptography API under the sun;\r\n2. semantically different instantiations of the same cryptographic operation (cf. RFC 8032 \u00a7 8.3);\r\n3. circumstances that form a setting for a concept or event;\r\n4. regions of text around a certain other passage of text.\r\n\r\nI feel like the wording here invites conflating these meanings. At least I needed a section to assign this usage to meaning 2. YMMV, maybe I'm the dense one here.",
+              "createdAt": "2021-12-14T17:38:15Z",
+              "updatedAt": "2021-12-14T17:39:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xlb9f",
+          "commit": {
+            "abbreviatedOid": "6ed8ac8"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-12-14T18:40:03Z",
+          "updatedAt": "2021-12-14T18:40:04Z",
+          "comments": [
+            {
+              "originalPosition": 9,
+              "body": "I agree. My preference would be without the hyphen.",
+              "createdAt": "2021-12-14T18:40:03Z",
+              "updatedAt": "2021-12-14T18:40:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xleSS",
+          "commit": {
+            "abbreviatedOid": "6ed8ac8"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-12-14T18:49:29Z",
+          "updatedAt": "2021-12-14T18:49:29Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "I see what you mean. I think context committing makes sense because the associated data is often used for context information. How about 'This provides some resistance against key reuse when distinct associated data is used' or 'when using distinct associated data' or 'when encrypting data in different contexts' or 'when encrypting data with distinct context information'?",
+              "createdAt": "2021-12-14T18:49:29Z",
+              "updatedAt": "2021-12-14T18:58:02Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xloYs",
+          "commit": {
+            "abbreviatedOid": "b5e7484"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-12-14T19:30:54Z",
+          "updatedAt": "2021-12-14T19:30:55Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Personally, I'm in favor of the third option (\u201cwhen encrypting data in different contexts\u201d). The first two drop the word entirely, losing the connection to two paragraphs down where context commitment is touted as a feature; the fourth one has a vaguely defined, newly minted term \"context information.",
+              "createdAt": "2021-12-14T19:30:54Z",
+              "updatedAt": "2021-12-14T19:30:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xlo9f",
+          "commit": {
+            "abbreviatedOid": "b5e7484"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-12-14T19:33:13Z",
+          "updatedAt": "2021-12-14T19:33:14Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "*This* hyphen [has grammatical meaning because it is a phrasal adjective](https://en.wikipedia.org/wiki/English_compound#Hyphenated_compound_modifiers); please leave this hyphen unchanged.",
+              "createdAt": "2021-12-14T19:33:13Z",
+              "updatedAt": "2021-12-14T19:33:14Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xl3mn",
+          "commit": {
+            "abbreviatedOid": "bc18de4"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-12-14T20:35:30Z",
+          "updatedAt": "2021-12-14T20:35:30Z",
+          "comments": [
+            {
+              "originalPosition": 4,
+              "body": "Thanks for the feedback. I've changed it to that.",
+              "createdAt": "2021-12-14T20:35:30Z",
+              "updatedAt": "2021-12-14T20:35:30Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xl7fv",
+          "commit": {
+            "abbreviatedOid": "4d18e93"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-12-14T20:51:12Z",
+          "updatedAt": "2021-12-14T20:51:12Z",
+          "comments": [
+            {
+              "originalPosition": 5,
+              "body": "I see what you mean. I've restored the hyphens for key committing. \r\n\r\nI was following [Gueron's](https://eprint.iacr.org/2020/1153.pdf) paper. The [Message Franking](https://eprint.iacr.org/2017/664.pdf) and [Fast Message Franking](https://eprint.iacr.org/2019/016.pdf) papers also don't use a hyphen for compactly committing AEAD. Grammatically speaking, I think you're probably correct, but I expect some people wouldn't use a hyphen still.",
+              "createdAt": "2021-12-14T20:51:12Z",
+              "updatedAt": "2021-12-14T20:51:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4xm2Ci",
+          "commit": {
+            "abbreviatedOid": "4d18e93"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM now",
+          "createdAt": "2021-12-15T03:39:13Z",
+          "updatedAt": "2021-12-15T03:39:13Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOGRNxcs4v4HkG",
+      "title": "Add myself as an author",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/22",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Thanks @jedisct1 and @fscoto!",
+      "createdAt": "2021-12-15T09:15:24Z",
+      "updatedAt": "2021-12-15T10:52:09Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "84d2c6bf7c2dadd5285e094cbc45cdf1658ffd6f",
+      "headRepository": "samuel-lucas6/draft-aegis-aead",
+      "headRefName": "main",
+      "headRefOid": "61ada3bb2ae46596d13d1401fa1f8e23fd4d2b43",
+      "closedAt": "2021-12-15T10:52:09Z",
+      "mergedAt": "2021-12-15T10:52:09Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "cfe28f223a9ea25299604a91417163ce20958933"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Welcome! ",
+          "createdAt": "2021-12-15T10:52:04Z",
+          "updatedAt": "2021-12-15T10:52:04Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOGRNxcs4v58zo",
+      "title": "Security Considerations: miscellaneous",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/23",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This was originally intended (as a continuation of #21) to establish compliance with BCP 72.\r\nUpon closer inspection, most things that need saying were already said; in particular, the threat model of an AEAD scheme is generally implied by virtue of being an AEAD scheme (cf. RFC 8439 \u00a7 4). The only change of this nature here is that the security properties of AEGIS break if you reuse the nonce (i.e. nonce reuse attacks are out of scope).\r\n\r\nThe rest of the changes are:\r\n\r\n- instances of applying BCP 14 keywords that were missed in b7c34444024f8275c7c319cbcd2aceafef450377; and\r\n- reordering to make the most general statements start at the top in hopes of achieving more logical ordering.",
+      "createdAt": "2021-12-15T18:05:58Z",
+      "updatedAt": "2021-12-16T03:47:26Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "cfe28f223a9ea25299604a91417163ce20958933",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+sc",
+      "headRefOid": "22fee121988bf45b2020cd9cad91627e1640b450",
+      "closedAt": "2021-12-15T18:23:43Z",
+      "mergedAt": "2021-12-15T18:23:43Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "1cb24e9e4d576b7ceeb520602ef483a6efed67be"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Looks good! Thank you!",
+          "createdAt": "2021-12-15T18:23:39Z",
+          "updatedAt": "2021-12-15T18:23:39Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 24,
+      "id": "PR_kwDOGRNxcs4wTf2w",
+      "title": "Add preliminary acknowledgments",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/24",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Fill the Acknowledgments section with AEGIS authors.\r\n\r\nThis is mainly just to not keep the section empty.\r\n\r\nMore acknowledgements will be added once we get public feedback after the CFRG submission.",
+      "createdAt": "2021-12-27T13:53:47Z",
+      "updatedAt": "2021-12-27T18:42:05Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "8918043565fcdfe9d48a126a94fa621194f394ca",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "ack",
+      "headRefOid": "89714ffef83045040b9bf3cbefc42de697226b9b",
+      "closedAt": "2021-12-27T16:11:17Z",
+      "mergedAt": "2021-12-27T16:11:17Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "a0433b30294c8276f2913005c161d62fff1ef065"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 27,
+      "id": "PR_kwDOGRNxcs4wa-zX",
+      "title": "Mention that AEGIS is not compactly committing",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/27",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This will hopefully resolve #26 after some edits. \r\n\r\nThe fact that it's still possible to find multiple valid keys intuitively suggests a partitioning oracle attack is still possible, just more difficult, but I don't currently understand the difference between key committing and compactly committing, so I'm sorry if that bit is incorrect. Perhaps compactly committing should be defined somewhere.",
+      "createdAt": "2021-12-31T14:02:23Z",
+      "updatedAt": "2021-12-31T14:30:29Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "7ea910a9432b26fe697f644e5aebd5f948148c81",
+      "headRepository": "samuel-lucas6/draft-aegis-aead",
+      "headRefName": "patch-1",
+      "headRefOid": "1e52f5529ce591debbc53144be9542b89429d0bf",
+      "closedAt": "2021-12-31T14:28:59Z",
+      "mergedAt": "2021-12-31T14:28:59Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "17475ed872832d4ca6761042e215d63921bd0a16"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "LGTM, but waiting for @fscoto 's review :)",
+          "createdAt": "2021-12-31T14:24:40Z",
+          "updatedAt": "2021-12-31T14:24:40Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "And I agree!",
+          "createdAt": "2021-12-31T14:29:09Z",
+          "updatedAt": "2021-12-31T14:29:09Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOGRNxcs4wbA7c",
+      "title": "Note existence of older versions of AEGIS",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/28",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixes #25.",
+      "createdAt": "2021-12-31T14:39:11Z",
+      "updatedAt": "2021-12-31T14:44:24Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "17475ed872832d4ca6761042e215d63921bd0a16",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+incompatibility",
+      "headRefOid": "3a4956e9cff29a6a88868f2072df822fa92b8a63",
+      "closedAt": "2021-12-31T14:43:06Z",
+      "mergedAt": "2021-12-31T14:43:06Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "cca0648ba78b60461b03db1ad66c93f3a7eb6289"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4yM-9_",
+          "commit": {
+            "abbreviatedOid": "3a4956e"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-12-31T14:43:01Z",
+          "updatedAt": "2021-12-31T14:43:01Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 29,
+      "id": "PR_kwDOGRNxcs4wg9Os",
+      "title": "Fix parameters description in the Enc() function",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/29",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Input blocks are not encrypted, output blocks are.",
+      "createdAt": "2022-01-04T15:18:29Z",
+      "updatedAt": "2022-01-05T08:56:49Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "cca0648ba78b60461b03db1ad66c93f3a7eb6289",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "enc-parameters",
+      "headRefOid": "d5cc4166eefdad99393edf5d4e7a8e275c1acf20",
+      "closedAt": "2022-01-04T15:47:09Z",
+      "mergedAt": "2022-01-04T15:47:09Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "706c81c94f330d41b65403d3646d4926ee65b85d"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4ySb9z",
+          "commit": {
+            "abbreviatedOid": "ee116db"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "",
+          "createdAt": "2022-01-04T15:28:40Z",
+          "updatedAt": "2022-01-04T15:29:17Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "This is asymmetric for the wording in `Dec`. `Dec` says:\r\n\r\n> - `xi`: the 256-bit decrypted block.\r\n\r\nNote how \u201cinput\u201d no longer appears. Please either adjust the wording here by dropping \u201cinput\u201d or adjusting `Dec` by adding `input` there.\r\n\r\nPersonally, I lean towards the former since technically it's not an input anymore, but it's hard to succinctly word \u201cthe same content that was provided in plaintext form in `xi` but now in encrypted form\u201d since \u201cinput\u201d in this context ends up meaning \u201cthe same in content but not in form\u201d of sorts.",
+              "createdAt": "2022-01-04T15:28:40Z",
+              "updatedAt": "2022-01-04T15:29:17Z"
+            },
+            {
+              "originalPosition": 24,
+              "body": "Same asymmetry with `Dec` as noted on line 323.",
+              "createdAt": "2022-01-04T15:29:13Z",
+              "updatedAt": "2022-01-04T15:29:17Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4ySd_Z",
+          "commit": {
+            "abbreviatedOid": "d5cc416"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-01-04T15:36:02Z",
+          "updatedAt": "2022-01-04T15:36:03Z",
+          "comments": [
+            {
+              "originalPosition": 10,
+              "body": "ACK.\r\n\r\n`input` has been removed.",
+              "createdAt": "2022-01-04T15:36:02Z",
+              "updatedAt": "2022-01-04T15:36:03Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs4ySeBR",
+          "commit": {
+            "abbreviatedOid": "d5cc416"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-01-04T15:36:09Z",
+          "updatedAt": "2022-01-04T15:36:10Z",
+          "comments": [
+            {
+              "originalPosition": 24,
+              "body": "Removed.",
+              "createdAt": "2022-01-04T15:36:10Z",
+              "updatedAt": "2022-01-04T15:36:10Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 30,
+      "id": "PR_kwDOGRNxcs4wjPf6",
+      "title": "Cite Vaudenay and Viz\u00e1r's paper",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/30",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The paper highlights the importance of not leaking decrypted data without tag verification.\r\n\r\nSuggested by Daniel Bleichenbacher, thanks!",
+      "createdAt": "2022-01-05T09:43:35Z",
+      "updatedAt": "2022-01-07T11:42:17Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "706c81c94f330d41b65403d3646d4926ee65b85d",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "cra17",
+      "headRefOid": "c2c9ee6c1c75e228a9cfa32ac54fed59c2cbe94b",
+      "closedAt": "2022-01-07T04:34:11Z",
+      "mergedAt": "2022-01-07T04:34:11Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "f92ddb1657f5fe4c9d108861ac143fee09d678d6"
+      },
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Is it worth using [this](https://eprint.iacr.org/2017/1147.pdf) link instead? Then the PDF opens in the browser.",
+          "createdAt": "2022-01-05T10:37:17Z",
+          "updatedAt": "2022-01-05T10:37:17Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The publication story of this paper is interesting if hopelessly chaotic. According to https://infoscience.epfl.ch/record/264823/, this paper is supposedly published in  Applied Cryptography and Network Security 2018 (LNCS vol. 10892), pp. 476-494. Following the DOI link, we reach https://link.springer.com/chapter/10.1007/978-3-319-93387-0_25, where you may note that the paper's title is \u201cCan Caesar Beat Galois?\u201d\r\n\r\nI can't tell which one is the authoritative version of the paper. Should someone reach out to the (according to IACR ePrint) corresponding author Damian Viz\u00e1r and inquire as to which version to cite and if there are substantial differences other than the pagination? I don't feel comfortable citing into the void. If the conference version is authoritative, we'll have to link to paywalled content, but personally I don't have an issue with that.\r\n\r\nRe @samuel-lucas6: If anything, shouldn't the link be https://infoscience.epfl.ch/record/264823/, where it's *not* a link to a PDF and instead the abstract? I distinctly recall mobile users struggling with PDF links and not appreciating such links without warning.",
+          "createdAt": "2022-01-05T11:15:18Z",
+          "updatedAt": "2022-01-05T11:15:18Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Re @samuel-lucas6: If anything, shouldn't the link be https://infoscience.epfl.ch/record/264823/, where it's not a link to a PDF and instead the abstract? I distinctly recall mobile users struggling with PDF links and not appreciating such links without warning.\r\n\r\nInteresting point, although the AEGIS link is to a PDF since there's no alternative. The Partitioning Oracle Attacks link is to the abstract, but that's useful in that there's also a video and slides. However, that link means not citing a paywalled article, so I'd go with that.",
+          "createdAt": "2022-01-05T11:36:38Z",
+          "updatedAt": "2022-01-05T11:36:38Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> However, that link means not citing a paywalled article, so I'd go with that.\r\n\r\nWhat matters is whether it's the *correct* article. There's no point in citing outdated (and possibly wrong) material. So should I just try to reach out and ask the authors for clarification?",
+          "createdAt": "2022-01-05T15:12:42Z",
+          "updatedAt": "2022-01-05T15:12:42Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> What matters is whether it's the _correct_ article. There's no point in citing outdated (and possibly wrong) material. So should I just try to reach out and ask the authors for clarification?\r\n\r\nReferencing https://infoscience.epfl.ch/record/264823/ would not be referencing outdated information directly since it links both papers.\r\n\r\nI can tell you that there are some differences between the two versions because I just scrolled through the paywalled article using my academic access. For example, the heading 'Birthday bound and nonce-misuse' got rephrased to '64-bit Bound and Nonce-Misuse', there are references in Table 2, etc.\r\n\r\nWhat's confusing is that they say 'For descriptions of CCM, GCM, and the CAESAR candidates in, we refer the reader either to the full version of this paper [42]', with citation 42 being the 'Under Pressure' paper with https://eprint.iacr.org/2017/1147 as the link.\r\n\r\nEdit: The link I originally provided seems to be the full version of the paper. The paywalled content is shorter (18 vs 24 pages).",
+          "createdAt": "2022-01-05T15:37:05Z",
+          "updatedAt": "2022-01-05T16:01:24Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> The paywalled content is shorter (18 vs 24 pages).\r\n\r\nAre they the same page size and line height though? It's trivial to get different page counts with different formatting. I'm *strongly* hesitant on relying on the IACR ePrint version because one would expect that the published version actually got reviewer; the IACR ePrint version is either a pre-print (and there were relevant changes in the review) or is a post-production (fixing issues they found after publication) and we just don't know which one it is.\r\n\r\n**Edit**: E-mail is out. If I get a response, I'll note what it was.",
+          "createdAt": "2022-01-05T16:12:48Z",
+          "updatedAt": "2022-01-05T16:14:44Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Are they the same page size and line height though? It's trivial to get different page counts with different formatting. I'm strongly hesitant on relying on the IACR ePrint version because one would expect that the published version actually got reviewer; the IACR ePrint version is either a pre-print (and there were relevant changes in the review) or is a post-production (fixing issues they found after publication) and we just don't know which one it is.\r\n\r\nThe paywalled version is missing several sections from the end, and the references are less spaced.\r\n\r\n![Final section paywalled](https://user-images.githubusercontent.com/63159663/148252987-8a90f83c-646c-441a-a68f-bb54d11ae8b2.png)\r\n\r\n![Final section public](https://user-images.githubusercontent.com/63159663/148252997-6c722d55-6e2f-4571-a81f-f57d56f7908f.png)\r\n\r\nTheir comment suggests it's a reduced version of the paper with changes for that journal and in response to reviewer feedback.\r\n\r\n![Citation 42](https://user-images.githubusercontent.com/63159663/148252677-e15a76b1-51d1-42f6-8d32-c44f5eb16448.png)\r\n\r\n![Reference 42](https://user-images.githubusercontent.com/63159663/148252690-3db66527-dec3-4cff-9f2e-f5577ee46cc7.png)\r\n",
+          "createdAt": "2022-01-05T16:21:46Z",
+          "updatedAt": "2022-01-05T16:29:14Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "I reached out to Damian as well. Haven't heard back from him either so far.\r\n\r\nThe second version doesn't introduce new or different results. So, I'd be inclined to use the non-paywalled version for now. As the AEGIS draft is being reviewed, it will be easier for everybody to look at the papers we reference.\r\n\r\nIf Damian later suggests we should use the paywalled version, it certainly won't be too late to do it.\r\n\r\nMeanwhile, the URL has been changed to the IACR hosted one.",
+          "createdAt": "2022-01-06T21:45:21Z",
+          "updatedAt": "2022-01-06T21:45:21Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I continue to disagree on the paywall being a blocker, but considering neither of us has heard from the author in the meantime and @samuel-lucas6 observing several additional sections in the IACR ePrint version, the latter is *likely* the correct one and I agree with the change.",
+          "createdAt": "2022-01-07T04:35:24Z",
+          "updatedAt": "2022-01-07T04:35:24Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs4yWjiw",
+          "commit": {
+            "abbreviatedOid": "85986d4"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I suggest changing the link to https://eprint.iacr.org/2017/1147.",
+          "createdAt": "2022-01-05T15:59:34Z",
+          "updatedAt": "2022-01-05T15:59:34Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOGRNxcs4wsFT6",
+      "title": "Acknowledgments: Eric Lagergren and Daniel Bleichenbacher",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/31",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "See 7ea910a9432b26fe697f644e5aebd5f948148c81 and #25, #26, #27, #28 and #30.\r\n\r\nThis should be uncontroversial and I'd like to note these *before* we forget about all the names.\r\n\r\nSince their names are in the Git history already, there isn't anything new.",
+      "createdAt": "2022-01-08T13:39:06Z",
+      "updatedAt": "2022-01-08T13:41:48Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "f92ddb1657f5fe4c9d108861ac143fee09d678d6",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "88f6c6482ffa4bb3c02b53d0c23c820ead8c5f04",
+      "closedAt": "2022-01-08T13:41:48Z",
+      "mergedAt": "2022-01-08T13:41:47Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "c9d5f26f44eabfa2f09233170f79a72069e4447a"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Of course!",
+          "createdAt": "2022-01-08T13:41:43Z",
+          "updatedAt": "2022-01-08T13:41:43Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOGRNxcs4w1ZMb",
+      "title": "Cite correct version of Vaudenay/Viz\u00e1r",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/32",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "According to an e-mail received 2022-01-11 from Damian Viz\u00e1r, we should cite the ACNS paper as that version is the most up to date and has applied reviewer comments.\r\n\r\nIt seems that due to copyright restrictions imposed by the publisher (Springer Nature Switzerland AG, CHE-480.203.569, previously called Springer International Publishing AG), the IACR ePrint and EPFL archived copy could not be updated.\r\n\r\nPull request for visibility, cc @samuel-lucas6.",
+      "createdAt": "2022-01-12T04:38:12Z",
+      "updatedAt": "2022-01-12T08:12:35Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "c9d5f26f44eabfa2f09233170f79a72069e4447a",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "4bd4470fb730bfa86f31105c52c64cb0e7090712",
+      "closedAt": "2022-01-12T08:12:35Z",
+      "mergedAt": "2022-01-12T08:12:35Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "eb4e7119771e8eb0cfb9c29900a8a359fae67c9b"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Great to have this clarified!",
+          "createdAt": "2022-01-12T08:12:31Z",
+          "updatedAt": "2022-01-12T08:12:31Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 33,
+      "id": "PR_kwDOGRNxcs4yjjel",
+      "title": "AEGIS-128L: allow up to 2^48 messages per key",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/33",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "As pointed out by Daniel, the 2^32 bound was too conservative.\r\n\r\nWith a 128 bit nonce, encrypting up 2^48 messages still gives collision probability smaller than 2^-32, which matches NIST standards.",
+      "createdAt": "2022-02-11T22:30:33Z",
+      "updatedAt": "2022-02-12T08:22:18Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "eb4e7119771e8eb0cfb9c29900a8a359fae67c9b",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "relax-collision-security-bound",
+      "headRefOid": "10e5f92633ef839ff06216df53f4aba860546d60",
+      "closedAt": "2022-02-12T05:56:18Z",
+      "mergedAt": "2022-02-12T05:56:18Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "dc4ac9686db0819adab6990bc7e114299b6c4bb7"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 34,
+      "id": "PR_kwDOGRNxcs4z0sUa",
+      "title": "Properly truncate the ciphertext - Address @soatok's feedback",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/34",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Address @soatok 's  feedback on the CFRG list:\r\n\r\n- In the AEGIS128L Encrypt() function, `msg` and `ct` were swapped.\r\n- In the AEGIS256 Encrypt() function, the truncation step was forgotten.\r\n\r\n",
+      "createdAt": "2022-03-02T11:50:35Z",
+      "updatedAt": "2022-03-03T21:34:54Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "dc4ac9686db0819adab6990bc7e114299b6c4bb7",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "soatok-feedback",
+      "headRefOid": "c7605eccee4d321f3deb14eef4d30bab2a27a3af",
+      "closedAt": "2022-03-02T18:33:12Z",
+      "mergedAt": "2022-03-02T18:33:12Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "02a81f046afe94d1c74b4d9826cec7972a40c897"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOGRNxcs4z5qGR",
+      "title": "Add explicit return statements in the pseudo-code",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/35",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "This is especially useful for the Decrypt() function, to emphasize the fact that the function must return either an error, or `msg`.",
+      "createdAt": "2022-03-03T16:04:51Z",
+      "updatedAt": "2022-03-03T21:44:39Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "02a81f046afe94d1c74b4d9826cec7972a40c897",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "explicit-returns",
+      "headRefOid": "b9f5210e4c0aef850e734571f1082126f20915c4",
+      "closedAt": "2022-03-03T21:44:34Z",
+      "mergedAt": "2022-03-03T21:44:34Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "1f59e2325cf0ef8a0598735bd299f4cfe5beae97"
+      },
+      "comments": [
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I was thinking about this, but the semantics quickly snowball. `throw` is undefined in the spec, especially since an error is supposed to be an output.\r\n\r\nIt now also looks like there are ordered returns.\r\n\r\nNow that the error throw introduces `if`, I wonder if we shouldn't instead explicitly use an constant time comparison function we defined in the definitions section.",
+          "createdAt": "2022-03-03T16:49:23Z",
+          "updatedAt": "2022-03-03T16:49:23Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Maybe we can replace `throw` with `return a \"Verification failed\" error`?\r\n\r\nThe order or returned values doesn't matter. Would saying \"return ct and tag\" in plain English be better?\r\n\r\nIntroducing a constant-time comparison function is a good idea.",
+          "createdAt": "2022-03-03T16:55:39Z",
+          "updatedAt": "2022-03-03T16:55:39Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Sounds good to me; please update accordingly and I have no reservations against merging",
+          "createdAt": "2022-03-03T17:32:13Z",
+          "updatedAt": "2022-03-03T17:32:13Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Maybe we can replace throw with return a \"Verification failed\" error?\r\n\r\nSounds best, although perhaps leave out the 'a' so it's `return \"Verification failed\" error`.\r\n\r\n> The order or returned values doesn't matter. Would saying \"return ct and tag\" in plain English be better?\r\n\r\nI think so.\r\n\r\n> Introducing a constant-time comparison function is a good idea.\r\n\r\nAgreed again.",
+          "createdAt": "2022-03-03T18:17:09Z",
+          "updatedAt": "2022-03-03T18:17:09Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 37,
+      "id": "PR_kwDOGRNxcs40ACtt",
+      "title": "Add invalid test vectors",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/37",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #36.\r\n\r\n- Test Vector 5: key and nonce swapped.\r\n- Test Vector 6: bit flip at the end of the ciphertext.\r\n- Test Vector 7: bit flip at the end of the associated data.\r\n- Test Vector 8: bit flip at the beginning and end of the tag.\r\n\r\nHopefully this covers all suggestions by @soatok and @fscoto. The Test Vector 4 section was used to create them.",
+      "createdAt": "2022-03-06T10:05:32Z",
+      "updatedAt": "2022-03-06T12:39:55Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "1f59e2325cf0ef8a0598735bd299f4cfe5beae97",
+      "headRepository": "samuel-lucas6/draft-aegis-aead",
+      "headRefName": "main",
+      "headRefOid": "8b204e3dea0a242a843f6334d5ff0c76d1f29cfe",
+      "closedAt": "2022-03-06T12:39:55Z",
+      "mergedAt": "2022-03-06T12:39:54Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "3dadff0d481c265739a51fccc9e2b1e608f71b9d"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "We should mention somewhere that verification must fail for these vectors. ",
+          "createdAt": "2022-03-06T10:14:13Z",
+          "updatedAt": "2022-03-06T10:14:13Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Also we need them both for AEGIS128L and AEGIS256.\n\nThat's a lot of invalid test vectors. Too many IMHO. ",
+          "createdAt": "2022-03-06T10:17:08Z",
+          "updatedAt": "2022-03-06T10:17:08Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> We should mention somewhere that verification must fail for these vectors.\r\n\r\nI was thinking that too, but I'm not sure about how to format that.\r\n\r\n> Also we need them both for AEGIS128L and AEGIS256.\r\n\r\nSorry, I completely forgot; I'll add AEGIS128L now.\r\n\r\n> That's a lot of invalid test vectors. Too many IMHO.\r\n\r\nYeah, that's my concern as well. Which would you suggest keeping? We could remove or merge 6 and 7. I can change that after adding the AEGIS128L ones.",
+          "createdAt": "2022-03-06T10:25:22Z",
+          "updatedAt": "2022-03-06T10:25:22Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": ">  That's a lot of invalid test vectors. Too many IMHO.\r\n> \r\n> Yeah, that's my concern as well. Which would you suggest keeping? We could remove or merge 6 and 7. I can change that after adding the AEGIS128L ones.\r\n\r\nI'm stlil not following on the argument that there are too many test vectors. What's the concrete harm caused by having more test vectors?\r\n\r\n> >  We should mention somewhere that verification must fail for these vectors.\r\n> \r\n> I was thinking that too, but I'm not sure about how to format that.\r\n\r\n(Bold) \u201cThis test vector is intended to test false positives. Encryption should not output the given ciphertext/tag pairs. Decryption should return an error.\u201d for each of the invalid test vectors' sections?",
+          "createdAt": "2022-03-06T10:31:10Z",
+          "updatedAt": "2022-03-06T10:31:10Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> I'm stlil not following on the argument that there are too many test vectors. What's the concrete harm caused by having more test vectors?\r\n\r\nI think you can argue either way. These things should really be tested to be thorough, but having lots of test vectors could put some people off implementing the tests at all or cause some people to skip a few.\r\n\r\n> (Bold) \u201cThis test vector is intended to test false positives. Encryption should not output the given ciphertext/tag pairs. Decryption should return an error.\u201d for each of the invalid test vectors' sections?\r\n\r\nYes, including the note for each test vector is probably clearest.",
+          "createdAt": "2022-03-06T10:39:18Z",
+          "updatedAt": "2022-03-06T10:39:18Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> (Bold) \u201cThis test vector is intended to test false positives. Encryption should not output the given ciphertext/tag pairs. Decryption should return an error.\u201d for each of the invalid test vectors' sections?\r\n\r\nShould the whole thing be in bold? Or should I just put **MUST** capitalised and in bold?\r\n\r\n> This test is only for decryption. Tag verification must fail, leading to an error.\r\n\r\nHow is this wording? I don't think encryption comes into it, but let me know if I'm mistaken.\r\n\r\nI'm not sure about the first half. Other potential candidates:\r\n\r\n- This test only applies to decryption.\r\n- This tests decryption only.\r\n- This only tests decryption.\r\n- This is a test for decryption only.",
+          "createdAt": "2022-03-06T10:59:26Z",
+          "updatedAt": "2022-03-06T11:05:36Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> \"Encryption should not output the given ciphertext/tag pairs\"\r\n\r\nNo implementation is ever going to check that the output they get *differs* from given pairs.\r\n\r\nI think we should only mention that the vectors MUST return a \"verification failed\" error.\r\n\r\n",
+          "createdAt": "2022-03-06T11:13:20Z",
+          "updatedAt": "2022-03-06T11:13:20Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> I'm stlil not following on the argument that there are too many test vectors. What's the concrete harm caused by having more test vectors?\r\n\r\nThere's no harm, it's just uncommon.",
+          "createdAt": "2022-03-06T11:16:35Z",
+          "updatedAt": "2022-03-06T11:16:35Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The changeset at this point is okay for me now. I think we've hashed out the core points. Any objections to merging?",
+          "createdAt": "2022-03-06T12:03:02Z",
+          "updatedAt": "2022-03-06T12:03:02Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "LGTM!",
+          "createdAt": "2022-03-06T12:39:50Z",
+          "updatedAt": "2022-03-06T12:39:50Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 39,
+      "id": "PR_kwDOGRNxcs40N4wt",
+      "title": "Address feedback from yesterday",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/39",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Various commits to try and address the inputs from yesterday.\r\n\r\nIn particular, addresses #38.\r\n\r\nI reserve the right to force-push to rewrite commit messages.",
+      "createdAt": "2022-03-10T06:39:16Z",
+      "updatedAt": "2022-03-10T18:09:37Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "3dadff0d481c265739a51fccc9e2b1e608f71b9d",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+db",
+      "headRefOid": "51b971e7e2efbef765f84bbd9e3a9f138cfe901f",
+      "closedAt": "2022-03-10T18:09:33Z",
+      "mergedAt": "2022-03-10T18:09:33Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "2bc1d6ebd03de229777fd05473ede0732eadb7d0"
+      },
+      "comments": [
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There will be a clean-up commit following merge of this because I realized that the descriptions for functions are not uniformly placed:\r\n\r\n```md\r\n## Authenticated Encryption\r\n\r\nThe `Encrypt` function encrypts a message and [...]\r\n\r\n~~~\r\nEncrypt(msg, ad, key, nonce)\r\n~~~\r\n```\r\n\r\nvs.\r\n\r\n```md\r\n## Authenticated Encryption\r\n\r\n~~~\r\nEncrypt(msg, ad, key, nonce)\r\n~~~\r\n\r\nThe `Encrypt` function encrypts a message and [...]\r\n```\r\n\r\nHowever, this PR will not merge cleanly if addressed separately and I want to avoid having a formal fix-up mixed with actual discussion of content.",
+          "createdAt": "2022-03-10T06:51:58Z",
+          "updatedAt": "2022-03-10T06:51:58Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "LGTM, although I'd remove the comma here:\r\n\r\n> Its performance exceeds that of AES-GCM{{AEGIS}} significantly while offering key commitment, and increased safety when using random nonces.",
+          "createdAt": "2022-03-10T08:35:40Z",
+          "updatedAt": "2022-03-10T08:35:40Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Also, I'd just like to say that it was a pleasure (virtually) meeting both of you. You seem like very nice people, and it's an honour to work with you and contribute to something important. Then sorry about the lack of visuals yesterday; I don't have a webcam on my desktop.",
+          "createdAt": "2022-03-10T09:08:39Z",
+          "updatedAt": "2022-03-10T09:09:16Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Looks good to me as well! Thanks for addressing this, @fscoto !\r\n\r\nAnd yeah, it was greeting meeting you last night. Hopefully we can do it in person some day!\r\n\r\nCheers!",
+          "createdAt": "2022-03-10T11:20:07Z",
+          "updatedAt": "2022-03-10T11:20:07Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "While I have everyone's attention, I'd also like to express my thanks for everyone showing up yesterday. It was a pleasure and a honor to meet you both.",
+          "createdAt": "2022-03-10T17:28:24Z",
+          "updatedAt": "2022-03-10T17:28:24Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs41-7Q5",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T11:21:49Z",
+          "updatedAt": "2022-03-10T11:21:49Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "How about `msg = \u2205` here?",
+              "createdAt": "2022-03-10T11:21:49Z",
+              "updatedAt": "2022-03-10T11:21:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41-8Ui",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T11:25:55Z",
+          "updatedAt": "2022-03-10T11:25:56Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "That being said, it feels a little bit weird to set `msg` since we don't return it.\r\n\r\nIn actual code, implementers can fill the return buffer with zeros, but in pseudo-code, it looks like a bug, setting a variable with a value that is not used.",
+              "createdAt": "2022-03-10T11:25:55Z",
+              "updatedAt": "2022-03-10T11:25:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41-9ul",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T11:31:36Z",
+          "updatedAt": "2022-03-10T11:31:36Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Are we even allowed to use non-ASCII characters like \u2205? RFC 7997 doesn't seem to unless I've missed something.\r\n\r\nIt does feel weird, but we have no other way to really express \"write a partially written buffer\" in pseudocode. If we don't do that, a 1:1 translation to C *will* forget about it and just return the error.",
+              "createdAt": "2022-03-10T11:31:36Z",
+              "updatedAt": "2022-03-10T11:31:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41_ZBN",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T13:11:55Z",
+          "updatedAt": "2022-03-10T13:11:55Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "What `= {}` or `= \u2205` mean remains unclear. Set the buffer length to `0`? Which is exactly what would happen in e.g JavaScript, Python or PHP when assigning an empty string to `msg`. The content would still be around in memory, exploitable in cold boot attacks, etc.\r\n\r\nInstead of `msg = {}`, how about adding a note saying that prior to returning an error, the function SHOULD fully overwrite `msg` with non-secret data (such as the `0` constant)?\r\n",
+              "createdAt": "2022-03-10T13:11:55Z",
+              "updatedAt": "2022-03-10T13:11:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41_cVN",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T13:22:37Z",
+          "updatedAt": "2022-03-10T13:22:37Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "So\r\n\r\n1. Remove `msg = {}`\r\n2. After \"The comparison of the input `tag` with the `expected_tag` SHOULD be done in constant time. If verification fails, the decrypted message and wrong message authentication tag MUST NOT be given as output.\" add:\r\n\"If the decryption process is implemented such that a buffer is supplied by the caller and said buffer is modified to contain partial decrypted data, the buffer SHOULD fully overwrite the supplied buffer with non-secret data, such as setting it to an all-zero value.\"?\r\n\r\nIf so, wouldn't a MUST NOT be more appropriate since we MUST NOT release partial plaintext?",
+              "createdAt": "2022-03-10T13:22:37Z",
+              "updatedAt": "2022-03-10T13:22:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41_ela",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T13:29:49Z",
+          "updatedAt": "2022-03-10T13:29:49Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "This is not always possible, especially in functional languages. ",
+              "createdAt": "2022-03-10T13:29:49Z",
+              "updatedAt": "2022-03-10T13:29:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41_fQr",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T13:31:56Z",
+          "updatedAt": "2022-03-10T13:31:56Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Sorry I misread this for \"MUST\" regarding clearing the buffer. Of course not returning the message and proper tag should be MUST NOT. ",
+              "createdAt": "2022-03-10T13:31:56Z",
+              "updatedAt": "2022-03-10T13:32:49Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41_fa4",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T13:32:27Z",
+          "updatedAt": "2022-03-10T13:32:27Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "Then the decryption process must not implemented in such a fashion in functional languages because that leaks partial plaintext. What am I missing here?",
+              "createdAt": "2022-03-10T13:32:27Z",
+              "updatedAt": "2022-03-10T13:32:27Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs41_kwL",
+          "commit": {
+            "abbreviatedOid": "78385ff"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-10T13:49:05Z",
+          "updatedAt": "2022-03-10T13:49:06Z",
+          "comments": [
+            {
+              "originalPosition": 26,
+              "body": "> wouldn't a MUST NOT be more appropriate \r\n\r\nI just got confused about where that `MUST NOT` would be.",
+              "createdAt": "2022-03-10T13:49:06Z",
+              "updatedAt": "2022-03-10T13:49:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs42BCMz",
+          "commit": {
+            "abbreviatedOid": "51b971e"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-10T18:03:49Z",
+          "updatedAt": "2022-03-10T18:03:49Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "id": "PR_kwDOGRNxcs40QxJh",
+      "title": "Add Security subsections",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/42",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #38. Also, some minor rewording and grammar changes.\r\n\r\n> the buffer MUST fully overwrite the supplied buffer with non-secret data\r\n\r\nIs this a mistake?",
+      "createdAt": "2022-03-10T20:30:00Z",
+      "updatedAt": "2022-03-11T19:52:55Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "cfb6a6176751bb61e0a4a089e2ed4020e6d57467",
+      "headRepository": "samuel-lucas6/draft-aegis-aead-1",
+      "headRefName": "main",
+      "headRefOid": "d9fc7d4a6d3f1432240d0d40ddacbd679d0a7a2e",
+      "closedAt": "2022-03-11T19:52:50Z",
+      "mergedAt": "2022-03-11T19:52:49Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "9781723ea85e9390170f32cc0848896ede85ed7b"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> If the decryption process is implemented such that a buffer is supplied by the caller and said buffer is modified to contain partial decrypted data, the buffer MUST fully overwrite the supplied buffer with non-secret data, such as setting it to an all-zero value.\r\n\r\nToo many \"buffer\" instances in that sentence.\r\n\r\nBut more importantly, if the decryption function allocates the output array, it should be zeroed as well.\r\n\r\nSo maybe we should just refer to the decrypted message as `msg` and not talk about buffers and calling conventions.\r\n",
+          "createdAt": "2022-03-10T21:53:41Z",
+          "updatedAt": "2022-03-10T21:53:41Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> > the buffer MUST fully overwrite the supplied buffer with non-secret data\r\n> \r\n> Is this a mistake?\r\n\r\nIt is, indeed, a mistake.\r\n\r\n> But more importantly, if the decryption function allocates the output array, it should be zeroed as well.\r\n> \r\n> So maybe we should just refer to the decrypted message as `msg` and not talk about buffers and calling conventions.\r\n\r\nDaniel Bleichenbacher made it fairly clear that we're expected to give implementation guidance and that means, to me, covering the obvious point of failure, a buffer that's not wiped yet. We're not getting around some implementation details at that point, especially considering footgun language number one: C.\r\n\r\nI don't disagree with the notion of wiping the buffer even if allocated, however. I suppose in a firmware and reboot scenario, the debris could be an issue. I actually do know of a vulnerability that went like this.",
+          "createdAt": "2022-03-11T06:07:54Z",
+          "updatedAt": "2022-03-11T06:07:54Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "But why not just say that the content of `msg` should be overwritten? \r\n\r\nThat covers all possible ways `msg` is allocated.\r\n\r\nI strongly disagree with talking about buffers and calling conventions only relevant to a subset of platforms and languages.",
+          "createdAt": "2022-03-11T06:25:57Z",
+          "updatedAt": "2022-03-11T06:25:57Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Because now we're back where we started: Now we need new pseudocode to cover this if it's a completely general thing.",
+          "createdAt": "2022-03-11T06:38:56Z",
+          "updatedAt": "2022-03-11T06:38:56Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Could we just put 'erase msg' or 'zero msg'? Neil Madden put 'destroy P and T' in the [generalised SIV](https://datatracker.ietf.org/doc/html/draft-madden-generalised-siv#section-2.2) draft. I feel like it should be mentioned in the pseudocode somehow.\r\n\r\n> if CtEq(tag, expected_tag) is False:\r\n>     erase msg\r\n>     return \"verification failed\" error\r\n> else:\r\n>     return msg",
+          "createdAt": "2022-03-11T09:16:26Z",
+          "updatedAt": "2022-03-11T09:18:29Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Sounds good!",
+          "createdAt": "2022-03-11T13:54:50Z",
+          "updatedAt": "2022-03-11T13:54:50Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Boom!",
+          "createdAt": "2022-03-11T19:52:55Z",
+          "updatedAt": "2022-03-11T19:52:55Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs42GRac",
+          "commit": {
+            "abbreviatedOid": "d9fc7d4"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Reads fine to me. @jedisct1, feel free to merge if you agree.",
+          "createdAt": "2022-03-11T18:59:29Z",
+          "updatedAt": "2022-03-11T18:59:29Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "id": "PR_kwDOGRNxcs40awEr",
+      "title": "Introduction improvements",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/45",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #43. Probably needs some rewording (e.g. 'when hardware support for parallelizable AES block encryption is available' and maybe 'software implementations are faster').\r\n\r\n> a variant of which has been chosen as a winner in the Competition for Authenticated Encryption: Security, Applicability, and Robustness (CAESAR).\r\n\r\nI was under the impression that all three were finalists for use case 2.",
+      "createdAt": "2022-03-14T19:17:39Z",
+      "updatedAt": "2022-03-14T20:13:28Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "ea910aaa2d1fa6a78682e7429d78aadf13cabde9",
+      "headRepository": "samuel-lucas6/draft-aegis-aead-1",
+      "headRefName": "main",
+      "headRefOid": "c632c1421efd46cc0cfca0d05681259ab206b926",
+      "closedAt": "2022-03-14T19:58:25Z",
+      "mergedAt": "2022-03-14T19:58:25Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "5177c21afe1be2fff8ca312868e85034b80aaaed"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Looking good!\r\n\r\n> I was under the impression that all three were finalists for use case 2.\r\n\r\nOnly one variant could be present in the portfolio, but other AEGIS variants are listed as additional finalists.",
+          "createdAt": "2022-03-14T19:23:05Z",
+          "updatedAt": "2022-03-14T19:23:05Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "> Note for future traceability: In #12 we made an explicit decision not to mention other ciphers because the RFC would end up outliving any cipher it references. In the meeting of 2022-03-09, Daniel Bleichenbacher noted that comparison with other, existing algorithms is an added value. Essentially, the decision in #12 was therefore reversed.\r\n\r\nYes, I recall that. I think it's fine except for maybe 'unlike most other AES-based AEAD constructions', which could become false in the future. 'Most' could be changed to 'some' if that's a concern.",
+          "createdAt": "2022-03-14T20:13:28Z",
+          "updatedAt": "2022-03-14T20:13:28Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs42MxCB",
+          "commit": {
+            "abbreviatedOid": "c632c14"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-14T19:50:08Z",
+          "updatedAt": "2022-03-14T19:50:08Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGRNxcs42MzFL",
+          "commit": {
+            "abbreviatedOid": "c632c14"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Note for future traceability: In #12 we made an explicit decision *not* to mention other ciphers because the RFC would end up outliving any cipher it references. In the meeting of 2022-03-09, Daniel Bleichenbacher noted that comparison with other, existing algorithms is an added value. Essentially, the decision in #12 was therefore reversed.",
+          "createdAt": "2022-03-14T19:58:19Z",
+          "updatedAt": "2022-03-14T19:58:19Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "id": "PR_kwDOGRNxcs406UZa",
+      "title": "Address Bart's feedback",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/47",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Some suggestions from Bart.\r\n",
+      "createdAt": "2022-03-23T21:17:56Z",
+      "updatedAt": "2022-03-24T13:22:18Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "5177c21afe1be2fff8ca312868e85034b80aaaed",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "bart-review",
+      "headRefOid": "f866e3227e59b62001ee6a2b1640e9a127485e28",
+      "closedAt": "2022-03-24T13:22:06Z",
+      "mergedAt": "2022-03-24T13:22:06Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "fc38797c31c503bb1c7c470c52ea13150c749e7f"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs420PU2",
+          "commit": {
+            "abbreviatedOid": "c8f8a2a"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-24T03:18:04Z",
+          "updatedAt": "2022-03-24T03:18:09Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I agree it's inconsistent here, but is putting timing attacks in the same category as \u201cphysical\u201d attacks common parlance? Shouldn't this be \u201cside-channel\u201d instead?\r\n\r\nI don't recall ever seeing this categorization at least, especially since timing may be observable over the network and [power might be visible to an attacker with local software access](https://platypusattack.com/).",
+              "createdAt": "2022-03-24T03:18:04Z",
+              "updatedAt": "2022-03-24T03:18:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs421mRG",
+          "commit": {
+            "abbreviatedOid": "c8f8a2a"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-24T10:13:11Z",
+          "updatedAt": "2022-03-24T10:13:11Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "Couldn't it be 'against timing and physical attacks', 'in a fashion safe against timing and physical attacks', and 'mitigations required for timing and physical attacks'?",
+              "createdAt": "2022-03-24T10:13:11Z",
+              "updatedAt": "2022-03-24T10:13:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs422fE4",
+          "commit": {
+            "abbreviatedOid": "c8f8a2a"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-24T13:18:46Z",
+          "updatedAt": "2022-03-24T13:18:46Z",
+          "comments": [
+            {
+              "originalPosition": 17,
+              "body": "I agree that it is confusing; timing attacks can directly exploit implementation issues in a hardware-independent way.\r\n\r\nSo, yeah, explicitly stating \"timing and physical attacks\" sounds better.",
+              "createdAt": "2022-03-24T13:18:46Z",
+              "updatedAt": "2022-03-24T13:18:46Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "id": "PR_kwDOGRNxcs41AYyk",
+      "title": "Address Neil's feedback",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/48",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I also noticed that the Security subsections I added haven't been turned into bullet points properly, which is my bad. I don't normally do a space beneath headings with Markdown.\r\n\r\nI will summarise his feedback here, some of which has yet to be addressed:\r\n1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n2. Mention that AEGIS was selected for the high-performance scenario. AEGIS-128L is somewhat at odds with the competition outcome.\r\n3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n4. I would perhaps be inclined to simplify things even further and only document the AEGIS-128L variant, which seems like the best pick of the three for the intended use cases.\r\n5. The discussion of partitioning oracle (PO) attacks could be moved from the introduction to a later section (perhaps section 6), with perhaps just a short note in the intro that AEGIS is key-committing and therefore resists partitioning oracle attacks.\r\n6. ~Add 'using a suitable password-based key derivation function' to the partitioning oracle attacks paragraph to avoid implying that a password can be used directly.~ (This seems to have been removed)\r\n7. Add a reference for the partitioning oracle attacks 'padding block'/zero check. (DONE)\r\n8. What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries. What is the impact on message authentication of nonce reuse?\r\n9. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n10. The \u201cfor a given key\u201d caveat is missing from the note in section 3.1 and should probably be added. (DONE)\r\n11. The requirement to compare the MAC tag in constant time is only a SHOULD. I can\u2019t see any good reason not to make this a MUST given how simple it is to implement? (DONE)\r\n12. What's the purpose of section 5? Would the JOSE implementation be non-compliant?\r\n13. ~Define 'context-committing'.~ (This was removed)\r\n\r\nThank you again @NeilMadden! I think I agree with everything Neil has said, except for 4 (only documenting AEGIS-128L) since I would argue a 256-bit key variant is important for longevity. We have sort of done 1, but it could be clarified. I think why AEGIS-128L is being recommended does need to be explained. The padding block bit could be renamed to 'zero check' like in the partitioning oracle attacks paper, or that bit could be completely removed.",
+      "createdAt": "2022-03-25T09:50:16Z",
+      "updatedAt": "2022-03-25T13:08:10Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "fc38797c31c503bb1c7c470c52ea13150c749e7f",
+      "headRepository": "samuel-lucas6/draft-aegis-aead-1",
+      "headRefName": "main",
+      "headRefOid": "d2978df434c6199891f4ffa3d6df5a51ab96ca3b",
+      "closedAt": "2022-03-25T13:08:10Z",
+      "mergedAt": "2022-03-25T13:08:10Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "0e3e90d7bac1b1cbfa25ba876477a33241055d26"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Yep, Neil's feedback is very useful!\r\n\r\nThe changes you made look good, thanks for addressing these points!\r\n\r\n[This](https://competitions.cr.yp.to/caesar-submissions.html) is essentially the CAESAR's final \"report\". AEGIS-128L and AEGIS-256 are listed as additional finalist in the same category.\r\n\r\nSimplification is good, but I agree that having a 256 bit variant is very useful, especially if we want to present AEGIS as an alternative to AES-GCM.\r\n\r\n> The padding block bit could be renamed to 'zero check' like in the partitioning oracle attacks paper, or that bit could be completely removed.\r\n\r\nIt sounds a bit out of scope, so maybe we can indeed remove it.\r\n\r\n",
+          "createdAt": "2022-03-25T12:48:00Z",
+          "updatedAt": "2022-03-25T12:48:00Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Should I open an issue for the rest of the feedback and we can do separate PRs?",
+          "createdAt": "2022-03-25T12:51:24Z",
+          "updatedAt": "2022-03-25T12:51:24Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> Should I open an issue for the rest of the feedback and we can do separate PRs?\r\n\r\nYes, let's merge what you have and keep addressing the rest incrementally :) ",
+          "createdAt": "2022-03-25T13:08:05Z",
+          "updatedAt": "2022-03-25T13:08:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs427nRk",
+          "commit": {
+            "abbreviatedOid": "d2978df"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-03-25T12:48:36Z",
+          "updatedAt": "2022-03-25T12:48:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "id": "PR_kwDOGRNxcs41Ftcy",
+      "title": "Mention selected for high-performance applications",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/50",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "And explain why AEGIS-128 is not described.\r\n\r\nThis addresses point 2 in #49.",
+      "createdAt": "2022-03-26T22:37:18Z",
+      "updatedAt": "2022-03-28T09:12:47Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "0e3e90d7bac1b1cbfa25ba876477a33241055d26",
+      "headRepository": "samuel-lucas6/draft-aegis-aead-1",
+      "headRefName": "main",
+      "headRefOid": "83de8c52c677a5513489a440d949bb3a58f9fb6e",
+      "closedAt": "2022-03-28T09:12:46Z",
+      "mergedAt": "2022-03-28T09:12:46Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "570017199e047b1f4c5a37f6c2e098082b586854"
+      },
+      "comments": [
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "This is more of an idle question than anything, but if AEGIS-128L offers \u201cimproved performance\u201d over AEGIS-128 and was *not* selected for the \u201chigh-performance application\u201d use case: Why would it have been passed over? This seems like a contradiction. It bothers me when reading this.\r\n\r\nI'm not standing in the way of these changes, but I can't help but shake we've missed something now. Looking at http://www.nuee.nagoya-u.ac.jp/labs/tiwata/diac2016/slides/diac2016_06_Hongjun.pdf slide 13, AEGIS-128 seems to outperform for very short messages and AEGIS-128L overtakes somewhere between 64 and 1536 bytes.\r\n\r\nDo we need to re-evaluate this?",
+          "createdAt": "2022-03-27T06:43:37Z",
+          "updatedAt": "2022-03-27T06:43:37Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I see what you mean. That's the only reason I'm aware of for why AEGIS-128L was chosen for this draft. It's also the reason given in chapter 2 of the [v1.1](https://competitions.cr.yp.to/round3/aegisv11.pdf) PDF. It probably wasn't a winner because it was submitted after the others.",
+          "createdAt": "2022-03-27T07:50:05Z",
+          "updatedAt": "2022-03-27T07:50:05Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "The CAESAR selection process is a bit opaque. AEGIS128L was not present in the first version submitted for the competition, which may have played a role.\r\n\r\nBut in addition to being faster, AEGIS128L has a better security margin than AEGIS128 (see https://eprint.iacr.org/2021/187.pdf and https://tosc.iacr.org/index.php/ToSC/article/view/8468/8034). It is also the designers' recommended variant.\r\n\r\n",
+          "createdAt": "2022-03-27T18:39:53Z",
+          "updatedAt": "2022-03-27T18:39:53Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> But in addition to being faster, AEGIS128L has a better security margin than AEGIS128 [...]. It is also the designers' recommended variant.\r\n\r\nShouldn't we include the security margin argument + cite Liu/Isobe/Meier/Sakamoto then? Also gets us an excuse to cite one of the papers Bart mentioned that you noted in #46.",
+          "createdAt": "2022-03-27T18:47:34Z",
+          "updatedAt": "2022-03-27T18:47:34Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "> Also gets us an excuse to cite one of the papers Bart mentioned that you noted in https://github.com/jedisct1/draft-aegis-aead/issues/46.\r\n\r\nGood idea.",
+          "createdAt": "2022-03-27T18:53:48Z",
+          "updatedAt": "2022-03-27T18:53:48Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "I expect I've cited that wrong, so feel free to edit it. I also wasn't sure how to cite two back to back and whether they should go in the middle of the sentence or at the end.",
+          "createdAt": "2022-03-27T19:53:18Z",
+          "updatedAt": "2022-03-27T19:53:28Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Looks good.",
+          "createdAt": "2022-03-28T09:11:58Z",
+          "updatedAt": "2022-03-28T09:11:58Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 51,
+      "id": "PR_kwDOGRNxcs41J1Kf",
+      "title": "Simplify partitioning oracle attacks discussion",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/51",
+      "state": "MERGED",
+      "author": "samuel-lucas6",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This addresses point 5 in #49.\r\n\r\nShould we keep any of that first paragraph I removed in Section 6?",
+      "createdAt": "2022-03-28T12:50:32Z",
+      "updatedAt": "2022-03-29T15:36:24Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "570017199e047b1f4c5a37f6c2e098082b586854",
+      "headRepository": "samuel-lucas6/draft-aegis-aead-1",
+      "headRefName": "main",
+      "headRefOid": "8285d1376932b52d5cc103d07fbe9086e9c5688e",
+      "closedAt": "2022-03-29T15:36:04Z",
+      "mergedAt": "2022-03-29T15:36:04Z",
+      "mergedBy": "fscoto",
+      "mergeCommit": {
+        "oid": "18807b65743fc3434257dc6600c11f3ea352c8bc"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "I have mixed feelings about this.\r\n\r\nThe current description is short and useful to quickly understand the implications without having to digest another document. Given that the audience of the document is implementers and users, keeping the short summary seems worth it, as long as a reference to the partitioning oracle document is also kept.",
+          "createdAt": "2022-03-29T13:17:04Z",
+          "updatedAt": "2022-03-29T13:17:04Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Late to the party, but I just caught up and agree",
+          "createdAt": "2022-03-29T15:36:23Z",
+          "updatedAt": "2022-03-29T15:36:23Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs43HVuD",
+          "commit": {
+            "abbreviatedOid": "ed74e7f"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-29T13:57:36Z",
+          "updatedAt": "2022-03-29T13:57:37Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "The keys are not what is being decrypted :)\r\n\r\nHow about something like \"significantly harder to find multiple keys that are valid for a given authentication tag\"?",
+              "createdAt": "2022-03-29T13:57:36Z",
+              "updatedAt": "2022-03-29T13:57:37Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs43HcWg",
+          "commit": {
+            "abbreviatedOid": "ed74e7f"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "CONTRIBUTOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-03-29T14:13:19Z",
+          "updatedAt": "2022-03-29T14:13:19Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "Oh dear, that was there from before. Sounds good.",
+              "createdAt": "2022-03-29T14:13:19Z",
+              "updatedAt": "2022-03-29T14:16:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs43H6Qt",
+          "commit": {
+            "abbreviatedOid": "8285d13"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2022-03-29T15:26:33Z",
+          "updatedAt": "2022-03-29T15:26:33Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
