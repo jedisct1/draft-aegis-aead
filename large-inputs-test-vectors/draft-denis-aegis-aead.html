@@ -11,15 +11,15 @@
 <meta content="
        This document describes AEGIS-128L and AEGIS-256, two AES-based authenticated encryption algorithms designed for high-performance applications. 
     " name="description">
-<meta content="xml2rfc 3.12.3" name="generator">
+<meta content="xml2rfc 3.12.5" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-denis-aegis-aead-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.12.3
+  xml2rfc 3.12.5
     Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
-    google-i18n-address 2.5.0
+    google-i18n-address 2.5.1
     html5lib 1.1
     intervaltree 3.1.0
     Jinja2 2.11.3
@@ -1015,11 +1015,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">The AEGIS family of authenticated encryp</td>
-<td class="right">March 2022</td>
+<td class="right">May 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Denis, et al.</td>
-<td class="center">Expires 24 September 2022</td>
+<td class="center">Expires 7 November 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1032,12 +1032,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-denis-aegis-aead-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-03-23" class="published">23 March 2022</time>
+<time datetime="2022-05-06" class="published">6 May 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-09-24">24 September 2022</time></dd>
+<dd class="expires"><time datetime="2022-11-07">7 November 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1087,7 +1087,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 November 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1236,6 +1236,9 @@ svg [stroke="fill"], svg [fill^="#fff"] {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.9">
                     <p id="section-toc.1-1.9.2.2.2.9.1"><a href="#appendix-A.2.9" class="xref">A.2.9</a>.  <a href="#name-test-vector-8" class="xref">Test Vector 8</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.10">
+                    <p id="section-toc.1-1.9.2.2.2.10.1"><a href="#appendix-A.2.10" class="xref">A.2.10</a>. <a href="#name-test-vector-9" class="xref">Test Vector 9</a></p>
+</li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
@@ -1268,6 +1271,9 @@ svg [stroke="fill"], svg [fill^="#fff"] {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.9">
                     <p id="section-toc.1-1.9.2.3.2.9.1"><a href="#appendix-A.3.9" class="xref">A.3.9</a>.  <a href="#name-test-vector-8-2" class="xref">Test Vector 8</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.10">
+                    <p id="section-toc.1-1.9.2.3.2.10.1"><a href="#appendix-A.3.10" class="xref">A.3.10</a>. <a href="#name-test-vector-9-2" class="xref">Test Vector 9</a></p>
+</li>
                 </ul>
 </li>
             </ul>
@@ -1287,7 +1293,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">This document describes the AEGIS-128L and AEGIS-256 authenticated encryption with associated data (AEAD) algorithms <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span>, a variant of which has been chosen as a winner in the Competition for Authenticated Encryption: Security, Applicability, and Robustness (CAESAR). All variants of AEGIS are constructed from the AES encryption round function <span>[<a href="#FIPS-AES" class="xref">FIPS-AES</a>]</span>. This document specifies:<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">This document describes the AEGIS-128L and AEGIS-256 authenticated encryption with associated data (AEAD) algorithms <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span>, which were chosen as additional finalists for high-performance applications in the Competition for Authenticated Encryption: Security, Applicability, and Robustness (CAESAR). Whilst AEGIS-128 was selected as a winner for this use case, AEGIS-128L has a better security margin alongside improved performance and AEGIS-256 uses a 256-bit key <span>[<a href="#LIMS21" class="xref">LIMS21</a>]</span>. All variants of AEGIS are constructed from the AES encryption round function <span>[<a href="#FIPS-AES" class="xref">FIPS-AES</a>]</span>. This document specifies:<a href="#section-1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-2.1">AEGIS-128L, which has a 128-bit key, a 128-bit nonce, a 1024-bit state, a 128-bit authentication tag, and processes 256-bit input blocks.<a href="#section-1-2.1" class="pilcrow">¶</a>
 </li>
@@ -1296,8 +1302,8 @@ svg [stroke="fill"], svg [fill^="#fff"] {
       </ul>
 <p id="section-1-3">The AEGIS cipher family offers performance that significantly exceeds that of AES-GCM with hardware support for parallelizable AES block encryption <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span>. Similarly, software implementations can also be faster, although to a lesser extent.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Unlike with AES-GCM, nonces can be safely chosen at random with no practical limit when using AEGIS-256. AEGIS-128L also allows for more messages to be safely encrypted when using random nonces.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">With some existing AEAD schemes, such as AES-GCM, an attacker can generate a ciphertext that successfully decrypts under multiple different keys (a partitioning oracle attack)<span>[<a href="#LGR21" class="xref">LGR21</a>]</span>. This ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small. One example for a small key space is password-based encryption: an attacker can guess a large number of passwords at a time by recursively submitting such a ciphertext to an oracle, which speeds up a password search by reducing it to a binary search.<a href="#section-1-5" class="pilcrow">¶</a></p>
-<p id="section-1-6">While this may be mitigated by means of inserting a padding block in the aforementioned algorithms, this workaround comes with additional processing cost and must itself be carefully constructed to resist leaking information via timing. As a key-committing AEAD scheme, the AEGIS cipher family is naturally more resistant against partitioning oracle attacks than non-committing AEAD schemes, making it significantly harder to find multiple different keys that decrypt successfully.<a href="#section-1-6" class="pilcrow">¶</a></p>
+<p id="section-1-5">With some existing AEAD schemes, such as AES-GCM, an attacker can generate a ciphertext that successfully decrypts under multiple different keys (a partitioning oracle attack) <span>[<a href="#LGR21" class="xref">LGR21</a>]</span>. This ability to craft a (ciphertext, authentication tag) pair that verifies under multiple keys significantly reduces the number of required interactions with the oracle in order to perform an exhaustive search, making it practical if the key space is small. For example, with password-based encryption, an attacker can guess a large number of passwords at a time by recursively submitting such a ciphertext to an oracle, which speeds up a password search by reducing it to a binary search.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-6">As a key-committing AEAD scheme, the AEGIS cipher family is more resistant against partitioning oracle attacks than non-committing AEAD schemes, making it significantly harder to find multiple keys that are valid for a given authentication tag.<a href="#section-1-6" class="pilcrow">¶</a></p>
 <p id="section-1-7">Finally, unlike most other AES-based AEAD constructions, such as Rocca and Tiaoxin, leaking the state does not leak the key.<a href="#section-1-7" class="pilcrow">¶</a></p>
 <p id="section-1-8">Note that an earlier version of Hongjun Wu and Bart Preneel's paper introducing AEGIS specified AEGIS-128L and AEGIS-256 sporting differences with regards to the computation of the authentication tag and the number of rounds in <code>Finalize()</code> respectively. We follow the specification of <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span> that is current at the time of writing, which can be found in the References section of this document.<a href="#section-1-8" class="pilcrow">¶</a></p>
 </section>
@@ -1338,13 +1344,13 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
           <code>Truncate(x, n)</code>: truncation operation. The first <code>n</code> bits of <code>x</code> are kept.<a href="#section-2-3.8" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-2-3.9">
-          <code>Split(x, n)</code>: splitting operation. <code>x</code> is split <code>n</code>-bit blocks, ignoring partial blocks.<a href="#section-2-3.9" class="pilcrow">¶</a>
+          <code>Split(x, n)</code>: splitting operation. <code>x</code> is split into <code>n</code>-bit blocks, ignoring partial blocks.<a href="#section-2-3.9" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-2-3.10">
           <code>Tail(x, n)</code>: returns the last <code>n</code> bits of <code>x</code>.<a href="#section-2-3.10" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-2-3.11">
-          <code>AESRound(in, rk)</code>: a single round of the AES encryption round function, which is the composition of the <code>SubBytes</code>, <code>ShiftRows</code>, <code>MixColums</code> and <code>AddRoundKey</code> transformations, as defined in section 5 of <span>[<a href="#FIPS-AES" class="xref">FIPS-AES</a>]</span>. <code>in</code> is the 128-bit AES input state, and <code>rk</code> is the 128-bit round key.<a href="#section-2-3.11" class="pilcrow">¶</a>
+          <code>AESRound(in, rk)</code>: a single round of the AES encryption round function, which is the composition of the <code>SubBytes</code>, <code>ShiftRows</code>, <code>MixColums</code> and <code>AddRoundKey</code> transformations, as defined in section 5 of <span>[<a href="#FIPS-AES" class="xref">FIPS-AES</a>]</span>. Here, <code>in</code> is the 128-bit AES input state, and <code>rk</code> is the 128-bit round key.<a href="#section-2-3.11" class="pilcrow">¶</a>
 </li>
         <li class="normal" id="section-2-3.12">
           <code>Repeat(n, F)</code>: <code>n</code> sequential evaluations of the function <code>F</code>.<a href="#section-2-3.12" class="pilcrow">¶</a>
@@ -1454,35 +1460,39 @@ Encrypt(msg, ad, key, nonce)
 </pre><a href="#section-3.1-1" class="pilcrow">¶</a>
 </div>
 <p id="section-3.1-2">The <code>Encrypt</code> function encrypts a message and returns the ciphertext along with an authentication tag that verifies the authenticity of the message and associated data, if provided.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">Security:
-- The nonce <span class="bcp14">MUST NOT</span> be reused under any circumstances; doing so allows an attacker to recover the internal state.
-- The key <span class="bcp14">MUST</span> be randomly chosen from a uniform distribution.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">Inputs:<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-3">Security:<a href="#section-3.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-5.1">
-            <code>msg</code>: the message to be encrypted.<a href="#section-3.1-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.1-4.1">For a given key, the nonce <span class="bcp14">MUST NOT</span> be reused under any circumstances; doing so allows an attacker to recover the internal state.<a href="#section-3.1-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.1-5.2">
-            <code>ad</code>: the associated data to authenticate.<a href="#section-3.1-5.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.1-5.3">
-            <code>key</code>: the encryption key.<a href="#section-3.1-5.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.1-5.4">
-            <code>nonce</code>: the public nonce.<a href="#section-3.1-5.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.1-4.2">The key <span class="bcp14">MUST</span> be randomly chosen from a uniform distribution.<a href="#section-3.1-4.2" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.1-6">Outputs:<a href="#section-3.1-6" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">Inputs:<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1-7.1">
-            <code>ct</code>: the ciphertext.<a href="#section-3.1-7.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.1-6.1">
+            <code>msg</code>: the message to be encrypted.<a href="#section-3.1-6.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.1-7.2">
-            <code>tag</code>: the authentication tag.<a href="#section-3.1-7.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.1-6.2">
+            <code>ad</code>: the associated data to authenticate.<a href="#section-3.1-6.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-6.3">
+            <code>key</code>: the encryption key.<a href="#section-3.1-6.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-6.4">
+            <code>nonce</code>: the public nonce.<a href="#section-3.1-6.4" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.1-8">Steps:<a href="#section-3.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.1-9">
+<p id="section-3.1-7">Outputs:<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.1-8.1">
+            <code>ct</code>: the ciphertext.<a href="#section-3.1-8.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.1-8.2">
+            <code>tag</code>: the authentication tag.<a href="#section-3.1-8.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.1-9">Steps:<a href="#section-3.1-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.1-10">
 <pre>
 Init(key, nonce)
 
@@ -1500,7 +1510,7 @@ tag = Finalize(|ad|, |msg|)
 ct = Truncate(ct, |msg|)
 
 return ct and tag
-</pre><a href="#section-3.1-9" class="pilcrow">¶</a>
+</pre><a href="#section-3.1-10" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1515,34 +1525,38 @@ Decrypt(ct, tag, ad, key, nonce)
 </pre><a href="#section-3.2-1" class="pilcrow">¶</a>
 </div>
 <p id="section-3.2-2">The <code>Decrypt</code> function decrypts a ciphertext, verifies that the authentication tag is correct, and returns the message on success or an error if tag verification failed.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<p id="section-3.2-3">Security:
-- If tag verification fails, the decrypted message and wrong message authentication tag <span class="bcp14">MUST NOT</span> be given as output. The decrypted message <span class="bcp14">MUST</span> be overwritten with zeros.
-- The comparison of the input <code>tag</code> with the <code>expected_tag</code> <span class="bcp14">SHOULD</span> be done in constant time.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4">Inputs:<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">Security:<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2-5.1">
-            <code>ct</code>: the ciphertext to be decrypted.<a href="#section-3.2-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2-4.1">If tag verification fails, the decrypted message and wrong message authentication tag <span class="bcp14">MUST NOT</span> be given as output. The decrypted message <span class="bcp14">MUST</span> be overwritten with zeros.<a href="#section-3.2-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-3.2-5.2">
-            <code>tag</code>: the authentication tag.<a href="#section-3.2-5.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.2-5.3">
-            <code>ad</code>: the associated data to authenticate.<a href="#section-3.2-5.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.2-5.4">
-            <code>key</code>: the encryption key.<a href="#section-3.2-5.4" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-3.2-5.5">
-            <code>nonce</code>: the public nonce.<a href="#section-3.2-5.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.2-4.2">The comparison of the input <code>tag</code> with the <code>expected_tag</code> <span class="bcp14">MUST</span> be done in constant time.<a href="#section-3.2-4.2" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.2-6">Outputs:<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">Inputs:<a href="#section-3.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2-7.1">Either the decrypted message <code>msg</code>, or an error indicating that the authentication tag is invalid for the given inputs.<a href="#section-3.2-7.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.2-6.1">
+            <code>ct</code>: the ciphertext to be decrypted.<a href="#section-3.2-6.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-6.2">
+            <code>tag</code>: the authentication tag.<a href="#section-3.2-6.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-6.3">
+            <code>ad</code>: the associated data to authenticate.<a href="#section-3.2-6.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-6.4">
+            <code>key</code>: the encryption key.<a href="#section-3.2-6.4" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-3.2-6.5">
+            <code>nonce</code>: the public nonce.<a href="#section-3.2-6.5" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-3.2-8">Steps:<a href="#section-3.2-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2-9">
+<p id="section-3.2-7">Outputs:<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.2-8.1">Either the decrypted message <code>msg</code>, or an error indicating that the authentication tag is invalid for the given inputs.<a href="#section-3.2-8.1" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-3.2-9">Steps:<a href="#section-3.2-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.2-10">
 <pre>
 Init(key, nonce)
 
@@ -1568,7 +1582,7 @@ if CtEq(tag, expected_tag) is False:
     return "verification failed" error
 else:
     return msg
-</pre><a href="#section-3.2-9" class="pilcrow">¶</a>
+</pre><a href="#section-3.2-10" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1870,35 +1884,39 @@ Encrypt(msg, ad, key, nonce)
 </pre><a href="#section-4.1-1" class="pilcrow">¶</a>
 </div>
 <p id="section-4.1-2">The <code>Encrypt</code> function encrypts a message and returns the ciphertext along with an authentication tag that verifies the authenticity of the message and associated data, if provided.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.1-3">Security:
-- The nonce <span class="bcp14">MUST NOT</span> be reused under any circumstances; doing so allows an attacker to recover the internal state.
-- The key <span class="bcp14">MUST</span> be randomly chosen from a uniform distribution.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.1-4">Inputs:<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">Security:<a href="#section-4.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.1-5.1">
-            <code>msg</code>: the message to be encrypted.<a href="#section-4.1-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.1-4.1">For a given key, the nonce <span class="bcp14">MUST NOT</span> be reused under any circumstances; doing so allows an attacker to recover the internal state.<a href="#section-4.1-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-5.2">
-            <code>ad</code>: the associated data to authenticate.<a href="#section-4.1-5.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.1-5.3">
-            <code>key</code>: the encryption key.<a href="#section-4.1-5.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.1-5.4">
-            <code>nonce</code>: the public nonce.<a href="#section-4.1-5.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-4.2">The key <span class="bcp14">MUST</span> be randomly chosen from a uniform distribution.<a href="#section-4.1-4.2" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-4.1-6">Outputs:<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Inputs:<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.1-7.1">
-            <code>ct</code>: the ciphertext.<a href="#section-4.1-7.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.1-6.1">
+            <code>msg</code>: the message to be encrypted.<a href="#section-4.1-6.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.1-7.2">
-            <code>tag</code>: the authentication tag.<a href="#section-4.1-7.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.1-6.2">
+            <code>ad</code>: the associated data to authenticate.<a href="#section-4.1-6.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.1-6.3">
+            <code>key</code>: the encryption key.<a href="#section-4.1-6.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.1-6.4">
+            <code>nonce</code>: the public nonce.<a href="#section-4.1-6.4" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-4.1-8">Steps:<a href="#section-4.1-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.1-9">
+<p id="section-4.1-7">Outputs:<a href="#section-4.1-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.1-8.1">
+            <code>ct</code>: the ciphertext.<a href="#section-4.1-8.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.1-8.2">
+            <code>tag</code>: the authentication tag.<a href="#section-4.1-8.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.1-9">Steps:<a href="#section-4.1-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.1-10">
 <pre>
 Init(key, nonce)
 
@@ -1916,7 +1934,7 @@ tag = Finalize(|ad|, |msg|)
 ct = Truncate(ct, |msg|)
 
 return ct and tag
-</pre><a href="#section-4.1-9" class="pilcrow">¶</a>
+</pre><a href="#section-4.1-10" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -1931,34 +1949,38 @@ Decrypt(ct, tag, ad, key, nonce)
 </pre><a href="#section-4.2-1" class="pilcrow">¶</a>
 </div>
 <p id="section-4.2-2">The <code>Decrypt</code> function decrypts a ciphertext, verifies that the authentication tag is correct, and returns the message on success or an error if tag verification failed.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.2-3">Security:
-- If tag verification fails, the decrypted message and wrong message authentication tag <span class="bcp14">MUST NOT</span> be given as output. The decrypted message <span class="bcp14">MUST</span> be overwritten with zeros.
-- The comparison of the input <code>tag</code> with the <code>expected_tag</code> <span class="bcp14">SHOULD</span> be done in constant time.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.2-4">Inputs:<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">Security:<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.2-5.1">
-            <code>ct</code>: the ciphertext to be decrypted.<a href="#section-4.2-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.2-4.1">If tag verification fails, the decrypted message and wrong message authentication tag <span class="bcp14">MUST NOT</span> be given as output. The decrypted message <span class="bcp14">MUST</span> be overwritten with zeros.<a href="#section-4.2-4.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-4.2-5.2">
-            <code>tag</code>: the authentication tag.<a href="#section-4.2-5.2" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.2-5.3">
-            <code>ad</code>: the associated data to authenticate.<a href="#section-4.2-5.3" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.2-5.4">
-            <code>key</code>: the encryption key.<a href="#section-4.2-5.4" class="pilcrow">¶</a>
-</li>
-          <li class="normal" id="section-4.2-5.5">
-            <code>nonce</code>: the public nonce.<a href="#section-4.2-5.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-4.2-4.2">The comparison of the input <code>tag</code> with the <code>expected_tag</code> <span class="bcp14">MUST</span> be done in constant time.<a href="#section-4.2-4.2" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-4.2-6">Outputs:<a href="#section-4.2-6" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">Inputs:<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.2-7.1">Either the decrypted message <code>msg</code>, or an error indicating that the authentication tag is invalid for the given inputs.<a href="#section-4.2-7.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.2-6.1">
+            <code>ct</code>: the ciphertext to be decrypted.<a href="#section-4.2-6.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.2-6.2">
+            <code>tag</code>: the authentication tag.<a href="#section-4.2-6.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.2-6.3">
+            <code>ad</code>: the associated data to authenticate.<a href="#section-4.2-6.3" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.2-6.4">
+            <code>key</code>: the encryption key.<a href="#section-4.2-6.4" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-4.2-6.5">
+            <code>nonce</code>: the public nonce.<a href="#section-4.2-6.5" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-4.2-8">Steps:<a href="#section-4.2-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-4.2-9">
+<p id="section-4.2-7">Outputs:<a href="#section-4.2-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-8.1">Either the decrypted message <code>msg</code>, or an error indicating that the authentication tag is invalid for the given inputs.<a href="#section-4.2-8.1" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-4.2-9">Steps:<a href="#section-4.2-9" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2-10">
 <pre>
 Init(key, nonce)
 
@@ -1984,7 +2006,7 @@ if CtEq(tag, expected_tag) is False:
     return "verification failed" error
 else:
     return msg
-</pre><a href="#section-4.2-9" class="pilcrow">¶</a>
+</pre><a href="#section-4.2-10" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2258,7 +2280,7 @@ combined_ct = ct || tag
       <h2 id="name-security-considerations">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">AEGIS-256 offers 256-bit message security against plaintext and state recovery. AEGIS-128L offers 128-bit security. They are both key-committing and context-committing, the implications of which are outlined in the introduction. However, neither is compactly-committing because a 128-bit tag is too short to be collision resistant. This means it is still possible for a ciphertext to be successfully decrypted under multiple different keys, just significantly more difficult than for AEAD schemes lacking key commitment.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">AEGIS-256 offers 256-bit message security against plaintext and state recovery. AEGIS-128L offers 128-bit security. They are both key-committing, the implications of which are outlined in the introduction. However, neither is compactly-committing because a 128-bit tag is too short to be collision resistant. This means it is still possible for a ciphertext to be successfully decrypted under multiple different keys, just significantly more difficult than for AEAD schemes lacking key commitment.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">Under the assumption that the secret key is unknown to the attacker and the tag is not truncated, both AEGIS-128L and AEGIS-256 target 128-bit security against forgery attacks.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">Both algorithms <span class="bcp14">MUST</span> be used in a nonce-respecting setting: for a given <code>key</code>, a <code>nonce</code> <span class="bcp14">MUST</span> only be used once. Failure to do so would immediately reveal the bitwise difference between two messages.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <p id="section-6-4">If tag verification fails, the decrypted message and wrong message authentication tag <span class="bcp14">MUST NOT</span> be given as output. As shown in the analysis of the (robustness of CAESAR candidates beyond their guarantees)<span>[<a href="#CRA18" class="xref">CRA18</a>]</span>, even a partial leak of the plaintext without verification would facilitate chosen ciphertext attacks.<a href="#section-6-4" class="pilcrow">¶</a></p>
@@ -2266,7 +2288,7 @@ combined_ct = ct || tag
 <p id="section-6-6">The nonce <span class="bcp14">MAY</span> be public or predictable. It can be a counter, the output of a permutation, or a generator with a long period.<a href="#section-6-6" class="pilcrow">¶</a></p>
 <p id="section-6-7">With AEGIS-128L, random nonces can safely encrypt up to 2<sup>48</sup> messages using the same key with negligible collision probability.<a href="#section-6-7" class="pilcrow">¶</a></p>
 <p id="section-6-8">With AEGIS-256, random nonces can be used with no practical limits.<a href="#section-6-8" class="pilcrow">¶</a></p>
-<p id="section-6-9">The security of AEGIS against timing attacks is limited by the implementation of the underlying <code>AESRound()</code> function. Failure to implement <code>AESRound()</code> in a fashion safe against side-channel attacks, such as differential power analysis or timing attacks, may lead to leakage of secret key material or state information. The exact mitigations required for side-channel attacks also depend on the threat model in question.<a href="#section-6-9" class="pilcrow">¶</a></p>
+<p id="section-6-9">The security of AEGIS against timing and physical attacks is limited by the implementation of the underlying <code>AESRound()</code> function. Failure to implement <code>AESRound()</code> in a fashion safe against timing and physical attacks, such as differential power analysis, timing analysis or fault injection attacks, may lead to leakage of secret key material or state information. The exact mitigations required for timing and physical attacks also depend on the threat model in question.<a href="#section-6-9" class="pilcrow">¶</a></p>
 <p id="section-6-10">A security analysis of AEGIS can be found in Chapter 4 of <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span>.<a href="#section-6-10" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -2319,8 +2341,12 @@ combined_ct = ct || tag
 <span class="refAuthor">Vaudenay, S.</span> and <span class="refAuthor">D. Vizár</span>, <span class="refTitle">"Can Caesar Beat Galois? Robustness of CAESAR Candidates against Nonce Reusing and High Data Complexity Attacks"</span>, <span class="refContent">Applied Cryptography and Network Security. ACNS 2018. Lecture Notes in Computer Science, vol 10892</span>, <span class="seriesInfo">DOI 10.1007/978-3-319-93387-0_25</span>, <time datetime="2018" class="refDate">2018</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-319-93387-0_25">https://doi.org/10.1007/978-3-319-93387-0_25</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LGR21">[LGR21]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Len, J.</span>, <span class="refAuthor">Grubbs, P.</span>, and <span class="refAuthor">T. Ristenpart</span>, <span class="refTitle">"Partitioning Oracle Attacks"</span>, <span class="refContent">30th USENIX Security Symposium (USENIX Security 21)</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://www.usenix.org/conference/usenixsecurity21/presentation/len">https://www.usenix.org/conference/usenixsecurity21/presentation/len</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="LIMS21">[LIMS21]</dt>
+      <dd>
+<span class="refAuthor">Liu, F.</span>, <span class="refAuthor">Isobe, T.</span>, <span class="refAuthor">Meier, W.</span>, and <span class="refAuthor">K. Sakamoto</span>, <span class="refTitle">"Weak Keys in Reduced AEGIS and Tiaoxin"</span>, <span class="refContent">IACR Transactions on Symmetric Cryptology, 2021(2), 104–139.</span>, <span class="seriesInfo">DOI 10.46586/tosc.v2021.i2.104-139</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://doi.org/10.46586/tosc.v2021.i2.104-139">https://doi.org/10.46586/tosc.v2021.i2.104-139</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2478,21 +2504,26 @@ tag  : 5c04b3dba849b2701effbe32c7f0fab7
           <h4 id="name-test-vector-5">
 <a href="#appendix-A.2.6" class="section-number selfRef">A.2.6. </a><a href="#name-test-vector-5" class="section-name selfRef">Test Vector 5</a>
           </h4>
-<p id="appendix-A.2.6-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.2.6-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.2.6-2">
+<div class="alignLeft art-text artwork" id="appendix-A.2.6-1">
 <pre>
-key  : 10000200000000000000000000000000
+key  : 10010000000000000000000000000000
 
-nonce: 10010000000000000000000000000000
+nonce: 10000200000000000000000000000000
 
-ad   : 0001020304050607
+ad   : 000102030405060708090a0b0c0d0e0f
+       101112131415161718191a1b1c1d1e1f
+       20212223242526272829
 
-msg  :
+msg  : 101112131415161718191a1b1c1d1e1f
+       202122232425262728292a2b2c2d2e2f
+       3031323334353637
 
-ct   : 79d94593d8c2119d7e8fd9b8fc77
+ct   : b31052ad1cca4e291abcf2df3502e6bd
+       b1bfd6db36798be3607b1f94d34478aa
+       7ede7f7a990fec10
 
-tag  : 5c04b3dba849b2701effbe32c7f0fab7
-</pre><a href="#appendix-A.2.6-2" class="pilcrow">¶</a>
+tag  : 7542a745733014f9474417b337399507
+</pre><a href="#appendix-A.2.6-1" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2504,15 +2535,15 @@ tag  : 5c04b3dba849b2701effbe32c7f0fab7
 <p id="appendix-A.2.7-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.2.7-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2.7-2">
 <pre>
-key  : 10010000000000000000000000000000
+key  : 10000200000000000000000000000000
 
-nonce: 10000200000000000000000000000000
+nonce: 10010000000000000000000000000000
 
 ad   : 0001020304050607
 
 msg  :
 
-ct   : 79d94593d8c2119d7e8fd9b8fc78
+ct   : 79d94593d8c2119d7e8fd9b8fc77
 
 tag  : 5c04b3dba849b2701effbe32c7f0fab7
 </pre><a href="#appendix-A.2.7-2" class="pilcrow">¶</a>
@@ -2531,11 +2562,11 @@ key  : 10010000000000000000000000000000
 
 nonce: 10000200000000000000000000000000
 
-ad   : 0001020304050608
+ad   : 0001020304050607
 
 msg  :
 
-ct   : 79d94593d8c2119d7e8fd9b8fc77
+ct   : 79d94593d8c2119d7e8fd9b8fc78
 
 tag  : 5c04b3dba849b2701effbe32c7f0fab7
 </pre><a href="#appendix-A.2.8-2" class="pilcrow">¶</a>
@@ -2554,6 +2585,29 @@ key  : 10010000000000000000000000000000
 
 nonce: 10000200000000000000000000000000
 
+ad   : 0001020304050608
+
+msg  :
+
+ct   : 79d94593d8c2119d7e8fd9b8fc77
+
+tag  : 5c04b3dba849b2701effbe32c7f0fab7
+</pre><a href="#appendix-A.2.9-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="test-vector-9">
+<section id="appendix-A.2.10">
+          <h4 id="name-test-vector-9">
+<a href="#appendix-A.2.10" class="section-number selfRef">A.2.10. </a><a href="#name-test-vector-9" class="section-name selfRef">Test Vector 9</a>
+          </h4>
+<p id="appendix-A.2.10-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.2.10-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2.10-2">
+<pre>
+key  : 10010000000000000000000000000000
+
+nonce: 10000200000000000000000000000000
+
 ad   : 0001020304050607
 
 msg  :
@@ -2561,7 +2615,7 @@ msg  :
 ct   : 79d94593d8c2119d7e8fd9b8fc77
 
 tag  : 6c04b3dba849b2701effbe32c7f0fab8
-</pre><a href="#appendix-A.2.9-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2.10-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2702,8 +2756,38 @@ tag  : c60b9c2d33ceb058f96e6dd03c215652
           <h4 id="name-test-vector-5-2">
 <a href="#appendix-A.3.6" class="section-number selfRef">A.3.6. </a><a href="#name-test-vector-5-2" class="section-name selfRef">Test Vector 5</a>
           </h4>
-<p id="appendix-A.3.6-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.6-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3.6-2">
+<div class="alignLeft art-text artwork" id="appendix-A.3.6-1">
+<pre>
+key  : 10010000000000000000000000000000
+       00000000000000000000000000000000
+
+nonce: 10000200000000000000000000000000
+       00000000000000000000000000000000
+
+ad   : 000102030405060708090a0b0c0d0e0f
+       101112131415161718191a1b1c1d1e1f
+       20212223242526272829
+
+msg  : 101112131415161718191a1b1c1d1e1f
+       202122232425262728292a2b2c2d2e2f
+       3031323334353637
+
+ct   : 57754a7d09963e7c787583a2e7b859bb
+       24fa1e04d49fd550b2511a358e3bca25
+       2a9b1b8b30cc4a67
+
+tag  : ab8a7d53fd0e98d727accca94925e128
+</pre><a href="#appendix-A.3.6-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="test-vector-6-1">
+<section id="appendix-A.3.7">
+          <h4 id="name-test-vector-6-2">
+<a href="#appendix-A.3.7" class="section-number selfRef">A.3.7. </a><a href="#name-test-vector-6-2" class="section-name selfRef">Test Vector 6</a>
+          </h4>
+<p id="appendix-A.3.7-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.7-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.3.7-2">
 <pre>
 key  : 10000200000000000000000000000000
        00000000000000000000000000000000
@@ -2716,31 +2800,6 @@ ad   : 0001020304050607
 msg  :
 
 ct   : f373079ed84b2709faee37358458
-
-tag  : c60b9c2d33ceb058f96e6dd03c215652
-</pre><a href="#appendix-A.3.6-2" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="test-vector-6-1">
-<section id="appendix-A.3.7">
-          <h4 id="name-test-vector-6-2">
-<a href="#appendix-A.3.7" class="section-number selfRef">A.3.7. </a><a href="#name-test-vector-6-2" class="section-name selfRef">Test Vector 6</a>
-          </h4>
-<p id="appendix-A.3.7-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.7-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3.7-2">
-<pre>
-key  : 10010000000000000000000000000000
-       00000000000000000000000000000000
-
-nonce: 10000200000000000000000000000000
-       00000000000000000000000000000000
-
-ad   : 0001020304050607
-
-msg  :
-
-ct   : f373079ed84b2709faee37358459
 
 tag  : c60b9c2d33ceb058f96e6dd03c215652
 </pre><a href="#appendix-A.3.7-2" class="pilcrow">¶</a>
@@ -2761,11 +2820,11 @@ key  : 10010000000000000000000000000000
 nonce: 10000200000000000000000000000000
        00000000000000000000000000000000
 
-ad   : 0001020304050608
+ad   : 0001020304050607
 
 msg  :
 
-ct   : f373079ed84b2709faee37358458
+ct   : f373079ed84b2709faee37358459
 
 tag  : c60b9c2d33ceb058f96e6dd03c215652
 </pre><a href="#appendix-A.3.8-2" class="pilcrow">¶</a>
@@ -2786,6 +2845,31 @@ key  : 10010000000000000000000000000000
 nonce: 10000200000000000000000000000000
        00000000000000000000000000000000
 
+ad   : 0001020304050608
+
+msg  :
+
+ct   : f373079ed84b2709faee37358458
+
+tag  : c60b9c2d33ceb058f96e6dd03c215652
+</pre><a href="#appendix-A.3.9-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="test-vector-9-1">
+<section id="appendix-A.3.10">
+          <h4 id="name-test-vector-9-2">
+<a href="#appendix-A.3.10" class="section-number selfRef">A.3.10. </a><a href="#name-test-vector-9-2" class="section-name selfRef">Test Vector 9</a>
+          </h4>
+<p id="appendix-A.3.10-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.10-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.3.10-2">
+<pre>
+key  : 10010000000000000000000000000000
+       00000000000000000000000000000000
+
+nonce: 10000200000000000000000000000000
+       00000000000000000000000000000000
+
 ad   : 0001020304050607
 
 msg  :
@@ -2793,7 +2877,7 @@ msg  :
 ct   : f373079ed84b2709faee37358458
 
 tag  : d60b9c2d33ceb058f96e6dd03c215653
-</pre><a href="#appendix-A.3.9-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.3.10-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
