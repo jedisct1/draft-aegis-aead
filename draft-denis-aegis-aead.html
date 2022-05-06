@@ -11,15 +11,15 @@
 <meta content="
        This document describes AEGIS-128L and AEGIS-256, two AES-based authenticated encryption algorithms designed for high-performance applications. 
     " name="description">
-<meta content="xml2rfc 3.12.3" name="generator">
+<meta content="xml2rfc 3.12.5" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-denis-aegis-aead-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.12.3
+  xml2rfc 3.12.5
     Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
-    google-i18n-address 2.5.0
+    google-i18n-address 2.5.1
     html5lib 1.1
     intervaltree 3.1.0
     Jinja2 2.11.3
@@ -1015,11 +1015,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">The AEGIS family of authenticated encryp</td>
-<td class="right">March 2022</td>
+<td class="right">May 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Denis, et al.</td>
-<td class="center">Expires 30 September 2022</td>
+<td class="center">Expires 7 November 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1032,12 +1032,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-denis-aegis-aead-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-03-29" class="published">29 March 2022</time>
+<time datetime="2022-05-06" class="published">6 May 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-09-30">30 September 2022</time></dd>
+<dd class="expires"><time datetime="2022-11-07">7 November 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1087,7 +1087,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 30 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 7 November 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1236,6 +1236,9 @@ svg [stroke="fill"], svg [fill^="#fff"] {
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.9">
                     <p id="section-toc.1-1.9.2.2.2.9.1"><a href="#appendix-A.2.9" class="xref">A.2.9</a>.  <a href="#name-test-vector-8" class="xref">Test Vector 8</a></p>
 </li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2.2.10">
+                    <p id="section-toc.1-1.9.2.2.2.10.1"><a href="#appendix-A.2.10" class="xref">A.2.10</a>. <a href="#name-test-vector-9" class="xref">Test Vector 9</a></p>
+</li>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
@@ -1267,6 +1270,9 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.9">
                     <p id="section-toc.1-1.9.2.3.2.9.1"><a href="#appendix-A.3.9" class="xref">A.3.9</a>.  <a href="#name-test-vector-8-2" class="xref">Test Vector 8</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3.2.10">
+                    <p id="section-toc.1-1.9.2.3.2.10.1"><a href="#appendix-A.3.10" class="xref">A.3.10</a>. <a href="#name-test-vector-9-2" class="xref">Test Vector 9</a></p>
 </li>
                 </ul>
 </li>
@@ -2498,21 +2504,26 @@ tag  : 5c04b3dba849b2701effbe32c7f0fab7
           <h4 id="name-test-vector-5">
 <a href="#appendix-A.2.6" class="section-number selfRef">A.2.6. </a><a href="#name-test-vector-5" class="section-name selfRef">Test Vector 5</a>
           </h4>
-<p id="appendix-A.2.6-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.2.6-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.2.6-2">
+<div class="alignLeft art-text artwork" id="appendix-A.2.6-1">
 <pre>
-key  : 10000200000000000000000000000000
+key  : 10010000000000000000000000000000
 
-nonce: 10010000000000000000000000000000
+nonce: 10000200000000000000000000000000
 
-ad   : 0001020304050607
+ad   : 000102030405060708090a0b0c0d0e0f
+       101112131415161718191a1b1c1d1e1f
+       20212223242526272829
 
-msg  :
+msg  : 101112131415161718191a1b1c1d1e1f
+       202122232425262728292a2b2c2d2e2f
+       3031323334353637
 
-ct   : 79d94593d8c2119d7e8fd9b8fc77
+ct   : b31052ad1cca4e291abcf2df3502e6bd
+       b1bfd6db36798be3607b1f94d34478aa
+       7ede7f7a990fec10
 
-tag  : 5c04b3dba849b2701effbe32c7f0fab7
-</pre><a href="#appendix-A.2.6-2" class="pilcrow">¶</a>
+tag  : 7542a745733014f9474417b337399507
+</pre><a href="#appendix-A.2.6-1" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2524,15 +2535,15 @@ tag  : 5c04b3dba849b2701effbe32c7f0fab7
 <p id="appendix-A.2.7-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.2.7-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="appendix-A.2.7-2">
 <pre>
-key  : 10010000000000000000000000000000
+key  : 10000200000000000000000000000000
 
-nonce: 10000200000000000000000000000000
+nonce: 10010000000000000000000000000000
 
 ad   : 0001020304050607
 
 msg  :
 
-ct   : 79d94593d8c2119d7e8fd9b8fc78
+ct   : 79d94593d8c2119d7e8fd9b8fc77
 
 tag  : 5c04b3dba849b2701effbe32c7f0fab7
 </pre><a href="#appendix-A.2.7-2" class="pilcrow">¶</a>
@@ -2551,11 +2562,11 @@ key  : 10010000000000000000000000000000
 
 nonce: 10000200000000000000000000000000
 
-ad   : 0001020304050608
+ad   : 0001020304050607
 
 msg  :
 
-ct   : 79d94593d8c2119d7e8fd9b8fc77
+ct   : 79d94593d8c2119d7e8fd9b8fc78
 
 tag  : 5c04b3dba849b2701effbe32c7f0fab7
 </pre><a href="#appendix-A.2.8-2" class="pilcrow">¶</a>
@@ -2574,6 +2585,29 @@ key  : 10010000000000000000000000000000
 
 nonce: 10000200000000000000000000000000
 
+ad   : 0001020304050608
+
+msg  :
+
+ct   : 79d94593d8c2119d7e8fd9b8fc77
+
+tag  : 5c04b3dba849b2701effbe32c7f0fab7
+</pre><a href="#appendix-A.2.9-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="test-vector-9">
+<section id="appendix-A.2.10">
+          <h4 id="name-test-vector-9">
+<a href="#appendix-A.2.10" class="section-number selfRef">A.2.10. </a><a href="#name-test-vector-9" class="section-name selfRef">Test Vector 9</a>
+          </h4>
+<p id="appendix-A.2.10-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.2.10-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.2.10-2">
+<pre>
+key  : 10010000000000000000000000000000
+
+nonce: 10000200000000000000000000000000
+
 ad   : 0001020304050607
 
 msg  :
@@ -2581,7 +2615,7 @@ msg  :
 ct   : 79d94593d8c2119d7e8fd9b8fc77
 
 tag  : 6c04b3dba849b2701effbe32c7f0fab8
-</pre><a href="#appendix-A.2.9-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2.10-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -2722,8 +2756,38 @@ tag  : c60b9c2d33ceb058f96e6dd03c215652
           <h4 id="name-test-vector-5-2">
 <a href="#appendix-A.3.6" class="section-number selfRef">A.3.6. </a><a href="#name-test-vector-5-2" class="section-name selfRef">Test Vector 5</a>
           </h4>
-<p id="appendix-A.3.6-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.6-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3.6-2">
+<div class="alignLeft art-text artwork" id="appendix-A.3.6-1">
+<pre>
+key  : 10010000000000000000000000000000
+       00000000000000000000000000000000
+
+nonce: 10000200000000000000000000000000
+       00000000000000000000000000000000
+
+ad   : 000102030405060708090a0b0c0d0e0f
+       101112131415161718191a1b1c1d1e1f
+       20212223242526272829
+
+msg  : 101112131415161718191a1b1c1d1e1f
+       202122232425262728292a2b2c2d2e2f
+       3031323334353637
+
+ct   : 57754a7d09963e7c787583a2e7b859bb
+       24fa1e04d49fd550b2511a358e3bca25
+       2a9b1b8b30cc4a67
+
+tag  : ab8a7d53fd0e98d727accca94925e128
+</pre><a href="#appendix-A.3.6-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="test-vector-6-1">
+<section id="appendix-A.3.7">
+          <h4 id="name-test-vector-6-2">
+<a href="#appendix-A.3.7" class="section-number selfRef">A.3.7. </a><a href="#name-test-vector-6-2" class="section-name selfRef">Test Vector 6</a>
+          </h4>
+<p id="appendix-A.3.7-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.7-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.3.7-2">
 <pre>
 key  : 10000200000000000000000000000000
        00000000000000000000000000000000
@@ -2736,31 +2800,6 @@ ad   : 0001020304050607
 msg  :
 
 ct   : f373079ed84b2709faee37358458
-
-tag  : c60b9c2d33ceb058f96e6dd03c215652
-</pre><a href="#appendix-A.3.6-2" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="test-vector-6-1">
-<section id="appendix-A.3.7">
-          <h4 id="name-test-vector-6-2">
-<a href="#appendix-A.3.7" class="section-number selfRef">A.3.7. </a><a href="#name-test-vector-6-2" class="section-name selfRef">Test Vector 6</a>
-          </h4>
-<p id="appendix-A.3.7-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.7-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="appendix-A.3.7-2">
-<pre>
-key  : 10010000000000000000000000000000
-       00000000000000000000000000000000
-
-nonce: 10000200000000000000000000000000
-       00000000000000000000000000000000
-
-ad   : 0001020304050607
-
-msg  :
-
-ct   : f373079ed84b2709faee37358459
 
 tag  : c60b9c2d33ceb058f96e6dd03c215652
 </pre><a href="#appendix-A.3.7-2" class="pilcrow">¶</a>
@@ -2781,11 +2820,11 @@ key  : 10010000000000000000000000000000
 nonce: 10000200000000000000000000000000
        00000000000000000000000000000000
 
-ad   : 0001020304050608
+ad   : 0001020304050607
 
 msg  :
 
-ct   : f373079ed84b2709faee37358458
+ct   : f373079ed84b2709faee37358459
 
 tag  : c60b9c2d33ceb058f96e6dd03c215652
 </pre><a href="#appendix-A.3.8-2" class="pilcrow">¶</a>
@@ -2806,6 +2845,31 @@ key  : 10010000000000000000000000000000
 nonce: 10000200000000000000000000000000
        00000000000000000000000000000000
 
+ad   : 0001020304050608
+
+msg  :
+
+ct   : f373079ed84b2709faee37358458
+
+tag  : c60b9c2d33ceb058f96e6dd03c215652
+</pre><a href="#appendix-A.3.9-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="test-vector-9-1">
+<section id="appendix-A.3.10">
+          <h4 id="name-test-vector-9-2">
+<a href="#appendix-A.3.10" class="section-number selfRef">A.3.10. </a><a href="#name-test-vector-9-2" class="section-name selfRef">Test Vector 9</a>
+          </h4>
+<p id="appendix-A.3.10-1">This test <span class="bcp14">MUST</span> return a "verification failed" error.<a href="#appendix-A.3.10-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A.3.10-2">
+<pre>
+key  : 10010000000000000000000000000000
+       00000000000000000000000000000000
+
+nonce: 10000200000000000000000000000000
+       00000000000000000000000000000000
+
 ad   : 0001020304050607
 
 msg  :
@@ -2813,7 +2877,7 @@ msg  :
 ct   : f373079ed84b2709faee37358458
 
 tag  : d60b9c2d33ceb058f96e6dd03c215653
-</pre><a href="#appendix-A.3.9-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.3.10-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
