@@ -254,7 +254,7 @@ Inputs:
 
 - `ct`: the ciphertext to be decrypted (length MUST be less than `C_MAX`).
 - `tag`: the authentication tag.
-- `ad`: the associated data to authenticate (length MUST be less than `P_MAX`).
+- `ad`: the associated data to authenticate (length MUST be less than `A_MAX`).
 - `key`: the encryption key.
 - `nonce`: the public nonce.
 
