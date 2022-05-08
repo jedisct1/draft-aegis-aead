@@ -368,7 +368,7 @@ Table of Contents
    *  tag: the authentication tag.
 
    *  ad: the associated data to authenticate (length MUST be less than
-      P_MAX).
+      A_MAX).
 
    *  key: the encryption key.
 
