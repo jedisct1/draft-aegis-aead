@@ -182,7 +182,7 @@ AEGIS-128L has a 1024-bit state, made of eight 128-bit blocks `{S0, ...S7}`.
 
 The parameters for this algorithm, whose meaning is defined in {{!RFC5116, Section 4}} are:
 
-- `K_LEN` (key length) is 16 octets.
+- `K_LEN` (key length) is 16 octets (128 bits).
 - `P_MAX` (maximum length of the plaintext) is 2<sup>61</sup> octets (2<sup>64</sup> bits).
 - `A_MAX` (maximum length of the associated data) is 2<sup>61</sup> octets (2<sup>64</sup> bits).
 - `N_MIN` (minimum nonce length) = `N_MAX` (maximum nonce length) = 16 octets (128 bits).
@@ -496,7 +496,7 @@ AEGIS-256 has a 768-bit state, made of six 128-bit blocks `{S0, ...S5}`.
 
 The parameters for this algorithm, whose meaning is defined in {{!RFC5116, Section 4}} are:
 
-- `K_LEN` (key length) is 32 octets.
+- `K_LEN` (key length) is 32 octets (256 bits).
 - `P_MAX` (maximum length of the plaintext) is 2<sup>61</sup> octets (2<sup>64</sup> bits).
 - `A_MAX` (maximum length of the associated data) is 2<sup>61</sup> octets (2<sup>64</sup> bits).
 - `N_MIN` (minimum nonce length) = `N_MAX` (maximum nonce length) = 32 octets (256 bits).
