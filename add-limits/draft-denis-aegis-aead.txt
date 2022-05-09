@@ -5,9 +5,9 @@
 Network Working Group                                           F. Denis
 Internet-Draft                                               Fastly Inc.
 Intended status: Informational                          F. E. R. Scotoni
-Expires: 9 November 2022                                        S. Lucas
+Expires: 10 November 2022                                       S. Lucas
                                                   Individual Contributor
-                                                              8 May 2022
+                                                              9 May 2022
 
 
         The AEGIS family of authenticated encryption algorithms
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 November 2022.
+   This Internet-Draft will expire on 10 November 2022.
 
 Copyright Notice
 
@@ -272,7 +272,7 @@ Table of Contents
    The parameters for this algorithm, whose meaning is defined in
    [RFC5116], Section 4 are:
 
-   *  K_LEN (key length) is 16 octets.
+   *  K_LEN (key length) is 16 octets (128 bits).
 
    *  P_MAX (maximum length of the plaintext) is 2^61 octets (2^64
       bits).
@@ -597,7 +597,7 @@ Table of Contents
    The parameters for this algorithm, whose meaning is defined in
    [RFC5116], Section 4 are:
 
-   *  K_LEN (key length) is 32 octets.
+   *  K_LEN (key length) is 32 octets (256 bits).
 
    *  P_MAX (maximum length of the plaintext) is 2^61 octets (2^64
       bits).
