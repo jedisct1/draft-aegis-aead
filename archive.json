@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-05-08T01:38:21.720491+00:00",
+  "timestamp": "2022-05-10T01:16:51.201561+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -716,6 +716,61 @@
       "updatedAt": "2022-04-19T19:41:37Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 54,
+      "id": "I_kwDOGRNxcs5JPl-p",
+      "title": "add bit lengths to the algorithm parameters sections",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/54",
+      "state": "CLOSED",
+      "author": "ericlagergren",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "A quite minor nitpick: the RFC describes the length of all strings using bits, except in the algorithm parameters section where it uses octets. I was comparing the paper and the RFC and was briefly confused by the unit switch (\"where does 2^61 come from?\") since the paper (and the rest of the RFC) use bits, not octets.\r\n\r\nOf course, once I realized my mistake it was obvious. But perhaps those sections could list the bit lengths in parentheses? E.g.,\r\n\r\n    P_MAX (maximum length of the plaintext) is 2^61 octets (2^64 bits).\r\n\r\n",
+      "createdAt": "2022-05-08T08:17:36Z",
+      "updatedAt": "2022-05-09T12:11:38Z",
+      "closedAt": "2022-05-09T12:11:38Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Great suggestion, thank you Eric!",
+          "createdAt": "2022-05-08T10:41:00Z",
+          "updatedAt": "2022-05-08T10:41:00Z"
+        }
+      ]
+    },
+    {
+      "number": 55,
+      "id": "I_kwDOGRNxcs5JQFnQ",
+      "title": "Fail when algorithm parameters are out of range",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/55",
+      "state": "CLOSED",
+      "author": "ericlagergren",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The RFC specifies the maximum permissible values for the message, additional data, etc. but does not require that the implementation reject (or prevent) parameters that are out of range.\n\nIn practice, implementations might not need to worry about 2^61 octet strings because of resource/environment constraints. But it's not strictly impossible, especially if the implementation supports an update-style API.\n\nI looked at a few implementations, including the reference implementation, and only one rejected parameters that are out of range.\n\nI can send a CL if you'd like.",
+      "createdAt": "2022-05-08T18:19:53Z",
+      "updatedAt": "2022-05-09T12:11:38Z",
+      "closedAt": "2022-05-09T12:11:38Z",
+      "comments": [
+        {
+          "author": "ericlagergren",
+          "authorAssociation": "NONE",
+          "body": "Additionally, this becomes more relevant if the bounds are lowered (e.g., https://github.com/jedisct1/draft-aegis-aead/issues/52). ",
+          "createdAt": "2022-05-08T19:05:03Z",
+          "updatedAt": "2022-05-08T19:05:03Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Since the tag must be verified before releasing the plaintext, even with a streaming API, it is very unlikely that it could be a practical concern.\r\n\r\nStill, it wouldn't hurt to mention that checks must be done, especially since the constants are defined.\r\n\r\nInstead of making that part of the algorithm, maybe this is a constraint we can add to the inputs definitions?\r\n\r\n```text\r\nm: the message to be encrypted\r\n```\r\n\r\n->\r\n\r\n```text\r\nm: the message to be encrypted (MUST be less than P_MAX bytes)\r\n```\r\n\r\n?",
+          "createdAt": "2022-05-08T22:41:50Z",
+          "updatedAt": "2022-05-08T22:41:50Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -3288,6 +3343,42 @@
           "body": "Test vector checks out for me and the issue is reasonable to raise.",
           "createdAt": "2022-05-06T18:09:30Z",
           "updatedAt": "2022-05-06T18:09:30Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 56,
+      "id": "PR_kwDOGRNxcs43d27-",
+      "title": "Add limits in bits, mention that they must be checked",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/56",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Use them in the reference implementations and explicitly check them as well.\r\n\r\nFixes #54\r\nFixes #55",
+      "createdAt": "2022-05-08T23:08:22Z",
+      "updatedAt": "2022-05-09T12:11:44Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "a4e96a898161a2aed6a741ae7f2f09f96310b992",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "add-limits",
+      "headRefOid": "d07b346e35d8a702c692b371067efe6c5e8a9b92",
+      "closedAt": "2022-05-09T12:11:39Z",
+      "mergedAt": "2022-05-09T12:11:38Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "a9fba70084bbba012b3365647274a3e6518632ee"
+      },
+      "comments": [
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Think you've missed `K_LEN`. Otherwise, LGTM.",
+          "createdAt": "2022-05-09T11:51:43Z",
+          "updatedAt": "2022-05-09T11:51:43Z"
         }
       ],
       "reviews": []
