@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-05-10T01:16:51.201561+00:00",
+  "timestamp": "2022-05-12T01:46:26.137659+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -486,7 +486,7 @@
       "labels": [],
       "body": "As per meeting 2022-03-09, the RFC draft should have as much added value as we can possibly cram into it, in particular regarding secure implementation. The AES round function is, other than nonce handling and poor key derivation, the most obvious way to get implementation wrong. However, the AES round function involves an S-box, leading to straightforward and well-studied timing attacks. I see two options to deal with this:\r\n\r\n1. Provide full pseudocode (including about 2000 lines of bitsliced S-box code) for processing a block with the round function.\r\n2. Make hardware support for AES a hard requirement by specification.\r\n\r\n(I will take this opportunity to humorously point out I'd participated in the meeting yesterday from a laptop without hardware AES support. Fortunately, none of the parties interested in AES have such problems.)",
       "createdAt": "2022-03-10T06:59:46Z",
-      "updatedAt": "2022-05-08T00:35:15Z",
+      "updatedAt": "2022-05-11T18:52:09Z",
       "closedAt": null,
       "comments": [
         {
@@ -516,6 +516,13 @@
           "body": "One of the primary benefits of AEGS is its performance, which you really only get with hardware AES. \r\n\r\nFor example, using AEGIS-128L with 8 KiB messages I'm seeing just under 1 cycle per byte on a Cortex A-72 with AES instructions, but on a similar* Cortex A-72 without AES instructions I'm seeing just under 24 cycles per byte**.\r\n\r\nMy understanding is that bit slicing is still much slower than table lookups, which would make AEGIS-with-constant-time-software-AES even less appealing.\r\n\r\nPerhaps the RFC could just recommend against it on performance grounds and avoid having to discuss software AES.\r\n\r\n*: For reference, the first machine runs ChaCha20-Poly1305 at 5 cycles per byte and the second at 10 cycles per byte, so they're not exact. But clearly the difference should be 2x not 24x.\r\n**: It's also possible that a different SW implementation could be faster. I suspect that part of the difference is because the \"generic\" implementation is just slower, but even then 24x is a large difference.",
           "createdAt": "2022-05-08T00:35:14Z",
           "updatedAt": "2022-05-08T00:35:14Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Software AES-GCM implementations are widely deployed; they are necessary to use a common cipher suites in heterogenous environments or to avoid having to support multiple options. The same applies to AEGIS. And software AEGIS implementations remains faster than AES-GCM (thanks to the absence of GHASH).\r\n\r\nAs an existing, practical example, dm-crypt removable volumes encrypted using AEGIS have to be mountable from any device, even if it doesn't have hardware AES support.\r\n\r\nPeople will need software AEGIS implementations, so having a few words about them in the specification is probably not a bad thing.",
+          "createdAt": "2022-05-11T18:52:09Z",
+          "updatedAt": "2022-05-11T18:52:09Z"
         }
       ]
     },
