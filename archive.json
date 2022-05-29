@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-05-12T01:46:26.137659+00:00",
+  "timestamp": "2022-05-29T01:47:53.813109+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -713,16 +713,24 @@
       "id": "I_kwDOGRNxcs5IDKKH",
       "title": "Adam Langley's Feedback",
       "url": "https://github.com/jedisct1/draft-aegis-aead/issues/52",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "samuel-lucas6",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "I've got some feedback from Adam Langley to share:\r\n\r\n> I've not tried to implement it from the specification, which is really the definitive test, but it certainly appears that one could. So, overall, looks good!\r\n> \r\n> A couple of things came to mind:\r\n> \r\n> I'm not sure that the test vectors are sufficient to exercise a real implementation. For 128L, I think there are none that contain more than one block of message input? And none that contain more than one block of AD input?\r\n> \r\n> Second, there are surely more bounds than expressed in the draft. (I didn't look into the cited papers so quite possibly they are included there!) E.g. given a maximum plaintext of 2^61 bytes, it doesn't take that many messages before the birthday bound of AES starts to bite, no? If available, something like https://www.ietf.org/id/draft-irtf-cfrg-aead-limits-04.html#name-aead_aes_128_gcm-and-aead_a for AGEIS might be interesting.\r\n> \r\n> I don't think either issue is blocking: the draft as-is feels like it could be an RFC.\r\n\r\nThank you again @agl!\r\n\r\nI also reached out to the partitioning oracle attack authors, and Julia kindly said they'd have a look.",
       "createdAt": "2022-04-19T19:41:37Z",
-      "updatedAt": "2022-04-19T19:41:37Z",
-      "closedAt": null,
-      "comments": []
+      "updatedAt": "2022-05-27T16:13:39Z",
+      "closedAt": "2022-05-27T16:13:39Z",
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "The test vectors have been added.\r\n\r\nThanks for that useful feedback!",
+          "createdAt": "2022-05-27T16:13:39Z",
+          "updatedAt": "2022-05-27T16:13:39Z"
+        }
+      ]
     },
     {
       "number": 54,
