@@ -958,7 +958,8 @@ Table of Contents
    or state information.  The exact mitigations required for timing and
    physical attacks also depend on the threat model in question.
 
-   A security analysis of AEGIS can be found in Chapter 4 of [AEGIS].
+   Security analyses of AEGIS can be found in Chapter 4 of [AEGIS], in
+   [Min14], in [ENP19], in [LIMS21], and in [JLD21].
 
 7.  IANA Considerations
 
@@ -997,20 +998,38 @@ Table of Contents
               Robustness of CAESAR Candidates against Nonce Reusing and
               High Data Complexity Attacks", Applied Cryptography and
               Network Security. ACNS 2018. Lecture Notes in Computer
-              Science, vol 10892, DOI 10.1007/978-3-319-93387-0_25,
-              2018, <https://doi.org/10.1007/978-3-319-93387-0_25>.
+              Science, vol 10892, pp. 476–494,
+              DOI 10.1007/978-3-319-93387-0_25, 2018,
+              <https://doi.org/10.1007/978-3-319-93387-0_25>.
+
+   [ENP19]    Eichlseder, M., Nageler, M., and R. Primas, "Analyzing the
+              Linear Keystream Biases in AEGIS", IACR Transactions on
+              Symmetric Cryptology, 2019(4), pp. 348–368,
+              DOI 10.13154/tosc.v2019.i4.348-368, 31 January 2020,
+              <https://doi.org/10.13154/tosc.v2019.i4.348-368>.
+
+   [JLD21]    Jiao, L., Li, Y., and S. Du, "Guess-and-Determine Attacks
+              on AEGIS", The Computer Journal,
+              DOI 10.1093/comjnl/bxab059, 22 May 2021,
+              <https://doi.org/10.1093/comjnl/bxab059>.
 
    [LGR21]    Len, J., Grubbs, P., and T. Ristenpart, "Partitioning
               Oracle Attacks", 30th USENIX Security Symposium (USENIX
-              Security 21), 2021,
+              Security 21), pp. 195–212, 2021,
               <https://www.usenix.org/conference/usenixsecurity21/
               presentation/len>.
 
    [LIMS21]   Liu, F., Isobe, T., Meier, W., and K. Sakamoto, "Weak Keys
               in Reduced AEGIS and Tiaoxin", IACR Transactions on
-              Symmetric Cryptology, 2021(2), 104–139.,
+              Symmetric Cryptology, 2021(2), pp. 104–139,
               DOI 10.46586/tosc.v2021.i2.104-139, 2021,
-              <https://doi.org/10.46586/tosc.v2021.i2.104-139>.
+              <https://eprint.iacr.org/2021/187>.
+
+   [Min14]    Minaud, B., "Linear Biases in AEGIS Keystream", Selected
+              Areas in Cryptography. SAC 2014. Lecture Notes in Computer
+              Science, vol 8781, pp. 290–305,
+              DOI 10.1007/978-3-319-13051-4_18, 2014,
+              <https://eprint.iacr.org/2018/292>.
 
 Appendix A.  Test Vectors
 

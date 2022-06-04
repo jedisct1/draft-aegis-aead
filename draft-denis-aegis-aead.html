@@ -2302,7 +2302,7 @@ combined_ct = ct || tag
 <p id="section-6-7">With AEGIS-128L, random nonces can safely encrypt up to 2<sup>48</sup> messages using the same key with negligible collision probability.<a href="#section-6-7" class="pilcrow">¶</a></p>
 <p id="section-6-8">With AEGIS-256, random nonces can be used with no practical limits.<a href="#section-6-8" class="pilcrow">¶</a></p>
 <p id="section-6-9">The security of AEGIS against timing and physical attacks is limited by the implementation of the underlying <code>AESRound()</code> function. Failure to implement <code>AESRound()</code> in a fashion safe against timing and physical attacks, such as differential power analysis, timing analysis or fault injection attacks, may lead to leakage of secret key material or state information. The exact mitigations required for timing and physical attacks also depend on the threat model in question.<a href="#section-6-9" class="pilcrow">¶</a></p>
-<p id="section-6-10">A security analysis of AEGIS can be found in Chapter 4 of <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span>.<a href="#section-6-10" class="pilcrow">¶</a></p>
+<p id="section-6-10">Security analyses of AEGIS can be found in Chapter 4 of <span>[<a href="#AEGIS" class="xref">AEGIS</a>]</span>, in <span>[<a href="#Min14" class="xref">Min14</a>]</span>, in <span>[<a href="#ENP19" class="xref">ENP19</a>]</span>, in <span>[<a href="#LIMS21" class="xref">LIMS21</a>]</span>, and in <span>[<a href="#JLD21" class="xref">JLD21</a>]</span>.<a href="#section-6-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -2351,15 +2351,27 @@ combined_ct = ct || tag
 <dd class="break"></dd>
 <dt id="CRA18">[CRA18]</dt>
         <dd>
-<span class="refAuthor">Vaudenay, S.</span> and <span class="refAuthor">D. Vizár</span>, <span class="refTitle">"Can Caesar Beat Galois? Robustness of CAESAR Candidates against Nonce Reusing and High Data Complexity Attacks"</span>, <span class="refContent">Applied Cryptography and Network Security. ACNS 2018. Lecture Notes in Computer Science, vol 10892</span>, <span class="seriesInfo">DOI 10.1007/978-3-319-93387-0_25</span>, <time datetime="2018" class="refDate">2018</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-319-93387-0_25">https://doi.org/10.1007/978-3-319-93387-0_25</a>&gt;</span>. </dd>
+<span class="refAuthor">Vaudenay, S.</span> and <span class="refAuthor">D. Vizár</span>, <span class="refTitle">"Can Caesar Beat Galois? Robustness of CAESAR Candidates against Nonce Reusing and High Data Complexity Attacks"</span>, <span class="refContent">Applied Cryptography and Network Security. ACNS 2018. Lecture Notes in Computer Science, vol 10892, pp. 476–494</span>, <span class="seriesInfo">DOI 10.1007/978-3-319-93387-0_25</span>, <time datetime="2018" class="refDate">2018</time>, <span>&lt;<a href="https://doi.org/10.1007/978-3-319-93387-0_25">https://doi.org/10.1007/978-3-319-93387-0_25</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="ENP19">[ENP19]</dt>
+        <dd>
+<span class="refAuthor">Eichlseder, M.</span>, <span class="refAuthor">Nageler, M.</span>, and <span class="refAuthor">R. Primas</span>, <span class="refTitle">"Analyzing the Linear Keystream Biases in AEGIS"</span>, <span class="refContent">IACR Transactions on Symmetric Cryptology, 2019(4), pp. 348–368</span>, <span class="seriesInfo">DOI 10.13154/tosc.v2019.i4.348-368</span>, <time datetime="2020-01-31" class="refDate">31 January 2020</time>, <span>&lt;<a href="https://doi.org/10.13154/tosc.v2019.i4.348-368">https://doi.org/10.13154/tosc.v2019.i4.348-368</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="JLD21">[JLD21]</dt>
+        <dd>
+<span class="refAuthor">Jiao, L.</span>, <span class="refAuthor">Li, Y.</span>, and <span class="refAuthor">S. Du</span>, <span class="refTitle">"Guess-and-Determine Attacks on AEGIS"</span>, <span class="refContent">The Computer Journal</span>, <span class="seriesInfo">DOI 10.1093/comjnl/bxab059</span>, <time datetime="2021-05-22" class="refDate">22 May 2021</time>, <span>&lt;<a href="https://doi.org/10.1093/comjnl/bxab059">https://doi.org/10.1093/comjnl/bxab059</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LGR21">[LGR21]</dt>
         <dd>
-<span class="refAuthor">Len, J.</span>, <span class="refAuthor">Grubbs, P.</span>, and <span class="refAuthor">T. Ristenpart</span>, <span class="refTitle">"Partitioning Oracle Attacks"</span>, <span class="refContent">30th USENIX Security Symposium (USENIX Security 21)</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://www.usenix.org/conference/usenixsecurity21/presentation/len">https://www.usenix.org/conference/usenixsecurity21/presentation/len</a>&gt;</span>. </dd>
+<span class="refAuthor">Len, J.</span>, <span class="refAuthor">Grubbs, P.</span>, and <span class="refAuthor">T. Ristenpart</span>, <span class="refTitle">"Partitioning Oracle Attacks"</span>, <span class="refContent">30th USENIX Security Symposium (USENIX Security 21), pp. 195–212</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://www.usenix.org/conference/usenixsecurity21/presentation/len">https://www.usenix.org/conference/usenixsecurity21/presentation/len</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="LIMS21">[LIMS21]</dt>
+        <dd>
+<span class="refAuthor">Liu, F.</span>, <span class="refAuthor">Isobe, T.</span>, <span class="refAuthor">Meier, W.</span>, and <span class="refAuthor">K. Sakamoto</span>, <span class="refTitle">"Weak Keys in Reduced AEGIS and Tiaoxin"</span>, <span class="refContent">IACR Transactions on Symmetric Cryptology, 2021(2), pp. 104–139</span>, <span class="seriesInfo">DOI 10.46586/tosc.v2021.i2.104-139</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://eprint.iacr.org/2021/187">https://eprint.iacr.org/2021/187</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="Min14">[Min14]</dt>
       <dd>
-<span class="refAuthor">Liu, F.</span>, <span class="refAuthor">Isobe, T.</span>, <span class="refAuthor">Meier, W.</span>, and <span class="refAuthor">K. Sakamoto</span>, <span class="refTitle">"Weak Keys in Reduced AEGIS and Tiaoxin"</span>, <span class="refContent">IACR Transactions on Symmetric Cryptology, 2021(2), 104–139.</span>, <span class="seriesInfo">DOI 10.46586/tosc.v2021.i2.104-139</span>, <time datetime="2021" class="refDate">2021</time>, <span>&lt;<a href="https://doi.org/10.46586/tosc.v2021.i2.104-139">https://doi.org/10.46586/tosc.v2021.i2.104-139</a>&gt;</span>. </dd>
+<span class="refAuthor">Minaud, B.</span>, <span class="refTitle">"Linear Biases in AEGIS Keystream"</span>, <span class="refContent">Selected Areas in Cryptography. SAC 2014. Lecture Notes in Computer Science, vol 8781, pp. 290–305</span>, <span class="seriesInfo">DOI 10.1007/978-3-319-13051-4_18</span>, <time datetime="2014" class="refDate">2014</time>, <span>&lt;<a href="https://eprint.iacr.org/2018/292">https://eprint.iacr.org/2018/292</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
