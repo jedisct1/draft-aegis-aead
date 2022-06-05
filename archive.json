@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-05-29T01:47:53.813109+00:00",
+  "timestamp": "2022-06-05T01:45:19.386397+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -609,19 +609,19 @@
       "id": "I_kwDOGRNxcs5GKU8Q",
       "title": "More AEGIS analysis",
       "url": "https://github.com/jedisct1/draft-aegis-aead/issues/46",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "jedisct1",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Including more papers on AEGIS may be useful to show that it's got some scrutiny.\r\n\r\n- https://ietresearch.onlinelibrary.wiley.com/doi/full/10.1049/cje.2020.00.231\r\n- https://eprint.iacr.org/2018/292.pdf\r\n- https://academic.oup.com/comjnl/advance-article-abstract/doi/10.1093/comjnl/bxab059/6280579\r\n- https://eprint.iacr.org/2021/187\r\n- https://tosc.iacr.org/index.php/ToSC/article/view/8468\r\n\r\nSome only cover the AEGIS128 variant. Do you think they are still worth including?",
       "createdAt": "2022-03-22T17:54:08Z",
-      "updatedAt": "2022-03-24T18:21:12Z",
-      "closedAt": null,
+      "updatedAt": "2022-06-04T14:28:01Z",
+      "closedAt": "2022-06-04T14:28:01Z",
       "comments": [
         {
           "author": "samuel-lucas6",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "Good idea.\r\n\r\n> Some only cover the AEGIS128 variant. Do you think they are still worth including?\r\n\r\nIt's useful for showing AEGIS as a family has been analysed, but it might cause some confusion. Liu et al. (2021) does mention an attack not applying to AEGIS-128L from a quick glance, so maybe that's relevant.",
           "createdAt": "2022-03-22T18:37:17Z",
           "updatedAt": "2022-03-22T18:39:21Z"
@@ -642,7 +642,7 @@
         },
         {
           "author": "samuel-lucas6",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "> How about removing only the first one from SHI et al. ?\r\n\r\nThat/Bart's suggestions sound good.",
           "createdAt": "2022-03-24T18:21:12Z",
           "updatedAt": "2022-03-24T18:21:12Z"
@@ -654,19 +654,19 @@
       "id": "I_kwDOGRNxcs5GYgCC",
       "title": "Neil Madden's Feedback",
       "url": "https://github.com/jedisct1/draft-aegis-aead/issues/49",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "samuel-lucas6",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "As said in #48, here's a summary:\r\n\r\n1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n2. ~Mention that AEGIS was selected for the high-performance scenario. AEGIS-128L is somewhat at odds with the competition outcome.~ (DONE)\r\n3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n4. ~I would perhaps be inclined to simplify things even further and only document the AEGIS-128L variant, which seems like the best pick of the three for the intended use cases.~ (256-bit variant as an alternative to AES-GCM)\r\n5. ~The discussion of partitioning oracle (PO) attacks could be moved from the introduction to a later section (perhaps section 6), with perhaps just a short note in the intro that AEGIS is key-committing and therefore resists partitioning oracle attacks.~ (Simplified slightly but summary useful)\r\n6. ~Add 'using a suitable password-based key derivation function' to the partitioning oracle attacks paragraph to avoid implying that a password can be used directly.~ (This was removed)\r\n7. ~Add a reference for the partitioning oracle attacks 'padding block'/zero check.~ (Removed)\r\n8. What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries.\r\n9. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n10. ~The \u201cfor a given key\u201d caveat is missing from the note in section 3.1 and should probably be added.~ (DONE)\r\n11. ~The requirement to compare the MAC tag in constant time is only a SHOULD. I can\u2019t see any good reason not to make this a MUST given how simple it is to implement?~ (DONE)\r\n12. ~What's the purpose of section 5? Would the JOSE implementation be non-compliant?~ (Guarantees interoperability)\r\n13. ~Define 'context-committing'.~ (This was removed)",
+      "body": "As said in #48, here's a summary:\r\n\r\n1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n2. ~Mention that AEGIS was selected for the high-performance scenario. AEGIS-128L is somewhat at odds with the competition outcome.~ (DONE)\r\n3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n4. ~I would perhaps be inclined to simplify things even further and only document the AEGIS-128L variant, which seems like the best pick of the three for the intended use cases.~ (256-bit variant as an alternative to AES-GCM)\r\n5. ~The discussion of partitioning oracle (PO) attacks could be moved from the introduction to a later section (perhaps section 6), with perhaps just a short note in the intro that AEGIS is key-committing and therefore resists partitioning oracle attacks.~ (Simplified slightly but summary useful)\r\n6. ~Add 'using a suitable password-based key derivation function' to the partitioning oracle attacks paragraph to avoid implying that a password can be used directly.~ (This was removed)\r\n7. ~Add a reference for the partitioning oracle attacks 'padding block'/zero check.~ (Removed)\r\n8. ~What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries.~\r\n9. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n10. ~The \u201cfor a given key\u201d caveat is missing from the note in section 3.1 and should probably be added.~ (DONE)\r\n11. ~The requirement to compare the MAC tag in constant time is only a SHOULD. I can\u2019t see any good reason not to make this a MUST given how simple it is to implement?~ (DONE)\r\n12. ~What's the purpose of section 5? Would the JOSE implementation be non-compliant?~ (Guarantees interoperability)\r\n13. ~Define 'context-committing'.~ (This was removed)",
       "createdAt": "2022-03-25T13:57:53Z",
-      "updatedAt": "2022-03-30T09:06:47Z",
-      "closedAt": null,
+      "updatedAt": "2022-06-04T08:59:23Z",
+      "closedAt": "2022-06-04T08:59:23Z",
       "comments": [
         {
           "author": "samuel-lucas6",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "I would also add that a reference and definition for compactly-committing would be wise. There seem to be overlapping definitions for key-committing, message-committing, compactly-committing, committing AEAD, and random key robustness (RKR). It's all unnecessarily confusing.",
           "createdAt": "2022-03-29T13:41:16Z",
           "updatedAt": "2022-03-29T13:41:16Z"
@@ -694,7 +694,7 @@
         },
         {
           "author": "samuel-lucas6",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "Regarding the last few then:\r\n\r\n> 1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n\r\nCan/should we reference the CAESAR webpage?\r\n\r\n> 3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n\r\nThoughts on this?\r\n\r\n> 8. What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n\r\nThe paper says:\r\n> As long as the nonce is not reused, it is impossible to recover the AEGIS state and key faster than exhaustive key search (under the assumption that a 128-bit authentication tag is used, and the forgery attack is not successful by repeating the attack).\r\n\r\n> We should ensure that IV is not reused for the same key; otherwise, the states of AEGIS can be recovered easily with either known-plaintext attacks or chosen plaintext attacks.\r\n\r\nBut leaking the state doesn't leak the key.",
           "createdAt": "2022-03-30T08:30:02Z",
           "updatedAt": "2022-03-30T08:30:02Z"
@@ -705,6 +705,20 @@
           "body": "Leaking the state doesn't leak the key, doesn't leak previous states either.",
           "createdAt": "2022-03-30T09:06:47Z",
           "updatedAt": "2022-03-30T09:06:47Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Updates from meeting 2022-06-02:\r\n\r\n> 1. Add an explicit reference to the CAESAR competition (is there some kind of final report?).\r\n\r\nNo final report was produced that anybody knew of. Nothing to cite.\r\n\r\n> 3. Perhaps an alternative term like \u201cchunk\u201d could be used for input blocks to distinguish them from AES blocks?\r\n\r\nStill open AFAICT. I disagree since symmetry of input and output size is in the nature of a block cipher. Using the term block for both emphasizes identical length. Plus in my experience \"chunk\" tends to be used a layer up for a protocol-level ciphertext.\r\n\r\n> 8. What is the implication of leaking the state? In GCM nonce-reuse allows (among other things) recovery of the MAC sub-key and subsequent forgeries.\r\n>\r\n> 9. Does nonce reuse have no impact on integrity, only on confidentiality?\r\n\r\nWe actually have a paragraph on 8 in the intro already:\r\n\r\n> Finally, unlike most other AES-based AEAD constructions, such as Rocca and Tiaoxin, leaking the state does not leak the key.\r\n\r\nThis is part of the sales pitch (better resistance to catastrophic failure), so I vote to keep things as-is.\r\n\r\nAs for 9, we agreed on 2022-06-04 not toinclude too many cryptographic details since the document is aimed at implementers primarily.\r\n\r\nFrom where I stand, this issue can be closed with everything being either addressed or wontfix.",
+          "createdAt": "2022-06-04T06:07:42Z",
+          "updatedAt": "2022-06-04T06:07:42Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> From where I stand, this issue can be closed with everything being either addressed or wontfix.\r\n\r\nThat's fair. I wasn't sure whether we could cite the CAESAR competition webpage, but it seems not. I'll go ahead and close it based on the meeting response.",
+          "createdAt": "2022-06-04T08:59:23Z",
+          "updatedAt": "2022-06-04T08:59:23Z"
         }
       ]
     },
@@ -784,6 +798,37 @@
           "body": "Since the tag must be verified before releasing the plaintext, even with a streaming API, it is very unlikely that it could be a practical concern.\r\n\r\nStill, it wouldn't hurt to mention that checks must be done, especially since the constants are defined.\r\n\r\nInstead of making that part of the algorithm, maybe this is a constraint we can add to the inputs definitions?\r\n\r\n```text\r\nm: the message to be encrypted\r\n```\r\n\r\n->\r\n\r\n```text\r\nm: the message to be encrypted (MUST be less than P_MAX bytes)\r\n```\r\n\r\n?",
           "createdAt": "2022-05-08T22:41:50Z",
           "updatedAt": "2022-05-08T22:41:50Z"
+        }
+      ]
+    },
+    {
+      "number": 57,
+      "id": "I_kwDOGRNxcs5LGYkk",
+      "title": "Mention Project Wycheproof test vectors?",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/issues/57",
+      "state": "OPEN",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "People should be aware that Project Wycheproof includes extensive test vectors for AEGIS.\r\n\r\nWe can add a link to the list of implementations, but is it something we could add to the document itself?\r\nURLs are probably not acceptable in a RFC, so I'm not sure how it could be done.",
+      "createdAt": "2022-06-03T14:11:45Z",
+      "updatedAt": "2022-06-04T09:03:09Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Name dropping it without a link is marginally useful now, but if it ever gets removed/moved/forked/..., it'll be tough to find.\r\n\r\nRFC 7322 (RFC Style Guide) \u00a7 4.8.6.1 is the sole mention of when URLs/URIs are permitted; it is located in the section for *references* and states:\r\n\r\n>   The use of URIs in references is acceptable, as long as the URI is\r\n>   the most stable (i.e., unlikely to change and expected to be\r\n>   continuously available) and direct reference possible.  The URI will\r\n>   be verified as valid during the RFC editorial process.\r\n>\r\n>   If a dated URI (one that includes a timestamp for the page) is\r\n>   available for a referenced web page, its use is required.\r\n>\r\n>   Note that URIs may not be the sole information provided for a\r\n>   reference entry.\r\n\r\nConsidering Wycheproof is not a reference, this is going to be questionable. One might be able to skirt this rule by taking one or more test vectors from there and adding a note that more, extensive vectors may be found in there, thereby \"citing\" the reference. It's also going to be hard to tell if it should be a normative reference.\r\n\r\nI couldn't find any other RFC or I-D mentioning Wycheproof.\r\n\r\nPersonally, I therefore lean towards not mentioning it.",
+          "createdAt": "2022-06-04T05:35:41Z",
+          "updatedAt": "2022-06-04T05:35:41Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Name dropping it without a link is marginally useful now, but if it ever gets removed/moved/forked/..., it'll be tough to find.\r\n\r\nIt seems very unlikely that it'll go away completely though, so a name drop is probably acceptable. ",
+          "createdAt": "2022-06-04T09:03:08Z",
+          "updatedAt": "2022-06-04T09:03:08Z"
         }
       ]
     }
@@ -3397,6 +3442,214 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 58,
+      "id": "PR_kwDOGRNxcs45G5Jg",
+      "title": "Word claims about key commitment more carefully",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/58",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In the meeting of 2022-06-02, Daniel Bleichenbacher advised to make the claims about key commitment\r\nmore carefully. There is no research that anyone in the meeting at the time was aware of that showed AEGIS to be key-committing. Key commitment was not part of the AEGIS design criteria at the time, if perhaps only because the paper on partitioning oracle attacks hadn't even been published at the time.\r\n\r\nTherefore, invert claim from AEGIS being key-committing to it not having been shown that it is not key-committing.\r\n\r\nWe would do well to continue monitoring this situation until publication as RFC.",
+      "createdAt": "2022-06-04T05:50:20Z",
+      "updatedAt": "2022-06-04T19:43:05Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "1cf47393c7bbe04a7c7380c4f3ca136e86a89b93",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+careful-key-commitment",
+      "headRefOid": "9acea2ad997485919cd94284e0bb9e8a17405cb6",
+      "closedAt": "2022-06-04T19:24:55Z",
+      "mergedAt": "2022-06-04T19:24:55Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "91dd96e842bb8a0a780435c5457519a27989865c"
+      },
+      "comments": [
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "It seems CI failed because it got more strict about trailing whitespace affecting the test vectors with `msg  : `; to be fixed outside this PR.",
+          "createdAt": "2022-06-04T05:57:48Z",
+          "updatedAt": "2022-06-04T05:57:48Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Instead of a specific date, maybe we could use something like \"at publication date\"?",
+          "createdAt": "2022-06-04T14:35:34Z",
+          "updatedAt": "2022-06-04T14:35:34Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We don't control the date of publication, the RFC editor does and the CFRG approval process is also a thing. It could be several months between RG last call and publication (cf. what's going on with draft-irtf-cfrg-kangarootwelve).\r\n\r\nI pondered \"as of the time of writing\", but that runs into the same date bump issue and ends up being even kess clear.",
+          "createdAt": "2022-06-04T14:45:34Z",
+          "updatedAt": "2022-06-04T14:45:34Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "\"as of the time of writing\" may still be better.\r\n\r\nHaving an exact date has implications:\r\n- It immediately draws attention to this, which may not be what want for the CFRG submission\r\n- When looking at the document to implement it, the \"is it still true?\" question immediately comes to mind while reading a date (possibly far in the past). Using something else will then be the easiest way to clear doubts\r\n- It makes the document feel outdated.\r\n\r\n",
+          "createdAt": "2022-06-04T15:43:43Z",
+          "updatedAt": "2022-06-04T15:43:43Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> \"as of the time of writing\" may still be better.\r\n\r\nThose points have convinced me. I'd probably go with 'at the time of writing' though to save a word.\r\n",
+          "createdAt": "2022-06-04T18:44:43Z",
+          "updatedAt": "2022-06-04T18:44:43Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs47WoRN",
+          "commit": {
+            "abbreviatedOid": "798295c"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM.\r\n\r\n> trailing whitespace affecting the test vectors with msg :\r\n\r\nSorry if that's my fault.",
+          "createdAt": "2022-06-04T09:08:33Z",
+          "updatedAt": "2022-06-04T09:08:33Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOGRNxcs47W7MT",
+          "commit": {
+            "abbreviatedOid": "798295c"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-06-04T14:48:14Z",
+          "updatedAt": "2022-06-04T14:48:14Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "Besides the repetition of \"neither\", that entire paragraph is difficult to understand as it seems to contradict itself.\r\nMaybe would could simplify it to:\r\n\r\nAEGIS-256 offers 256-bit message security against plaintext and state recovery. AEGIS-128L offers 128-bit security. \r\n\r\nBoth have a 128-bit authentication tag, which implies that a given tag may verify under multiple keys. However, finding equivalent keys is significantly more difficult than for authentication schemes based on polynomial evaluation such GCM and Poly1305.\r\n\r\n?",
+              "createdAt": "2022-06-04T14:48:14Z",
+              "updatedAt": "2022-06-04T14:48:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs47XEFH",
+          "commit": {
+            "abbreviatedOid": "798295c"
+          },
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-06-04T15:36:52Z",
+          "updatedAt": "2022-06-04T15:36:53Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "\"finding equivalent keys is significantly more difficult than for authentication schemes based on polynomial evaluation\" with no reservation reads to me as an implication of key commitment with no reservation, which is the exact thing to avoid.\r\n\r\nHow about this?\r\n\r\n> AEGIS-256 offers 256-bit message security against plaintext and state recovery. AEGIS-128L offers 128-bit security. Both have a 128-bit authentication tag, which implies that a given tag may verify under multiple keys because finding equivalent keys is expected to be significantly more difficult than for authentication schemes based on polynomial evaluation such GCM and Poly1305; this assumes that AEGIS is key-committing.",
+              "createdAt": "2022-06-04T15:36:53Z",
+              "updatedAt": "2022-06-04T15:36:53Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs47XLa6",
+          "commit": {
+            "abbreviatedOid": "798295c"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-06-04T16:20:44Z",
+          "updatedAt": "2022-06-04T16:20:44Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "> under multiple keys because finding equivalent \r\n\r\nMaybe with a `.` instead of \"because\"? :)",
+              "createdAt": "2022-06-04T16:20:44Z",
+              "updatedAt": "2022-06-04T16:20:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOGRNxcs47XPAS",
+          "commit": {
+            "abbreviatedOid": "798295c"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2022-06-04T18:39:59Z",
+          "updatedAt": "2022-06-04T18:39:59Z",
+          "comments": [
+            {
+              "originalPosition": 14,
+              "body": "> AEGIS-256 offers 256-bit message security against plaintext and state recovery, whereas AEGIS-128L offers 128-bit security. Both have a 128-bit authentication tag, which implies that a given tag may verify under multiple keys. However, assuming AEGIS is key-committing, finding equivalent keys is expected to be significantly more difficult than for authentication schemes based on polynomial evaluation, such as GCM and Poly1305.\r\n\r\nThat would be my recommendation.\r\n\r\nGood spots with the repetition of neither. I only looked at the edits when I shouldn't have.\r\n",
+              "createdAt": "2022-06-04T18:39:59Z",
+              "updatedAt": "2022-06-04T18:45:13Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 59,
+      "id": "PR_kwDOGRNxcs45G7-0",
+      "title": "Cite more AEGIS analyses",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/59",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Closes #46.\r\n\r\nhttps://eprint.iacr.org/2018/292.pdf (cited as Min14) was also one of Bart Preneel's suggestions; I preferred the published version for citing, but it seems the ePrint version is identical in content modulo page numbers, so I linked it as well. Similar story for LIMS21.\r\n\r\nThe term \"security analysis\" is used to conform with RFC 5116 \u00a7 4; \"[t]he security analysis SHOULD define or reference a security model.\" The papers cited do operate with standard models, though aren't comprehensive analyses like the original AEGIS paper, so that one continues to be cited first.\r\n\r\nJLD21 is weird because I couldn't find a corresponding volume on https://academic.oup.com/comjnl/issue/64/5. Page numbers are missing accordingly.\r\n\r\nPapers that didn't make the cut:\r\n\r\n- Andreeva et al., \"How to Securely Release Unverified Plaintext in Authenticated Encryption\": we specify that unverified plaintext MUST NOT be released, so there is no room for differentiation and subtlety. It's an interesting technique to try and save schemes to have some amount of semantic security with unreleased plaintext, but it's not part of the AEGIS spec and anyone ignoring a MUST NOT ought to be doing this kind of research in the first place.\r\n- Shi et al., \"Cryptanalysis of AEGIS-128\": This only concerns AEGIS-128, which we do not specify.\r\n\r\nWhile already here, make org EPFL consistent.",
+      "createdAt": "2022-06-04T07:22:29Z",
+      "updatedAt": "2022-06-04T19:43:18Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "1cf47393c7bbe04a7c7380c4f3ca136e86a89b93",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "main+citations",
+      "headRefOid": "d53e553915752a1489bc5fe13fbc2079a585d15d",
+      "closedAt": "2022-06-04T14:28:01Z",
+      "mergedAt": "2022-06-04T14:28:01Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "5b2a14667720bfde260a436af0b6ef5978aef557"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Nice! Thank you!",
+          "createdAt": "2022-06-04T14:27:56Z",
+          "updatedAt": "2022-06-04T14:27:56Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs47W1zf",
+          "commit": {
+            "abbreviatedOid": "d53e553"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-06-04T14:27:48Z",
+          "updatedAt": "2022-06-04T14:27:48Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
