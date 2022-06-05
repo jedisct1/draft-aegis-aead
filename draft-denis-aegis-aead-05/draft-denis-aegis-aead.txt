@@ -5,9 +5,9 @@
 Network Working Group                                           F. Denis
 Internet-Draft                                               Fastly Inc.
 Intended status: Informational                          F. E. R. Scotoni
-Expires: 7 November 2022                                        S. Lucas
+Expires: 7 December 2022                                        S. Lucas
                                                   Individual Contributor
-                                                              6 May 2022
+                                                             5 June 2022
 
 
         The AEGIS family of authenticated encryption algorithms
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2022.
+   This Internet-Draft will expire on 7 December 2022.
 
 Copyright Notice
 
@@ -153,10 +153,11 @@ Table of Contents
    an oracle, which speeds up a password search by reducing it to a
    binary search.
 
-   As a key-committing AEAD scheme, the AEGIS cipher family is more
-   resistant against partitioning oracle attacks than non-committing
-   AEAD schemes, making it significantly harder to find multiple keys
-   that are valid for a given authentication tag.
+   A key-committing AEAD scheme is more resistant against partitioning
+   oracle attacks than non-committing AEAD schemes, making it
+   significantly harder to find multiple keys that are valid for a given
+   authentication tag.  As of the time of writing, no research has been
+   published claiming that AEGIS is not a key-committing AEAD scheme.
 
    Finally, unlike most other AES-based AEAD constructions, such as
    Rocca and Tiaoxin, leaking the state does not leak the key.
@@ -272,17 +273,19 @@ Table of Contents
    The parameters for this algorithm, whose meaning is defined in
    [RFC5116], Section 4 are:
 
-   *  K_LEN (key length) is 16 octets.
+   *  K_LEN (key length) is 16 octets (128 bits).
 
-   *  P_MAX (maximum length of the plaintext) is 2^61 octets.
+   *  P_MAX (maximum length of the plaintext) is 2^61 octets (2^64
+      bits).
 
-   *  A_MAX (maximum length of the associated data) is 2^61 octets.
+   *  A_MAX (maximum length of the associated data) is 2^61 octets (2^64
+      bits).
 
    *  N_MIN (minimum nonce length) = N_MAX (maximum nonce length) = 16
-      octets.
+      octets (128 bits).
 
    *  C_MAX (maximum ciphertext length) = P_MAX + tag length = 2^61 + 16
-      octets.
+      octets (2^64 + 128 bits).
 
    Distinct associated data inputs, as described in [RFC5116], Section 3
    shall be unambiguously encoded as a single input.  It is up to the
@@ -307,9 +310,10 @@ Table of Contents
 
    Inputs:
 
-   *  msg: the message to be encrypted.
+   *  msg: the message to be encrypted (length MUST be less than P_MAX).
 
-   *  ad: the associated data to authenticate.
+   *  ad: the associated data to authenticate (length MUST be less than
+      A_MAX).
 
    *  key: the encryption key.
 
@@ -359,11 +363,13 @@ Table of Contents
 
    Inputs:
 
-   *  ct: the ciphertext to be decrypted.
+   *  ct: the ciphertext to be decrypted (length MUST be less than
+      C_MAX).
 
    *  tag: the authentication tag.
 
-   *  ad: the associated data to authenticate.
+   *  ad: the associated data to authenticate (length MUST be less than
+      A_MAX).
 
    *  key: the encryption key.
 
@@ -592,17 +598,19 @@ Table of Contents
    The parameters for this algorithm, whose meaning is defined in
    [RFC5116], Section 4 are:
 
-   *  K_LEN (key length) is 32 octets.
+   *  K_LEN (key length) is 32 octets (256 bits).
 
-   *  P_MAX (maximum length of the plaintext) is 2^61 octets.
+   *  P_MAX (maximum length of the plaintext) is 2^61 octets (2^64
+      bits).
 
-   *  A_MAX (maximum length of the associated data) is 2^61 octets.
+   *  A_MAX (maximum length of the associated data) is 2^61 octets (2^64
+      bits).
 
    *  N_MIN (minimum nonce length) = N_MAX (maximum nonce length) = 32
-      octets.
+      octets (256 bits).
 
    *  C_MAX (maximum ciphertext length) = P_MAX + tag length = 2^61 + 16
-      octets.
+      octets (2^64 + 128 bits).
 
    Distinct associated data inputs, as described in [RFC5116], Section 3
    shall be unambiguously encoded as a single input.  It is up to the
@@ -627,9 +635,10 @@ Table of Contents
 
    Inputs:
 
-   *  msg: the message to be encrypted.
+   *  msg: the message to be encrypted (length MUST be less than M_MAX).
 
-   *  ad: the associated data to authenticate.
+   *  ad: the associated data to authenticate (length MUST be less than
+      A_MAX).
 
    *  key: the encryption key.
 
@@ -679,11 +688,13 @@ Table of Contents
 
    Inputs:
 
-   *  ct: the ciphertext to be decrypted.
+   *  ct: the ciphertext to be decrypted (length MUST be less than
+      C_MAX).
 
    *  tag: the authentication tag.
 
-   *  ad: the associated data to authenticate.
+   *  ad: the associated data to authenticate (length MUST be less than
+      A_MAX).
 
    *  key: the encryption key.
 
@@ -908,13 +919,12 @@ Table of Contents
 6.  Security Considerations
 
    AEGIS-256 offers 256-bit message security against plaintext and state
-   recovery.  AEGIS-128L offers 128-bit security.  They are both key-
-   committing, the implications of which are outlined in the
-   introduction.  However, neither is compactly-committing because a
-   128-bit tag is too short to be collision resistant.  This means it is
-   still possible for a ciphertext to be successfully decrypted under
-   multiple different keys, just significantly more difficult than for
-   AEAD schemes lacking key commitment.
+   recovery, whereas AEGIS-128L offers 128-bit security.  Both have a
+   128-bit authentication tag, which implies that a given tag may verify
+   under multiple keys.  However, assuming AEGIS is key-committing,
+   finding equivalent keys is expected to be significantly more
+   difficult than for authentication schemes based on polynomial
+   evaluation, such as GCM and Poly1305.
 
    Under the assumption that the secret key is unknown to the attacker
    and the tag is not truncated, both AEGIS-128L and AEGIS-256 target
@@ -948,7 +958,8 @@ Table of Contents
    or state information.  The exact mitigations required for timing and
    physical attacks also depend on the threat model in question.
 
-   A security analysis of AEGIS can be found in Chapter 4 of [AEGIS].
+   Security analyses of AEGIS can be found in Chapter 4 of [AEGIS], in
+   [Min14], in [ENP19], in [LIMS21], and in [JLD21].
 
 7.  IANA Considerations
 
@@ -987,20 +998,38 @@ Table of Contents
               Robustness of CAESAR Candidates against Nonce Reusing and
               High Data Complexity Attacks", Applied Cryptography and
               Network Security. ACNS 2018. Lecture Notes in Computer
-              Science, vol 10892, DOI 10.1007/978-3-319-93387-0_25,
-              2018, <https://doi.org/10.1007/978-3-319-93387-0_25>.
+              Science, vol 10892, pp. 476–494,
+              DOI 10.1007/978-3-319-93387-0_25, 2018,
+              <https://doi.org/10.1007/978-3-319-93387-0_25>.
+
+   [ENP19]    Eichlseder, M., Nageler, M., and R. Primas, "Analyzing the
+              Linear Keystream Biases in AEGIS", IACR Transactions on
+              Symmetric Cryptology, 2019(4), pp. 348–368,
+              DOI 10.13154/tosc.v2019.i4.348-368, 31 January 2020,
+              <https://doi.org/10.13154/tosc.v2019.i4.348-368>.
+
+   [JLD21]    Jiao, L., Li, Y., and S. Du, "Guess-and-Determine Attacks
+              on AEGIS", The Computer Journal,
+              DOI 10.1093/comjnl/bxab059, 22 May 2021,
+              <https://doi.org/10.1093/comjnl/bxab059>.
 
    [LGR21]    Len, J., Grubbs, P., and T. Ristenpart, "Partitioning
               Oracle Attacks", 30th USENIX Security Symposium (USENIX
-              Security 21), 2021,
+              Security 21), pp. 195–212, 2021,
               <https://www.usenix.org/conference/usenixsecurity21/
               presentation/len>.
 
    [LIMS21]   Liu, F., Isobe, T., Meier, W., and K. Sakamoto, "Weak Keys
               in Reduced AEGIS and Tiaoxin", IACR Transactions on
-              Symmetric Cryptology, 2021(2), 104–139.,
+              Symmetric Cryptology, 2021(2), pp. 104–139,
               DOI 10.46586/tosc.v2021.i2.104-139, 2021,
-              <https://doi.org/10.46586/tosc.v2021.i2.104-139>.
+              <https://eprint.iacr.org/2021/187>.
+
+   [Min14]    Minaud, B., "Linear Biases in AEGIS Keystream", Selected
+              Areas in Cryptography. SAC 2014. Lecture Notes in Computer
+              Science, vol 8781, pp. 290–305,
+              DOI 10.1007/978-3-319-13051-4_18, 2014,
+              <https://eprint.iacr.org/2018/292>.
 
 Appendix A.  Test Vectors
 
