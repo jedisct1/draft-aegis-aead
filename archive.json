@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-06-05T01:45:19.386397+00:00",
+  "timestamp": "2022-06-14T01:55:09.693362+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -3647,6 +3647,56 @@
           "body": "",
           "createdAt": "2022-06-04T14:27:48Z",
           "updatedAt": "2022-06-04T14:27:48Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "id": "PR_kwDOGRNxcs45hFPr",
+      "title": "Typo fixes in AEGIS-256 part",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/60",
+      "state": "MERGED",
+      "author": "fscoto",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "PR because we might not want to push new commits to main until the next steps are sorted, but I might forget otherwise.",
+      "createdAt": "2022-06-12T11:02:23Z",
+      "updatedAt": "2022-06-12T16:45:50Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "9568708de30a6f30cd342ca930e737236dcd0cf9",
+      "headRepository": "fscoto/draft-aegis-aead",
+      "headRefName": "fsc",
+      "headRefOid": "9100c1795f40fdaa6a1b2c06bdcacc3802fca180",
+      "closedAt": "2022-06-12T16:45:50Z",
+      "mergedAt": "2022-06-12T16:45:50Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "6344745eba84ba5e978ec49d49cf556703423b43"
+      },
+      "comments": [
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "Good catches!",
+          "createdAt": "2022-06-12T16:45:46Z",
+          "updatedAt": "2022-06-12T16:45:46Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs470mZk",
+          "commit": {
+            "abbreviatedOid": "9100c17"
+          },
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-06-12T16:45:41Z",
+          "updatedAt": "2022-06-12T16:45:41Z",
           "comments": []
         }
       ]
