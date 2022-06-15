@@ -5,9 +5,9 @@
 Network Working Group                                           F. Denis
 Internet-Draft                                               Fastly Inc.
 Intended status: Informational                          F. E. R. Scotoni
-Expires: 14 December 2022                                       S. Lucas
+Expires: 17 December 2022                                       S. Lucas
                                                   Individual Contributor
-                                                            12 June 2022
+                                                            15 June 2022
 
 
         The AEGIS family of authenticated encryption algorithms
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 December 2022.
+   This Internet-Draft will expire on 17 December 2022.
 
 Copyright Notice
 
@@ -1330,8 +1330,6 @@ A.3.7.  Test Vector 6
 
    ad   : 0001020304050607
 
-   msg  :
-
    ct   : f373079ed84b2709faee37358458
 
    tag  : c60b9c2d33ceb058f96e6dd03c215652
@@ -1347,8 +1345,6 @@ A.3.8.  Test Vector 7
           00000000000000000000000000000000
 
    ad   : 0001020304050607
-
-   msg  :
 
    ct   : f373079ed84b2709faee37358459
 
@@ -1366,8 +1362,6 @@ A.3.9.  Test Vector 8
 
    ad   : 0001020304050608
 
-   msg  :
-
    ct   : f373079ed84b2709faee37358458
 
    tag  : c60b9c2d33ceb058f96e6dd03c215652
@@ -1383,8 +1377,6 @@ A.3.10.  Test Vector 9
           00000000000000000000000000000000
 
    ad   : 0001020304050607
-
-   msg  :
 
    ct   : f373079ed84b2709faee37358458
 
