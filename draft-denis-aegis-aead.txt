@@ -192,8 +192,8 @@ Table of Contents
 
    *  LE64(x): the little-endian encoding of 64-bit integer x.
 
-   *  Pad(x, n): padding operation.  Trailing zeros are concatenated to
-      x until the total length is a multiple of n bits.
+   *  ZeroPad(x, n): padding operation.  Trailing zeros are concatenated
+      to x until the total length is a multiple of n bits.
 
    *  Truncate(x, n): truncation operation.  The first n bits of x are
       kept.
@@ -331,11 +331,11 @@ Table of Contents
 
    ct = {}
 
-   ad_blocks = Split(Pad(ad, 256), 256)
+   ad_blocks = Split(ZeroPad(ad, 256), 256)
    for xi in ad_blocks:
        Enc(xi)
 
-   msg_blocks = Split(Pad(msg, 256), 256)
+   msg_blocks = Split(ZeroPad(msg, 256), 256)
    for xi in msg_blocks:
        ct = ct || Enc(xi)
 
@@ -386,7 +386,7 @@ Table of Contents
 
    msg = {}
 
-   ad_blocks = Split(Pad(ad, 256), 256)
+   ad_blocks = Split(ZeroPad(ad, 256), 256)
    for xi in ad_blocks:
        Enc(xi)
 
@@ -552,13 +552,13 @@ Table of Contents
    z0 = S6 ^ S1 ^ (S2 & S3)
    z1 = S2 ^ S5 ^ (S6 & S7)
 
-   t0, t1 = Split(Pad(cn, 256), 128)
+   t0, t1 = Split(ZeroPad(cn, 256), 128)
    out0 = t0 ^ z0
    out1 = t1 ^ z1
 
    xn = Truncate(out0 || out1, |cn|)
 
-   v0, v1 = Split(Pad(xn, 256), 128)
+   v0, v1 = Split(ZeroPad(xn, 256), 128)
    Update(v0, v1)
 
    return xn
@@ -656,11 +656,11 @@ Table of Contents
 
    ct = {}
 
-   ad_blocks = Split(Pad(ad, 128), 128)
+   ad_blocks = Split(ZeroPad(ad, 128), 128)
    for xi in ad_blocks:
        Enc(xi)
 
-   msg_blocks = Split(Pad(msg, 128), 128)
+   msg_blocks = Split(ZeroPad(msg, 128), 128)
    for xi in msg_blocks:
        ct = ct || Enc(xi)
 
@@ -711,11 +711,11 @@ Table of Contents
 
    msg = {}
 
-   ad_blocks = Split(Pad(ad, 128), 128)
+   ad_blocks = Split(ZeroPad(ad, 128), 128)
    for xi in ad_blocks:
        Enc(xi)
 
-   ct_blocks = Split(Pad(ct, 128), 128)
+   ct_blocks = Split(ZeroPad(ct, 128), 128)
    cn = Tail(ct, |ct| mod 128)
 
    for ci in ct_blocks:
@@ -870,12 +870,12 @@ Table of Contents
 
    z = S1 ^ S4 ^ S5 ^ (S2 & S3)
 
-   t = Pad(cn, 128)
+   t = ZeroPad(cn, 128)
    out = t ^ z
 
    xn = Truncate(out, |cn|)
 
-   v = Pad(xn, 128)
+   v = ZeroPad(xn, 128)
    Update(v)
 
    return xn
@@ -1155,8 +1155,6 @@ A.2.7.  Test Vector 6
 
    ad   : 0001020304050607
 
-   msg  :
-
    ct   : 79d94593d8c2119d7e8fd9b8fc77
 
    tag  : 5c04b3dba849b2701effbe32c7f0fab7
@@ -1170,8 +1168,6 @@ A.2.8.  Test Vector 7
    nonce: 10000200000000000000000000000000
 
    ad   : 0001020304050607
-
-   msg  :
 
    ct   : 79d94593d8c2119d7e8fd9b8fc78
 
@@ -1187,8 +1183,6 @@ A.2.9.  Test Vector 8
 
    ad   : 0001020304050608
 
-   msg  :
-
    ct   : 79d94593d8c2119d7e8fd9b8fc77
 
    tag  : 5c04b3dba849b2701effbe32c7f0fab7
@@ -1202,8 +1196,6 @@ A.2.10.  Test Vector 9
    nonce: 10000200000000000000000000000000
 
    ad   : 0001020304050607
-
-   msg  :
 
    ct   : 79d94593d8c2119d7e8fd9b8fc77
 
