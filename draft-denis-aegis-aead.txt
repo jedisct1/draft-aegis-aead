@@ -5,9 +5,9 @@
 Network Working Group                                           F. Denis
 Internet-Draft                                               Fastly Inc.
 Intended status: Informational                          F. E. R. Scotoni
-Expires: 17 December 2022                                       S. Lucas
+Expires: 18 December 2022                                       S. Lucas
                                                   Individual Contributor
-                                                            15 June 2022
+                                                            16 June 2022
 
 
         The AEGIS family of authenticated encryption algorithms
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 December 2022.
+   This Internet-Draft will expire on 18 December 2022.
 
 Copyright Notice
 
@@ -1069,23 +1069,23 @@ A.2.1.  Update Test Vector
 
 A.2.2.  Test Vector 1
 
-   key  : 00000000000000000000000000000000
+   key  : 10010000000000000000000000000000
 
-   nonce: 00000000000000000000000000000000
+   nonce: 10000200000000000000000000000000
 
    ad   :
 
    msg  : 00000000000000000000000000000000
 
-   ct   : 41de9000a7b5e40e2d68bb64d99ebb19
+   ct   : c1c0e58bd913006feba00f4b3cc3594e
 
-   tag  : f4d997cc9b94227ada4fe4165422b1c8
+   tag  : abe0ece80c24868a226a35d16bdae37a
 
 A.2.3.  Test Vector 2
 
-   key  : 00000000000000000000000000000000
+   key  : 10010000000000000000000000000000
 
-   nonce: 00000000000000000000000000000000
+   nonce: 10000200000000000000000000000000
 
    ad   :
 
@@ -1093,7 +1093,7 @@ A.2.3.  Test Vector 2
 
    ct   :
 
-   tag  : 83cc600dc4e3e7e62d4055826174f149
+   tag  : c2b879a67def9d74e6c14f708bbcc9b4
 
 A.2.4.  Test Vector 3
 
@@ -1224,26 +1224,26 @@ A.3.1.  Update Test Vector
 
 A.3.2.  Test Vector 1
 
-   key  : 00000000000000000000000000000000
+   key  : 10010000000000000000000000000000
           00000000000000000000000000000000
 
-   nonce: 00000000000000000000000000000000
+   nonce: 10000200000000000000000000000000
           00000000000000000000000000000000
 
    ad   :
 
    msg  : 00000000000000000000000000000000
 
-   ct   : b98f03a947807713d75a4fff9fc277a6
+   ct   : 754fc3d8c973246dcc6d741412a4b236
 
-   tag  : 478f3b50dc478ef7d5cf2d0f7cc13180
+   tag  : 3fe91994768b332ed7f570a19ec5896e
 
 A.3.3.  Test Vector 2
 
-   key  : 00000000000000000000000000000000
+   key  : 10010000000000000000000000000000
           00000000000000000000000000000000
 
-   nonce: 00000000000000000000000000000000
+   nonce: 10000200000000000000000000000000
           00000000000000000000000000000000
 
    ad   :
@@ -1252,7 +1252,7 @@ A.3.3.  Test Vector 2
 
    ct   :
 
-   tag  : f7a0878f68bd083e8065354071fc27c3
+   tag  : e3def978a0f054afd1e761d7553afba3
 
 A.3.4.  Test Vector 3
 
