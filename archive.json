@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-06-16T01:42:47.437514+00:00",
+  "timestamp": "2022-06-19T01:48:58.574045+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -842,9 +842,9 @@
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
-      "body": "This is a summary of feedback from @fscoto implementing AEGIS-256. Hopefully you don't mind me putting this here for tracking purposes. Well done by the way :)\r\n\r\n1. ~Duplicate `C0` and `C1` in the `Init()` sections?~\r\n2. ~Rename `Pad()` to `ZeroPad()`?~\r\n3. Full annotated execution of `Encrypt()` for an ad/message between 17 and 31 bytes in length?\r\n4. ~Include zeroing `msg` check in a test vector?~\r\n5. Consider having a `key` that isn't all zeroes in the first test vector?\r\n6. `C_MAX` makes little sense given the tag is a separate input.\r\n7. `DecPartial()` but no `EncPartial()` feels weird.\r\n8. ~Maybe leave `msg` out of test vectors 6-9 to make it clear that only `Decrypt()` is being tested?~",
+      "body": "This is a summary of feedback from @fscoto implementing AEGIS-256. Hopefully you don't mind me putting this here for tracking purposes. Well done by the way :)\r\n\r\n1. ~Duplicate `C0` and `C1` in the `Init()` sections?~\r\n2. ~Rename `Pad()` to `ZeroPad()`?~\r\n3. Full annotated execution of `Encrypt()` for an ad/message between 17 and 31 bytes in length?\r\n4. ~Include zeroing `msg` check in a test vector?~\r\n5. ~Consider having a `key` that isn't all zeroes in the first test vector?~\r\n6. ~`C_MAX` makes little sense given the tag is a separate input.~\r\n7. ~`DecPartial()` but no `EncPartial()` feels weird.~\r\n8. ~Maybe leave `msg` out of test vectors 6-9 to make it clear that only `Decrypt()` is being tested?~",
       "createdAt": "2022-06-15T11:00:59Z",
-      "updatedAt": "2022-06-15T18:20:22Z",
+      "updatedAt": "2022-06-18T11:41:49Z",
       "closedAt": null,
       "comments": [
         {
@@ -867,6 +867,34 @@
           "body": "> Full annotated execution of `Encrypt()` for an ad/message between 17 and 31 bytes in length? (Not sure what this means)\r\n>\r\n> Please explain what you mean.\r\n\r\nI'm suggesting Dump something like this into an appendix (similarly for -128L):\r\n\r\n```\r\nkey  : 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f\r\nnonce: 202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f\r\nad   : 404142434445464748494a4b4c4d4e4f50\r\nmsg  : 606162636465666768696a6b6c6d6e6f7071\r\nInitial state\r\nS0: 20202020202020202020202020202020\r\nS1: 20202020202020202020202020202020\r\nS2: db3d18556dc22ff12011314273b528dd\r\nS3: 000101020305080d1522375990e97962\r\nS4: 0000030107000e0a1d2b3d529ce4776d\r\nS5: cb2c0a4679d739e638082b596fa836c2\r\nAfter Init() update 1\r\nS0: 86b023c7bdded5ba32b903df5de70a4b\r\nS1: 31a95a24c20ece6c4be7f3cee4aacd5e\r\nS2: 7f87b99d0b3c89d3aba838b8873404b0\r\nS3: 62241d55e56578edc2ba514463d09a03\r\nS4: d9f885d1270c3f9f641a6d1a31ce5b5d\r\nS5: d988593411aec838e94de574d8b2e045\r\nAfter Init() update 2\r\nS0: 3bb10235f5c5b923ff881cdeac57c12a\r\nS1: c76bcfb6ff434eb3fc18bc9e2f31638e\r\nS2: f9cb4b6e61b95b5beb8339c175a86c41\r\nS3: 26905d50a0a999bd1006884e93cc326e\r\nS4: 77fd205fabe2006131e1438751fd0e3a\r\nS5: c307051e6bcd8e7105cde004eed770b8\r\nAfter Init() update 3\r\nS0: 87408e38f5b273a7828c823d87a49a4e\r\nS1: ab7ec22fc6f780cb72ead0d292bfd6c9\r\nS2: 6fc27ea6eb9cf59a3ce58f38dafcd74c\r\nS3: e815f7b3d7da902766d8a8162c0ddaef\r\nS4: 7264b47e236acdd144cca3088291a02f\r\nS5: 9b3df9838976e41bdb66af9dc78b13a8\r\nAfter Init() update 4\r\nS0: a3f0eb54deec2c7397ba891e07dba256\r\nS1: 02c9e554a573c761d305510b068a513b\r\nS2: 8284d4ac9c73cba814b270e5b20f9803\r\nS3: d592a9ff88e922497fcfd19aa06f400c\r\nS4: 90dbb3444d3c7949f1b6d262a22b8984\r\nS5: 1c3ad63929b62bc31915ef0b16dfd569\r\nProcessing ad\r\nAfter Update in Enc(404142434445464748494a4b4c4d4e4f)\r\nS0: 3432ced031a9a6be0d2f0c0684e9aff7\r\nS1: 4907bc5a82f33ac86e4b23dd1bad6c76\r\nS2: d57ca8b4dceb7f586cb7eb2dfdbbc0ff\r\nS3: 530c1ae2a102ef7880c3902ee91e66bc\r\nS4: 7458cb8644fa1fb1457a58028343c808\r\nS5: 100ccd799a20fe221ec12819aee7c467\r\nAfter Update in Enc(50000000000000000000000000000000)\r\nS0: 98544f0778739f7e6021258421e8bf36\r\nS1: 81d3288f21e58a16dc880e6d8bb7e94e\r\nS2: aa0f9aa2dacba6e9605e08acaddfe9c9\r\nS3: 8af003cb619523fbad6b0b227bdfee29\r\nS4: 299e3e77f959d6d14c1267fd48f1de69\r\nS5: 024af6f375f338b53b72212564f3400c\r\nProcessing msg\r\nAfter Update in Enc(606162636465666768696a6b6c6d6e6f)\r\nS0: 02baafeaf91d21f657a3402c92470b33\r\nS1: bdd490ff93658fada61158e48e237817\r\nS2: 4663739a01f436c9e48a862e3f900aee\r\nS3: 05efacaa036a5e3009510c53655bede6\r\nS4: 256cc8a58a2f3792b0228ba2302a919d\r\nS5: 690f99a0f43156201df194317fe212af\r\nci: 606162636465666768696a6b6c6d6e6f\r\nAfter Update in Enc(70710000000000000000000000000000)\r\nS0: 92b85eed4d5b8d9feeb279d8c176840c\r\nS1: 6e280f560812d829d0d897549bf2b12d\r\nS2: ffcd9bc895fe31a433d7e035cfe5062c\r\nS3: 0734b9efa6fb41c629af7ca6adfd3ae5\r\nS4: 8594cfe3edbed8d86cfd860165c79f0c\r\nS5: 4b032b7521eca8bc5bab8c9027c9271d\r\nci: 85a5e170ec1bf81f0bc24375e4fbf3c3\r\nFinalize(0x88, 0x90)\r\nt:  8f34b9efa6fb41c6b9af7ca6adfd3ae5\r\nAfter Update in Finalize()\r\nS0: 8c4b39274d38b59ed185f266782faae3\r\nS1: a825f73b15796dd96b1e84553ff336a4\r\nS2: 37be585a416826e0dea9bc91a3300523\r\nS3: dfcf62919af6eafe98b380c910eba9b1\r\nS4: b7c9c65e0c18d940e427545a5ccf29b4\r\nS5: 1af675a2762891e665acb2538baa544f\r\ntag:6120472bf9ef5cff7d0aac6223624d2e\r\n```\r\n\r\nPoints 2 and 8 already done thanks to @samuel-lucas6.\r\n\r\nPoints 1, 3, 4, 7 dismissed or no clear consensus. Nothing to do.\r\n\r\n5 still to do.\r\n\r\n6 still to do, might actually be correct as-is, cf. [RFC 5116, \u00a7 5.1](https://www.rfc-editor.org/rfc/rfc5116#section-5.1), where tag size is incorporated, but also mandates ct || tag, but \u00a7 4 should leave us with enough leeway.",
           "createdAt": "2022-06-15T15:31:27Z",
           "updatedAt": "2022-06-15T15:31:27Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Upon checking the draft again, the `C_MAX` definitions seem correct. In an AEAD, the tag is part of what is transmitted over the network. We correctly note that `C_MAX` is just `P_MAX` plus tag length. Nothing to do for 6.\r\n\r\nUnless someone has strong feelings about doing 3, we've addressed all we can agree to address and the issue may be closed.",
+          "createdAt": "2022-06-17T16:35:00Z",
+          "updatedAt": "2022-06-17T16:35:00Z"
+        },
+        {
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Upon checking the draft again, the C_MAX definitions seem correct. In an AEAD, the tag is part of what is transmitted over the network. We correctly note that C_MAX is just P_MAX plus tag length. Nothing to do for 6.\r\n\r\nI agree that makes sense, but it seems wrong to have `tag` listed as a separate input if it's actually part of the ciphertext. Two options I see are:\r\n1. You only have a `ct` input, like implementations presumably would, but then you'd have to specify where `tag` is coming from somehow.\r\n2. You say `ct` length **MUST** be less than `P_MAX` and treat it as independent from `tag`.\r\n\r\n> Unless someone has strong feelings about doing 3, we've addressed all we can agree to address and the issue may be closed.\r\n\r\nGiven the length, perhaps we should leave it out.",
+          "createdAt": "2022-06-18T09:47:21Z",
+          "updatedAt": "2022-06-18T09:47:21Z"
+        },
+        {
+          "author": "jedisct1",
+          "authorAssociation": "OWNER",
+          "body": "The confusion comes from the fact that there's no dedicated parameter for the tag size.\r\n\r\nMaybe what we can do is keep the current definition for `C_MAX` and explicitly mention \"(incorporating the authentication tag)\"?\r\n\r\nFor 3), maybe what we can do is provide a single test vector (for each AEGIS variant) for the `Update()` function?",
+          "createdAt": "2022-06-18T10:09:09Z",
+          "updatedAt": "2022-06-18T10:09:09Z"
+        },
+        {
+          "author": "fscoto",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Maybe what we can do is keep the current definition for C_MAX and explicitly mention \"(incorporating the authentication tag)\"?\r\n\r\nWorks for me in principle, though I'm having issues finding a good wording for it.\r\n\r\n> For 3), maybe what we can do is provide a single test vector (for each AEGIS variant) for the Update() function?\r\n\r\nWe already have that. While that was indeed helpful, the part I wasn't sure is if my state was okay after Init(), after processing ad and after processing msg. I had a bug in init() and multi-block ad processing, so ct and msg always came out wrong. Without being sure that ad processing works, it was hard to tell if the bug was in ad or msg handling. The Init() bug is caught with the new test vectors.\r\n\r\nIt's probably not a big deal since if test vector 1 passes but 3 doesn't, completely hosed ct means bug in ad handling and partially hosed ct means bug in msg handling.",
+          "createdAt": "2022-06-18T11:41:49Z",
+          "updatedAt": "2022-06-18T11:41:49Z"
         }
       ]
     }
@@ -3808,6 +3836,48 @@
       },
       "comments": [],
       "reviews": []
+    },
+    {
+      "number": 64,
+      "id": "PR_kwDOGRNxcs45yMm8",
+      "title": "Test vectors: don't use all-zero keys and nonces",
+      "url": "https://github.com/jedisct1/draft-aegis-aead/pull/64",
+      "state": "MERGED",
+      "author": "jedisct1",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "This helps detect implementations where the key and the nonce, or (for AEGIS-256) their two 128-bit words are flipped.\r\n\r\nAddresses point 5 of #61.",
+      "createdAt": "2022-06-16T15:23:47Z",
+      "updatedAt": "2022-06-16T15:59:11Z",
+      "baseRepository": "jedisct1/draft-aegis-aead",
+      "baseRefName": "main",
+      "baseRefOid": "2227255e6c25e7330c80080b62b57b6740c301ab",
+      "headRepository": "jedisct1/draft-aegis-aead",
+      "headRefName": "nonzero-keys",
+      "headRefOid": "e3da7e550bb13298f0f64be4b02cfbe9e70ff2dd",
+      "closedAt": "2022-06-16T15:59:08Z",
+      "mergedAt": "2022-06-16T15:59:07Z",
+      "mergedBy": "jedisct1",
+      "mergeCommit": {
+        "oid": "0cdae2eb60fdcac4caceebd253cc2d96811fffce"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOGRNxcs48KJJx",
+          "commit": {
+            "abbreviatedOid": "e3da7e5"
+          },
+          "author": "samuel-lucas6",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-06-16T15:58:16Z",
+          "updatedAt": "2022-06-16T15:58:16Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
