@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2022-06-19T01:48:58.574045+00:00",
+  "timestamp": "2022-06-30T01:48:35.823016+00:00",
   "repo": "jedisct1/draft-aegis-aead",
   "labels": [
     {
@@ -479,15 +479,15 @@
       "id": "I_kwDOGRNxcs5FbeUE",
       "title": "Added value: secure implementation: Forbid sw AES or give pseudocode for the round function?",
       "url": "https://github.com/jedisct1/draft-aegis-aead/issues/40",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "fscoto",
       "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "As per meeting 2022-03-09, the RFC draft should have as much added value as we can possibly cram into it, in particular regarding secure implementation. The AES round function is, other than nonce handling and poor key derivation, the most obvious way to get implementation wrong. However, the AES round function involves an S-box, leading to straightforward and well-studied timing attacks. I see two options to deal with this:\r\n\r\n1. Provide full pseudocode (including about 2000 lines of bitsliced S-box code) for processing a block with the round function.\r\n2. Make hardware support for AES a hard requirement by specification.\r\n\r\n(I will take this opportunity to humorously point out I'd participated in the meeting yesterday from a laptop without hardware AES support. Fortunately, none of the parties interested in AES have such problems.)",
       "createdAt": "2022-03-10T06:59:46Z",
-      "updatedAt": "2022-05-11T18:52:09Z",
-      "closedAt": null,
+      "updatedAt": "2022-06-29T08:08:09Z",
+      "closedAt": "2022-06-29T08:08:09Z",
       "comments": [
         {
           "author": "jedisct1",
